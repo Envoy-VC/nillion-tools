@@ -4,7 +4,8 @@
   "private": true,
   "files": [
     "eslint",
-    "typescript"
+    "typescript",
+    "prettier"
   ],
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.2.3",

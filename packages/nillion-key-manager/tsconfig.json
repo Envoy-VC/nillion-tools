@@ -4,6 +4,6 @@
   "compilerOptions": {
     "target": "ES5"
   },
-  "include": ["**/*.ts", "**/*.tsx", ".eslintrc.cjs"],
+  "include": ["**/*.ts", "**/*.tsx", ".eslintrc.cjs","*.config.{ts,js}"],
   "exclude": ["dist", "build", "node_modules"]
 }

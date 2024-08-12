@@ -5,10 +5,14 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier . --write --cache"
+    "format": "prettier . --write --cache",
+    "release": "pnpm turbo build --filter=nillion-key-manager && changeset publish",
+    "version-packages": "changeset version",
+    "changeset": "changeset"
   },
   "devDependencies": {
     "config": "workspace:*",
+    "@changesets/cli": "^2.27.1",
     "prettier": "^3.2.5",
     "turbo": "^2"
   },
