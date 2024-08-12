@@ -4,6 +4,7 @@
   "description": "",
   "repository": "https://github.com/Envoy-VC/nillion-key-manager/packages/nillion-key-manager",
   "private": false,
+  "type": "module",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Envoy-VC/nillion-key-manager/issues"
