@@ -1,5 +1,5 @@
 // @ts-expect-error no types
-import vercelPrettierOptions from '@vercel/style-guide/prettier';
+const vercelPrettierOptions = require('@vercel/style-guide/prettier');
 
 /** @type {import('prettier').Config & import('prettier-plugin-tailwindcss').PluginOptions} */
 const config = {
@@ -26,4 +26,4 @@ const config = {
   importOrderSortSpecifiers: true,
 };
 
-export default config;
+module.exports = config;

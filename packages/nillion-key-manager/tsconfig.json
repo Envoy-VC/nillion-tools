@@ -4,6 +4,6 @@
   "compilerOptions": {
     "target": "ES5"
   },
-  "include": ["**/*.ts", "**/*.tsx", ".eslintrc.cjs","*.config.mjs", "prettier.config.mjs"],
+  "include": ["**/*.ts", "**/*.tsx", ".eslintrc.cjs","*.config.mjs", "prettier.config.cjs"],
   "exclude": ["dist", "build", "node_modules"]
 }
