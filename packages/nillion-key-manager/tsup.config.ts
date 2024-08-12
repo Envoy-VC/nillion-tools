@@ -24,4 +24,9 @@ export default defineConfig([
     outDir: 'dist/keychain',
     ...commonConfig,
   },
+  {
+    entry: ['./src/types/index.ts'],
+    outDir: 'dist/types',
+    ...commonConfig,
+  },
 ]);
