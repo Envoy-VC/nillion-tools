@@ -1,0 +1,48 @@
+{
+  "name": "nillion-key-manager",
+  "version": "0.0.1",
+  "description": "",
+  "repository": "https://github.com/Envoy-VC/nillion-key-manager/packages/nillion-key-manager",
+  "private": false,
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Envoy-VC/nillion-key-manager/issues"
+  },
+  "author": "Vedant Chainani <vedantchainani1084@gmail.com>",
+  "engines": {
+    "node": ">=18"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "tsc",
+    "ci": "pnpm run lint && pnpm run test && pnpm run build",
+    "release": "pnpm run lint && pnpm run test && pnpm run build && changeset publish",
+    "format": "prettier . --write --cache"
+  },
+  "keywords": [],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "@types/node": "^18.19.3",
+    "tsup": "^8.0.1",
+    "typescript": "^5",
+    "config": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {}
+}
