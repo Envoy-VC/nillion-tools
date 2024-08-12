@@ -2,15 +2,19 @@
   "name": "nillion-key-manager",
   "version": "0.0.1",
   "description": "",
-  "repository": "https://github.com/Envoy-VC/nillion-key-manager/packages/nillion-key-manager",
-  "private": false,
-  "license": "MIT",
+  "keywords": [],
   "bugs": {
     "url": "https://github.com/Envoy-VC/nillion-key-manager/issues"
   },
+  "repository": "https://github.com/Envoy-VC/nillion-key-manager/packages/nillion-key-manager",
+  "license": "MIT",
   "author": "Vedant Chainani <vedantchainani1084@gmail.com>",
-  "engines": {
-    "node": ">=18"
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
   },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -20,29 +24,38 @@
   ],
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --watch",
-    "lint": "tsc",
     "ci": "pnpm run lint && pnpm run test && pnpm run build",
+    "dev": "tsup --watch",
+    "format": "prettier . --write --cache",
+    "lint": "tsc",
     "release": "pnpm run lint && pnpm run test && pnpm run build && changeset publish",
-    "format": "prettier . --write --cache"
+    "test": "vitest run"
   },
-  "keywords": [],
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    }
+  "dependencies": {
+    "@libp2p/crypto": "^4.1.8",
+    "@libp2p/interface": "^1.6.3",
+    "@libp2p/keychain": "^4.1.4",
+    "@libp2p/logger": "^4.0.19",
+    "@noble/hashes": "^1.4.0",
+    "@simplewebauthn/browser": "^10.0.0",
+    "@simplewebauthn/server": "^10.0.1",
+    "@simplewebauthn/types": "^10.0.0",
+    "interface-datastore": "^8.3.0",
+    "multiformats": "^13.2.2"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
     "@types/node": "^18.19.3",
+    "config": "workspace:*",
+    "datastore-fs": "^10.0.0",
     "tsup": "^8.0.1",
     "typescript": "^5",
-    "config": "workspace:*"
+    "vitest": "^2.0.5"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {}
+  }
 }

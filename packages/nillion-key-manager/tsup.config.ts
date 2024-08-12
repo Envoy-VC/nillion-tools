@@ -20,8 +20,8 @@ export default defineConfig([
     ...commonConfig,
   },
   {
-    entry: ['./src/snap/index.ts'],
-    outDir: 'dist/snap',
+    entry: ['./src/keychain/index.ts'],
+    outDir: 'dist/keychain',
     ...commonConfig,
   },
 ]);
