@@ -1,12 +1,12 @@
 {
-  "name": "nillion-key-manager",
-  "version": "0.0.1",
+  "name": "@nillion-tools/key-manager",
+  "version": "0.0.0",
   "description": "",
   "keywords": [],
   "bugs": {
-    "url": "https://github.com/Envoy-VC/nillion-key-manager/issues"
+    "url": "https://github.com/Envoy-VC/nillion-tools/issues"
   },
-  "repository": "https://github.com/Envoy-VC/nillion-key-manager/packages/nillion-key-manager",
+  "repository": "https://github.com/Envoy-VC/nillion-tool/packages/nillion-tool",
   "license": "MIT",
   "author": "Vedant Chainani <vedantchainani1084@gmail.com>",
   "exports": {

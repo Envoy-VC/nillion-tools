@@ -1,5 +1,5 @@
 /* eslint-disable import/no-relative-packages -- safe */
-import keyManager from '../../../../../packages/nillion-key-manager/package.json';
+import keyManager from '../../../../../packages/key-manager/package.json';
 
 import { KeyIcon, type LucideIcon, WalletIcon } from 'lucide-react';
 

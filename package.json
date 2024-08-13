@@ -6,7 +6,7 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier . --write --cache",
-    "release": "pnpm turbo build --filter=nillion-key-manager && changeset publish",
+    "release": "pnpm turbo build --filter=@nillion-tools/* && changeset publish",
     "version-packages": "changeset version",
     "changeset": "changeset"
   },
