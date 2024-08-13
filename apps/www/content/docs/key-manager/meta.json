@@ -1,0 +1,5 @@
+{
+  "title": "key-manager",
+  "root": true,
+  "pages": ["---Guide---", "index", "getting-started"]
+}

@@ -1,4 +1,12 @@
+import createMDX from 'fumadocs-mdx/config';
+
 await import('./src/env.js');
+
+const withMDX = createMDX({
+  mdxOptions: {
+    lastModifiedTime: 'git',
+  },
+});
 
 /** @type {import("next").NextConfig} */
 const config = {
@@ -8,4 +16,4 @@ const config = {
   },
 };
 
-export default config;
+export default withMDX(config);

@@ -7,5 +7,5 @@
   "linked": [],
   "access": "public",
   "updateInternalDependencies": "patch",
-  "ignore": ["nillion-key-manager-docs"]
+  "ignore": ["docs"]
 }

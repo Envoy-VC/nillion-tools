@@ -19,7 +19,8 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.js",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "src/content/index.mdx"
   ],
   "exclude": ["node_modules"]
 }

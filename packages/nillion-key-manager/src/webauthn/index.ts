@@ -1,3 +1,1 @@
-export const webauthn = () => {
-  console.log('webauthn');
-};
+import { startRegistration } from '@simplewebauthn/browser';

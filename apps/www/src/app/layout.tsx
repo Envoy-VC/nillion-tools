@@ -2,13 +2,15 @@ import { headers } from 'next/headers';
 
 import { wagmiConfig } from '~/lib/viem';
 
-import { GeistSans } from 'geist/font/sans';
 import type { Metadata } from 'next';
 import { cookieToInitialState } from 'wagmi';
 import { Web3Provider } from '~/providers';
 import '~/styles/globals.css';
 
+import { Body } from '~/components/fumadocs/body';
 import { Toaster } from '~/components/ui/sonner';
+
+import { Provider } from './provider';
 
 export const metadata: Metadata = {
   title: 'Create T3 App',
@@ -24,10 +26,13 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <html lang='en'>
-      <body className={`font-sans ${GeistSans.variable}`}>
-        <Web3Provider initialState={initialState}>{children}</Web3Provider>
+      <Body>
+        <Provider>
+          <Web3Provider initialState={initialState}>{children}</Web3Provider>
+        </Provider>
+
         <Toaster />
-      </body>
+      </Body>
     </html>
   );
 };
