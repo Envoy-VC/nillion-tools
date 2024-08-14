@@ -8,11 +8,11 @@ export const modes: Mode[] = [
   {
     param: 'docs',
     name: 'Docs',
-    href: '/docs/key-manager',
+    href: '/docs',
   },
   {
     param: 'demo',
     name: 'Demo',
-    href: '/demo/key-manager',
+    href: '/demo',
   },
 ];
