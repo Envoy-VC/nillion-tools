@@ -8,7 +8,7 @@ import { useKeyChain } from '@nillion-tools/key-manager/react';
 
 import { Button } from '~/components/ui/button';
 
-const DemoPage = () => {
+export const KeyManagerDemo = () => {
   const { webAuthnManager, keyChain } = useKeyChain();
   const onRegister = async () => {
     if (!webAuthnManager) return;
@@ -53,5 +53,3 @@ const DemoPage = () => {
     </div>
   );
 };
-
-export default DemoPage;

@@ -5,7 +5,7 @@ import React from 'react';
 import type { HomeLayoutProps } from 'fumadocs-ui/home-layout';
 import { type DocsLayoutProps } from 'fumadocs-ui/layout';
 import NPMIcon from 'public/npm-icon.svg';
-import { docsSource } from '~/app/source';
+import { demoSource, docsSource } from '~/app/source';
 
 import { Banner, NavChildren } from '~/components/fumadocs';
 
@@ -51,5 +51,18 @@ export const docsOptions: DocsLayoutProps = {
   },
   sidebar: {
     banner: <Banner />,
+  },
+};
+
+export const demoOptions: DocsLayoutProps = {
+  ...baseOptions,
+  tree: demoSource.pageTree,
+  nav: {
+    ...baseOptions.nav,
+    transparentMode: 'none',
+    children: undefined,
+  },
+  sidebar: {
+    banner: <Banner basePath='demo' />,
   },
 };

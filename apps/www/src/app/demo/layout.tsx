@@ -1,9 +1,16 @@
-import React, { type PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
+import { demoOptions } from '~/lib/fumadocs';
+
+import { DocsLayout } from 'fumadocs-ui/layout';
 import { KeyChainProvider } from '~/providers';
 
-const DemoLayout = ({ children }: PropsWithChildren) => {
-  return <KeyChainProvider>{children}</KeyChainProvider>;
+const RootDocsLayout = ({ children }: PropsWithChildren) => {
+  return (
+    <KeyChainProvider>
+      <DocsLayout {...demoOptions}>{children}</DocsLayout>
+    </KeyChainProvider>
+  );
 };
 
-export default DemoLayout;
+export default RootDocsLayout;

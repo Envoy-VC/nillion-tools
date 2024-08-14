@@ -11,6 +11,9 @@
       "~/*": ["./src/*"]
     }
   },
+  "mdx": {
+    "checkMdx": true
+  },
   "include": [
     "svgr.d.ts",
     ".eslintrc.cjs",
