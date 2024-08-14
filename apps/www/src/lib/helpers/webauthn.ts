@@ -10,7 +10,11 @@ import {
   verifyRegistrationResponse,
 } from '@nillion-tools/key-manager/webauthn/server';
 
-export const register = async (userName: string, manager: WebAuthnManager) => {
+export const register = async (
+  userName: string,
+  manager: WebAuthnManager,
+  append?: (data: string) => void
+) => {
   const exists = Boolean(await manager.dataSource.get(userName));
 
   if (exists) {
@@ -23,11 +27,32 @@ export const register = async (userName: string, manager: WebAuthnManager) => {
     userName,
   });
 
-  console.log('Register Options:', opts);
+  if (append) {
+    append(
+      `✅ Generated Registration Options\n
+User ID: ${opts.user.id}
+Relying Party: ${opts.challenge}
+Challenge: ${opts.challenge}\n`
+    );
+  }
+
+  if (append) {
+    append(`⏳ Creating Credential\n`);
+  }
 
   const credential = await startRegistration(opts);
 
-  console.log('Credential:', credential);
+  if (append) {
+    append(
+      `✅ Created Credential\n
+Credential ID: ${credential.id}
+Type: ${credential.type}\n`
+    );
+  }
+
+  if (append) {
+    append(`⏳ Verifying Credential\n`);
+  }
 
   const verifiedResponse = await verifyRegistrationResponse({
     response: credential,
@@ -35,7 +60,19 @@ export const register = async (userName: string, manager: WebAuthnManager) => {
     expectedOrigin: 'http://localhost:3000',
   });
 
-  console.log('Verified Response:', verifiedResponse);
+  if (!verifiedResponse.verified) {
+    if (append) {
+      append(`❌ Credential Verification Error\n`);
+    }
+    throw new Error('Credential Verification Error');
+  }
+
+  if (append) {
+    append(
+      `✅ Verified Credential\n
+Device Type: ${String(verifiedResponse.registrationInfo?.credentialDeviceType)}\n`
+    );
+  }
 
   const passkey = await manager.savePasskey(
     userName,
@@ -44,28 +81,63 @@ export const register = async (userName: string, manager: WebAuthnManager) => {
     verifiedResponse
   );
 
-  console.log('PassKey Saved', passkey);
+  if (append) {
+    append(`✅ Passkey Saved Successfully\n`);
+  }
+
+  return {
+    options: opts,
+    credential,
+    verifiedResponse,
+    passkey,
+  };
 };
 
 export const authenticate = async (
   userName: string,
-  manager: WebAuthnManager
+  manager: WebAuthnManager,
+  append?: (data: string) => void
 ) => {
-  const opts = await generateAuthenticationOptions({
-    rpID: 'localhost',
-  });
-
-  console.log('Authentication Options:', opts);
-
   const passkey = await manager.getPasskey(userName);
 
   if (!passkey) {
     throw new Error('No passkey found');
   }
 
-  const response = await startAuthentication(opts);
+  const opts = await generateAuthenticationOptions({
+    rpID: 'localhost',
+    allowCredentials: [
+      {
+        id: passkey.credentialId,
+        transports: passkey.transports,
+      },
+    ],
+  });
 
-  console.log('Authentication Response:', response);
+  if (append) {
+    append(
+      `✅ Generated Authentication Options\n\nAllowed Credentials: ${(opts.allowCredentials ?? []).map((c) => c.id).join(', ')}\n\n`
+    );
+  }
+
+  if (append) {
+    append(`⏳ Authenticating Credential\n`);
+  }
+
+  const response = await startAuthentication(opts);
+  const prf =
+    response.clientExtensionResults.prf?.results.first ?? Buffer.from([]);
+  const prfArr = Array.from(new Uint8Array(prf)).join(', ');
+
+  if (append) {
+    append(
+      `✅ Created Authentication Response\n\nPseudo-Random Function(PRF): [${prfArr}]\n\n`
+    );
+  }
+
+  if (append) {
+    append(`⏳ Verifying Authentication Response\n`);
+  }
 
   const verificationResponse = await verifyAuthenticationResponse({
     response,
@@ -80,7 +152,11 @@ export const authenticate = async (
     },
   });
 
-  console.log('Verification Response:', verificationResponse);
+  if (append) {
+    append(
+      `✅ Verified Authentication Response\n\nDevice Type: ${String(verificationResponse.authenticationInfo.credentialDeviceType)}`
+    );
+  }
 
   return { response, verificationResponse };
 };

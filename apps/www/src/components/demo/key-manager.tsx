@@ -1,55 +1,163 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { authenticate, register } from '~/lib/helpers/webauthn';
 
+import { errorHandler } from '~/lib/utils';
+
 import { useKeyChain } from '@nillion-tools/key-manager/react';
+import { useQuery } from '@tanstack/react-query';
 
 import { Button } from '~/components/ui/button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '~/components/ui/select';
+
+import { Input } from '../ui/input';
 
 export const KeyManagerDemo = () => {
   const { webAuthnManager, keyChain } = useKeyChain();
-  const onRegister = async () => {
-    if (!webAuthnManager) return;
-    await register('123', webAuthnManager);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const [output, setOutput] = useState<string>('');
+
+  const [userName, setUserName] = useState<string>('');
+  const [activePasskey, setActivePasskey] = useState<string>();
+
+  useEffect(() => {
+    const element = containerRef.current;
+    if (element) {
+      element.scrollTop = element.scrollHeight;
+    }
+  }, [output]);
+
+  const appendOutput = (output: string) => {
+    setOutput((prev) => `${prev}${output}`);
   };
 
-  const onAuthenticate = async () => {
-    if (!webAuthnManager) return;
-    const res = await authenticate('123', webAuthnManager);
-    console.log(res);
+  const { data: passkeys, refetch } = useQuery({
+    queryKey: ['passkeys'],
+    queryFn: async () => {
+      if (!webAuthnManager) return;
+      const passkeys = await webAuthnManager.dataSource.load();
+      return passkeys;
+    },
+  });
+  const onRegister = async () => {
+    try {
+      if (userName === '') {
+        throw new Error('Please enter a username');
+      }
+      if (!webAuthnManager) {
+        throw new Error('WebAuthn Manager not initialized');
+      }
+      await register(userName, webAuthnManager, appendOutput);
+      await refetch();
+      setActivePasskey(userName);
+    } catch (error) {
+      const message = errorHandler(error);
+      appendOutput(`❌ ${message}\n`);
+    }
   };
 
   const onCreateKey = async () => {
-    const res = await keyChain.createKey('123');
-    console.log(res);
+    try {
+      if (!activePasskey) {
+        throw new Error('No active passkey selected');
+      }
+      appendOutput(`\n⏳ Creating Ed25519 KeyPair...\n`);
+      const res = await keyChain.createKey(activePasskey);
+      appendOutput(
+        `✅ Key Created Successfully\n\nUserId: ${res.userId}\nEncrypted UserKey: ${res.encryptedUserKey}\n`
+      );
+    } catch (error) {
+      const message = errorHandler(error);
+      appendOutput(`❌ ${message}\n`);
+    }
+  };
+
+  const onAuthenticate = async () => {
+    try {
+      if (!activePasskey) {
+        throw new Error('No active passkey selected');
+      }
+      if (!webAuthnManager) {
+        throw new Error('WebAuthn Manager not initialized');
+      }
+      await authenticate(activePasskey, webAuthnManager, appendOutput);
+    } catch (error) {
+      const message = errorHandler(error);
+      appendOutput(`❌ ${message}\n`);
+    }
   };
 
   const onDecryptKey = async () => {
-    const key = await keyChain.getKey('123');
-    if (!key) {
-      throw new Error('Key not found');
+    try {
+      if (!activePasskey) {
+        throw new Error('No active passkey selected');
+      }
+      const key = await keyChain.getKey(activePasskey);
+      if (!key) {
+        throw new Error('Key not found');
+      }
+      appendOutput(`\n⏳ Decrypting Ed25519 KeyPair...\n\n`);
+      const res = await keyChain.decryptKey(key);
+      appendOutput(
+        `✅ Key Decrypted Successfully\nUserId: ${res.userId}\nUserKey: ${res.userKey}\n`
+      );
+    } catch (error) {
+      const message = errorHandler(error);
+      appendOutput(`❌ ${message}\n`);
     }
-    const res = await keyChain.decryptKey(key);
-    console.log(res);
   };
 
   return (
-    <div className='gap-3` flex flex-col'>
-      <Button className='w-fit' onClick={onRegister}>
-        Register
-      </Button>
-      <Button className='w-fit' onClick={onAuthenticate}>
-        Authenticate
-      </Button>
-      <Button className='w-fit' onClick={onCreateKey}>
-        Create Key
-      </Button>
+    <div className='flex w-full flex-col gap-8 md:flex-col'>
+      <div className='flex w-full basis-1/3'>
+        <div className='flex w-full flex-col gap-3'>
+          <Select value={activePasskey} onValueChange={setActivePasskey}>
+            <SelectTrigger className='w-full'>
+              <SelectValue placeholder='Select Passkey' />
+            </SelectTrigger>
+            <SelectContent>
+              {passkeys?.map((passkey) => {
+                return (
+                  <SelectItem key={passkey.id} value={passkey.id}>
+                    {passkey.id}
+                  </SelectItem>
+                );
+              })}
+            </SelectContent>
+          </Select>
+          <Input
+            placeholder='Username'
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+          />
 
-      <Button className='w-fit' onClick={onDecryptKey}>
-        Decrypt Key
-      </Button>
+          <Button onClick={onRegister}>Register</Button>
+          <Button disabled={!activePasskey} onClick={onAuthenticate}>
+            Authenticate
+          </Button>
+          <Button disabled={!activePasskey} onClick={onCreateKey}>
+            Create Key
+          </Button>
+          <Button disabled={!activePasskey} onClick={onDecryptKey}>
+            Decrypt Key
+          </Button>
+        </div>
+      </div>
+      <div
+        ref={containerRef}
+        className='flex h-64 w-full max-w-4xl overflow-x-scroll whitespace-pre rounded-xl border bg-neutral-900 p-2'
+      >
+        {output}
+      </div>
     </div>
   );
 };

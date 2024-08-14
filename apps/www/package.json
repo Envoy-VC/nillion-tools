@@ -13,6 +13,7 @@
   "dependencies": {
     "@nillion-tools/key-manager": "workspace:*",
     "@radix-ui/react-dialog": "^1.1.1",
+    "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.0",
     "@t3-oss/env-nextjs": "^0.11.0",
     "@tanstack/query-core": "^5.51.21",
