@@ -31,6 +31,11 @@ export default defineConfig([
     ...commonConfig,
   },
   {
+    entry: ['./src/storage/index.ts'],
+    outDir: 'dist/storage',
+    ...commonConfig,
+  },
+  {
     entry: ['./src/types/index.ts'],
     outDir: 'dist/types',
     ...commonConfig,

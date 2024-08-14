@@ -1,8 +1,9 @@
-import type { ComponentLogger } from '@libp2p/interface';
-import type { KeychainInit } from '@libp2p/keychain';
-import type { Datastore } from 'interface-datastore';
-
-export interface KeyChainProps extends KeychainInit {
-  datastore: Datastore;
-  logger?: ComponentLogger;
+export type Awaitable<T> = T | Promise<T>;
+export interface KeyType {
+  id: string;
+  userId: string;
+  encryptedUserKey: string;
 }
+
+export type EncryptFunction = (data: Uint8Array) => Awaitable<Uint8Array>;
+export type DecryptFunction = (data: Uint8Array) => Awaitable<Uint8Array>;

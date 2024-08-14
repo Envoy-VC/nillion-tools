@@ -5,6 +5,9 @@ import type {
   RegistrationResponseJSON,
   AuthenticationResponseJSON,
   AuthenticationExtensionsClientOutputs,
+  AuthenticatorTransportFuture,
+  CredentialDeviceType,
+  Base64URLString,
 } from '@simplewebauthn/types';
 
 type WithPRF<T> = Omit<T, 'extensions'> & {
@@ -56,4 +59,20 @@ export interface DecryptDataProps {
   keyData: Uint8Array;
   nonce: Uint8Array;
   encryptedData: BufferSource;
+}
+
+interface UserModel {
+  id: string;
+  username: string;
+}
+
+export interface Passkey {
+  id: Base64URLString;
+  publicKey: Uint8Array;
+  user: UserModel;
+  webauthnUserID: Base64URLString;
+  counter: number;
+  deviceType: CredentialDeviceType;
+  backedUp: boolean;
+  transports?: AuthenticatorTransportFuture[];
 }
