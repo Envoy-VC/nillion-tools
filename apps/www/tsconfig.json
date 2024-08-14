@@ -2,14 +2,18 @@
   "extends": "config/typescript/nextjs.json",
   "compilerOptions": {
     /* Bundled projects */
-    "plugins": [{ "name": "next" }],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "incremental": true,
-
     /* Path Aliases */
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"]
-    }
+    },
+    "strictNullChecks": true
   },
   "mdx": {
     "checkMdx": true

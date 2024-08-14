@@ -1,2 +1,2 @@
-export * from './web3-provider';
 export * from './keychain';
+export * from './query-provider';

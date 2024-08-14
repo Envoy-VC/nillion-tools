@@ -1,10 +1,4 @@
-import { headers } from 'next/headers';
-
-import { wagmiConfig } from '~/lib/viem';
-
 import type { Metadata } from 'next';
-import { cookieToInitialState } from 'wagmi';
-import { Web3Provider } from '~/providers';
 import '~/styles/globals.css';
 
 import { Body } from '~/components/fumadocs/body';
@@ -19,18 +13,10 @@ export const metadata: Metadata = {
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
-  const initialState = cookieToInitialState(
-    wagmiConfig,
-    headers().get('cookie')
-  );
-
   return (
     <html lang='en'>
       <Body>
-        <Provider>
-          <Web3Provider initialState={initialState}>{children}</Web3Provider>
-        </Provider>
-
+        <Provider>{children}</Provider>
         <Toaster />
       </Body>
     </html>

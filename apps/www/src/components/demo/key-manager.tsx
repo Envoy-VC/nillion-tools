@@ -8,6 +8,7 @@ import { errorHandler } from '~/lib/utils';
 
 import { useKeyChain } from '@nillion-tools/key-manager/react';
 import { useQuery } from '@tanstack/react-query';
+import { KeyChainProvider } from '~/providers';
 
 import { Button } from '~/components/ui/button';
 import {
@@ -20,7 +21,7 @@ import {
 
 import { Input } from '../ui/input';
 
-export const KeyManagerDemo = () => {
+export const DemoComponent = () => {
   const { webAuthnManager, keyChain } = useKeyChain();
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -159,5 +160,13 @@ export const KeyManagerDemo = () => {
         {output}
       </div>
     </div>
+  );
+};
+
+export const KeyManagerDemo = () => {
+  return (
+    <KeyChainProvider>
+      <DemoComponent />
+    </KeyChainProvider>
   );
 };
