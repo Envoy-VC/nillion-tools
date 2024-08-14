@@ -5,6 +5,7 @@ const config = {
   darkMode: ['class'],
   presets: [
     createPreset({
+      addGlobalColors: false,
       preset: {
         ...presets.default,
         dark: {

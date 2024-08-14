@@ -1,10 +1,11 @@
 'use client';
 
-import React, { type PropsWithChildren, createContext } from 'react';
+import React, { type PropsWithChildren } from 'react';
 
 import { authenticate } from '~/lib/helpers/webauthn';
 
 import { KeyChain } from '@nillion-tools/key-manager/keychain';
+import { KeyChainProvider as NillionKeyChainProvider } from '@nillion-tools/key-manager/react';
 import { IndexedDBDataSource } from '@nillion-tools/key-manager/storage';
 import type { KeyType, Passkey } from '@nillion-tools/key-manager/types';
 import {
@@ -12,20 +13,6 @@ import {
   decryptData,
   encryptData,
 } from '@nillion-tools/key-manager/webauthn/browser';
-
-export const KeyChainContext = createContext<{
-  keyChain: KeyChain;
-  webAuthnManager: WebAuthnManager;
-}>({
-  keyChain: new KeyChain(
-    new IndexedDBDataSource<KeyType>('keychain'),
-    () => new Uint8Array(),
-    () => new Uint8Array()
-  ),
-  webAuthnManager: new WebAuthnManager(
-    new IndexedDBDataSource<Passkey>('webauthn')
-  ),
-});
 
 export const KeyChainProvider = ({ children }: PropsWithChildren) => {
   const keyChainDB = new IndexedDBDataSource<KeyType>('keychain');
@@ -74,13 +61,11 @@ export const KeyChainProvider = ({ children }: PropsWithChildren) => {
   const keyChain = new KeyChain(keyChainDB, encrypt, decrypt);
 
   return (
-    <KeyChainContext.Provider
-      value={{
-        keyChain,
-        webAuthnManager,
-      }}
+    <NillionKeyChainProvider
+      keyChain={keyChain}
+      webAuthnManager={webAuthnManager}
     >
       {children}
-    </KeyChainContext.Provider>
+    </NillionKeyChainProvider>
   );
 };

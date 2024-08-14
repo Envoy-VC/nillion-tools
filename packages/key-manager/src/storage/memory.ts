@@ -6,7 +6,7 @@ import { type DataSource, StorageErrors } from './data-source';
  * Generic Memory Data Source
  */
 export class InMemoryDataSource<Type> implements DataSource<Type> {
-  private _data: Type[] = [];
+  public _data: Type[] = [];
 
   /** saves in the memory */
   save(key: string, value: Type, keyName = 'id') {

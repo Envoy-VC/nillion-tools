@@ -49,4 +49,14 @@ export default defineConfig([
     outDir: 'dist/types',
     ...commonConfig,
   },
+  {
+    entry: ['./src/react/index.ts'],
+    outDir: 'dist/react',
+    ...commonConfig,
+    banner: {
+      js: "'use client';",
+    },
+    injectStyle: true,
+    external: ['react'],
+  },
 ]);

@@ -1,20 +1,22 @@
 'use client';
 
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { authenticate, register } from '~/lib/helpers/webauthn';
 
-import { KeyChainContext } from '~/providers';
+import { useKeyChain } from '@nillion-tools/key-manager/react';
 
 import { Button } from '~/components/ui/button';
 
 const DemoPage = () => {
-  const { webAuthnManager, keyChain } = useContext(KeyChainContext);
+  const { webAuthnManager, keyChain } = useKeyChain();
   const onRegister = async () => {
+    if (!webAuthnManager) return;
     await register('123', webAuthnManager);
   };
 
   const onAuthenticate = async () => {
+    if (!webAuthnManager) return;
     const res = await authenticate('123', webAuthnManager);
     console.log(res);
   };
@@ -34,7 +36,7 @@ const DemoPage = () => {
   };
 
   return (
-    <div className='flex flex-col gap-3`'>
+    <div className='gap-3` flex flex-col'>
       <Button className='w-fit' onClick={onRegister}>
         Register
       </Button>
