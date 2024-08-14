@@ -1,1 +1,0 @@
-import { generateRegistrationOptions,GenerateRegistrationOptionsOpts } from "@simplewebauthn/server";
