@@ -11,13 +11,11 @@
 }
 
 :root {
-  --radius: 0.5rem;
   --key-manager-color: 250 80% 54%;
   --connect-kit-color: 220deg 91% 54%;
 }
 
 .dark {
-  --radius: 0.5rem;
   --key-manager-color: 250 100% 80%;
   --connect-kit-color: 217deg 92% 76%;
 }

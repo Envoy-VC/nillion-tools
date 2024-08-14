@@ -1,10 +1,6 @@
 import { createPreset } from 'fumadocs-ui/tailwind-plugin';
 import type { Config } from 'tailwindcss';
 
-/**
- *  'background' | 'foreground' | 'muted' | 'muted-foreground' | 'popover' | 'popover-foreground' | 'card' | 'card-foreground' | 'border' | 'primary' | 'primary-foreground' | 'secondary' | 'secondary-foreground' | 'accent' | 'accent-foreground' | 'ring';
- */
-
 const colors = {
   background: 'var(--background)',
   foreground: 'var(--foreground)',
@@ -28,6 +24,7 @@ const config = {
   darkMode: ['class'],
   presets: [
     createPreset({
+      cssPrefix: '',
       addGlobalColors: false,
       preset: {
         light: colors,
@@ -58,38 +55,38 @@ const config = {
         sans: ['var(--font-geist-sans)'],
       },
       colors: {
-        border: 'var(hsl(--border))',
-        input: 'var(hsl(--input))',
-        ring: 'var(hsl(--ring))',
-        background: 'var(hsl(--background))',
-        foreground: 'var(hsl(--foreground))',
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: 'var(hsl(--primary))',
-          foreground: 'var(hsl(--primary-foreground))',
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
-          DEFAULT: 'var(hsl(--secondary))',
-          foreground: 'var(hsl(--secondary-foreground))',
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
         },
         destructive: {
-          DEFAULT: 'var(hsl(--destructive))',
-          foreground: 'var(hsl(--destructive-foreground))',
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
         },
         muted: {
-          DEFAULT: 'var(hsl(--muted))',
-          foreground: 'var(hsl(--muted-foreground))',
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
         },
         accent: {
-          DEFAULT: 'var(hsl(--accent))',
-          foreground: 'var(hsl(--accent-foreground))',
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
         },
         popover: {
-          DEFAULT: 'var(hsl(--popover))',
-          foreground: 'var(hsl(--popover-foreground))',
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
         },
         card: {
-          DEFAULT: 'var(hsl(--card))',
-          foreground: 'var(hsl(--card-foreground))',
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
         },
       },
       borderRadius: {
