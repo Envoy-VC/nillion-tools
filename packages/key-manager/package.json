@@ -14,6 +14,36 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
+    },
+    "./keychain": {
+      "types": "./dist/keychain/index.d.ts",
+      "import": "./dist/keychain/index.mjs",
+      "require": "./dist/keychain/index.js"
+    },
+    "./storage": {
+      "types": "./dist/storage/index.d.ts",
+      "import": "./dist/storage/index.mjs",
+      "require": "./dist/storage/index.js"
+    },
+    "./webauthn": {
+      "types": "./dist/webauthn/index.d.ts",
+      "import": "./dist/webauthn/index.mjs",
+      "require": "./dist/webauthnindex.js"
+    },
+    "./webauthn/server": {
+      "types": "./dist/webauthn/server/index.d.ts",
+      "import": "./dist/webauthn/server/index.mjs",
+      "require": "./dist/webauthn/serverindex.js"
+    },
+    "./webauthn/browser": {
+      "types": "./dist/webauthn/browser/index.d.ts",
+      "import": "./dist/webauthn/browser/index.mjs",
+      "require": "./dist/webauthn/browser/index.js"
+    },
+    "./types": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/types/index.mjs",
+      "require": "./dist/types/index.js"
     }
   },
   "main": "./dist/index.js",
@@ -23,7 +53,7 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "rm -rf dist && tsup",
     "ci": "pnpm run lint && pnpm run test && pnpm run build",
     "dev": "tsup --watch",
     "format": "prettier . --write --cache",

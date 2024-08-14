@@ -20,7 +20,8 @@ export class KeyChain {
 
   async createKey(id: string) {
     const priv = ed25519.utils.randomPrivateKey();
-    const encryptedPriv = await this.encrypt(priv);
+    const nonce = crypto.getRandomValues(new Uint8Array(12));
+    const encryptedPriv = await this.encrypt(id, priv, nonce);
 
     const pub = await ed25519.getPublicKeyAsync(priv);
     const userId = pubKeyToUserId(pub);
@@ -30,6 +31,7 @@ export class KeyChain {
       id,
       userId,
       encryptedUserKey,
+      nonce,
     };
 
     await this.dataSource.save(id, key, 'id');
@@ -37,13 +39,14 @@ export class KeyChain {
   }
 
   async getKey(id: string) {
-    const key = await this.dataSource.get(id, 'id');
+    return await this.dataSource.get(id, 'id');
+  }
 
-    if (!key) {
-      throw new Error(`Key not found: ${id}`);
-    }
-
-    const decrypted = await this.decrypt(fromBase58(key.encryptedUserKey));
+  async decryptKey(key: KeyType) {
+    const decrypted = await this.decrypt(
+      key.id,
+      fromBase58(key.encryptedUserKey)
+    );
 
     return {
       id: key.id,

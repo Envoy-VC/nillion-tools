@@ -28,3 +28,6 @@ export const generateAuthenticationOptions = async (
     opts
   )) as Types.PublicKeyCredentialRequestOptionsJSONWitPRF;
 };
+
+export const verifyRegistrationResponse = server.verifyRegistrationResponse;
+export const verifyAuthenticationResponse = server.verifyAuthenticationResponse;

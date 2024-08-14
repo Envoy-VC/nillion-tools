@@ -33,6 +33,9 @@ export type RegistrationResponseJSONWitPRF = Omit<
   clientExtensionResults: AuthenticationExtensionsClientOutputs & {
     prf?: {
       enabled: boolean;
+      results: {
+        first: Buffer;
+      };
     };
   };
 };
@@ -51,6 +54,7 @@ export type AuthenticationResponseJSONWithPRF = Omit<
 };
 
 export interface EncryptDataProps {
+  nonce: Uint8Array;
   keyData: Uint8Array;
   data: BufferSource;
 }
@@ -61,15 +65,10 @@ export interface DecryptDataProps {
   encryptedData: BufferSource;
 }
 
-interface UserModel {
-  id: string;
-  username: string;
-}
-
 export interface Passkey {
-  id: Base64URLString;
+  id: string;
+  credentialId: Base64URLString;
   publicKey: Uint8Array;
-  user: UserModel;
   webauthnUserID: Base64URLString;
   counter: number;
   deviceType: CredentialDeviceType;

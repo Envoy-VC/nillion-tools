@@ -50,11 +50,11 @@ const constructEncryptionKey = async (keyData: Uint8Array) => {
 };
 
 export const encryptData = async ({
+  nonce,
   keyData,
   data,
 }: Types.EncryptDataProps) => {
   const encryptionKey = await constructEncryptionKey(keyData);
-  const nonce = crypto.getRandomValues(new Uint8Array(12));
 
   const encrypted = await crypto.subtle.encrypt(
     { name: 'AES-GCM', iv: nonce },
@@ -62,7 +62,7 @@ export const encryptData = async ({
     data
   );
 
-  return { encrypted, nonce };
+  return { encrypted };
 };
 
 export const decryptData = async ({
@@ -97,3 +97,5 @@ export {
   platformAuthenticatorIsAvailable,
   WebAuthnError,
 };
+
+export * from './manager';

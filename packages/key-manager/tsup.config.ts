@@ -15,8 +15,18 @@ const commonConfig: Options = {
 
 export default defineConfig([
   {
+    entry: ['./src/index.ts'],
+    outDir: 'dist/',
+    ...commonConfig,
+  },
+  {
     entry: ['./src/webauthn/server/index.ts'],
     outDir: 'dist/webauthn/server',
+    ...commonConfig,
+  },
+  {
+    entry: ['./src/webauthn/index.ts'],
+    outDir: 'dist/webauthn',
     ...commonConfig,
   },
   {
@@ -24,7 +34,6 @@ export default defineConfig([
     outDir: 'dist/webauthn/browser',
     ...commonConfig,
   },
-
   {
     entry: ['./src/keychain/index.ts'],
     outDir: 'dist/keychain',
