@@ -3,19 +3,21 @@ import type { DecryptFunction, EncryptFunction, KeyType } from '../types';
 import * as ed25519 from '@noble/ed25519';
 import { fromBase58, pubKeyToUserId, toBase58 } from './helpers';
 
+export interface KeyChainProps {
+  store: DataSource<KeyType>;
+  encryptFn: EncryptFunction;
+  decryptFn: DecryptFunction;
+}
+
 export class KeyChain {
   public dataSource: DataSource<KeyType>;
   public encrypt: EncryptFunction;
   public decrypt: DecryptFunction;
 
-  constructor(
-    store: DataSource<KeyType>,
-    encryptFn: EncryptFunction,
-    decryptFn: DecryptFunction
-  ) {
-    this.dataSource = store;
-    this.encrypt = encryptFn;
-    this.decrypt = decryptFn;
+  constructor(props: KeyChainProps) {
+    this.dataSource = props.store;
+    this.encrypt = props.encryptFn;
+    this.decrypt = props.decryptFn;
   }
 
   async createKey(id: string) {
@@ -55,3 +57,5 @@ export class KeyChain {
     };
   }
 }
+
+export type { EncryptFunction, DecryptFunction };

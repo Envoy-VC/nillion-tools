@@ -185,7 +185,11 @@ export const KeyChainProvider = ({ children }: PropsWithChildren) => {
     return new Uint8Array(decrypted);
   };
 
-  const keyChain = new KeyChain(keyChainDB, encrypt, decrypt);
+  const keyChain = new KeyChain({
+    store: keyChainDB,
+    encryptFn: encrypt,
+    decryptFn: decrypt,
+  });
 
   return (
     <NillionKeyChainProvider

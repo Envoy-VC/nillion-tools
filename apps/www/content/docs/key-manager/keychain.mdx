@@ -1,0 +1,120 @@
+---
+title: Keychain Class
+description: 'Class for managing Life Cycle of a Ed25519 Key'
+---
+
+## Introduction
+
+Keychain provides a simple interface for managing the life cycle of a Ed25519 Key. It provides functions for creating, deleting, getting and decryption keys.
+
+It takes in the following props:
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+<AutoTypeTable path='content/types.ts' name='KeyChainProps' />
+
+DataSource implementation is left up to the user, check [DataSource](/docs/key-manager/data-source) for more information.
+
+## Usage
+
+```tsx
+import { KeyChain } from '@nillion-tools/key-manager/keychain';
+import { IndexedDBDataSource } from '@nillion-tools/key-manager/storage';
+
+const keyChainDB = new IndexedDBDataSource<KeyType>('keychain');
+
+const encryptFn = (id: string, data: Uint8Array, nonce: Uint8Array) => {
+  // Your encryption logic
+  return new Uint8Array();
+};
+
+const decryptFn = (id: string, data: Uint8Array) => {
+  // Your decryption logic
+  return new Uint8Array();
+};
+
+const keyChain = new KeyChain({
+  dataSource: keyChainDB,
+  encryptFn,
+  decryptFn,
+});
+```
+
+## Encrypt Function
+
+Encrypt function is a function that takes in the following arguments:
+
+- **id**: `string` - The id of the key.
+- **data**: `Uint8Array` - The data to be encrypted.
+- **nonce**: `Uint8Array` - The nonce to be used for encryption.
+
+It returns a `Uint8Array` or a `Promise<Uint8Array>`.
+
+```ts
+type Awaitable<T> = T | Promise<T>;
+
+type EncryptFunction = (
+  id: string,
+  data: Uint8Array,
+  nonce: Uint8Array
+) => Awaitable<Uint8Array>;
+```
+
+## Decrypt Function
+
+Decrypt function is a function that takes in the following arguments:
+
+- **id**: `string` - The id of the key.
+- **data**: `Uint8Array` - The data to be decrypted.
+
+It returns a `Uint8Array` or a `Promise<Uint8Array>`.
+
+```ts
+type DecryptFunction = (id: string, data: Uint8Array) => Awaitable<Uint8Array>;
+```
+
+## Create a new Key
+
+Creates a new key with the given id.
+
+```ts
+const key = await keyChain.createKey('userName');
+```
+
+## Get a Key
+
+Gets a key with the given id.
+
+```ts
+const key = await keyChain.getKey('userName');
+
+console.log(key);
+```
+
+```json
+{
+  "id": "userName",
+  "userId": "...",
+  "encryptedUserKey": "...",
+  "nonce": [...]
+}
+```
+
+## Decrypt a Key
+
+Decrypts a key.
+
+```ts
+const key = await keyChain.getKey('userName');
+
+const decryptedKey = await keyChain.decryptKey(key);
+console.log(decryptedKey);
+```
+
+```json
+{
+  "id": "userName",
+  "userId": "...",
+  "userKey": "..."
+}
+```

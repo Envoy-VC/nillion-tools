@@ -1,0 +1,43 @@
+---
+title: Data Source
+description: 'Shared Storage Class for managing Data'
+---
+
+Data Source is a shared storage class for managing data in KeyManager. The implementation is left up to the user, but the class provides a simple interface for managing data.
+
+## Interface
+
+It has the Following Interface:
+
+```tsx
+export interface DataSource<Type> {
+  load: () => Type[] | Promise<Type[]>;
+  save: (key: string, value: Type, keyName?: string) => void | Promise<void>;
+  get: (
+    key: string,
+    keyName?: string
+  ) => Type | undefined | Promise<Type | undefined>;
+  delete: (key: string, keyName?: string) => void | Promise<void>;
+}
+```
+
+The Storage library provides implementations for three different data sources:
+
+1. Browser (Local Storage)
+2. IndexedDB
+3. InMemory
+
+## Usage
+
+```tsx
+import {
+  BrowserDataSource,
+  InMemoryDataSource,
+  IndexedDBDataSource,
+} from '@nillion-tools/key-manager/storage';
+import type { KeyType } from '@nillion-tools/key-manager/types';
+
+const browserDB = new BrowserDataSource<KeyType>('key');
+const indexedDB = new IndexedDBDataSource<KeyType>('key');
+const inMemoryDB = new InMemoryDataSource<KeyType>();
+```

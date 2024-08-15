@@ -69,6 +69,9 @@ importers:
       fumadocs-mdx:
         specifier: ^9.0.0
         version: 9.0.0(fumadocs-core@13.2.0(@types/react@18.3.3)(next@14.2.5(@babel/core@7.24.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(next@14.2.5(@babel/core@7.24.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      fumadocs-typescript:
+        specifier: ^2.0.1
+        version: 2.0.1(typescript@5.5.4)
       fumadocs-ui:
         specifier: ^13.2.0
         version: 13.2.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(next@14.2.5(@babel/core@7.24.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tailwindcss@3.4.9)

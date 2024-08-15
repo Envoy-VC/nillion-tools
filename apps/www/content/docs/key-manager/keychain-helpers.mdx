@@ -1,0 +1,72 @@
+---
+title: Helpers
+description: 'Helpers for Managing Keys'
+---
+
+## Public Key to UserId
+
+Converts a public key to a hashed Base58 encoded user Id. It takes the following arguments:
+
+- **pubKey**: `Uint8Array` - The public key to be converted.
+
+It returns a `string`.
+
+```ts
+import { pubKeyToUserId } from '@nillion-tools/key-manager/keychain';
+
+const pubKey = new Uint8Array([1, 2, 3, 4, 5]);
+const userId = pubKeyToUserId(pubKey);
+```
+
+---
+
+## Private Key to User Key
+
+Converts a private key to a Base58 encoded user key. It takes the following arguments:
+
+- **privKey**: `Uint8Array` - The private key to be converted.
+
+It returns a `string`.
+
+```ts
+import { privKeyToUserKey } from '@nillion-tools/key-manager/keychain';
+
+const privKey = new Uint8Array([1, 2, 3, 4, 5]);
+const userKey = privKeyToUserKey(privKey);
+```
+
+---
+
+## To Base58
+
+Converts a Uint8Array to a Base58 encoded string. It takes the following arguments:
+
+- **data**: `Uint8Array` - The data to be converted.
+
+It returns a `string`.
+
+```ts
+import { toBase58 } from '@nillion-tools/key-manager/keychain';
+
+const data = new Uint8Array([1, 2, 3, 4, 5]);
+const base58 = toBase58(data);
+```
+
+---
+
+## From Base58
+
+Converts a Base58 encoded string to a Uint8Array. It takes the following arguments:
+
+- **data**: `string` - The data to be converted.
+
+It returns a `Uint8Array`.
+
+```ts
+import { fromBase58 } from '@nillion-tools/key-manager/keychain';
+
+const base58 = 'abcde';
+const data = fromBase58(base58);
+```
+
+---

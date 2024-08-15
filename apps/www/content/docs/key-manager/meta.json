@@ -5,8 +5,11 @@
     "index",
     "quickstart",
     "webauthn-integration",
-    "---Key Chain---",
+    "---Keychain---",
+    "keychain",
+    "keychain-helpers",
     "---Storage---",
+    "data-source",
     "---WebAuthn---",
     "---Types---",
     "..."

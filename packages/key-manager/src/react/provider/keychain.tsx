@@ -5,11 +5,11 @@ import { KeyChain } from '../../keychain';
 import { InMemoryDataSource } from '../../storage';
 
 const KeyChainContext = createContext<KeyChainProviderProps>({
-  keyChain: new KeyChain(
-    new InMemoryDataSource<KeyType>(),
-    () => new Uint8Array(),
-    () => new Uint8Array()
-  ),
+  keyChain: new KeyChain({
+    store: new InMemoryDataSource<KeyType>(),
+    encryptFn: () => new Uint8Array(),
+    decryptFn: () => new Uint8Array(),
+  }),
 });
 
 export const KeyChainProvider = ({
