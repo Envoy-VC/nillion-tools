@@ -1,0 +1,273 @@
+---
+title: WebAuthn Integration
+description: 'Learn how to integrate WebAuthn PRF Extention with Key Manager'
+icon: Fingerprint
+---
+
+## Summary of PRF Extention
+
+Briefly, `prf` passes bytes from the “Relying Party” (that's you, using WebAuthn) to the authenticator during a WebAuthn authentication ceremony. The authenticator “hashes” (HMACs) these bytes with secret bytes internally associated with a previously registered credential (as per CTAP's `hmac-secret` extension) and returns the resulting bytes to the browser in the output from `navigator.credentials.get()`.
+
+The high-entropy bytes returned from the authenticator are perfect input key material for an “HMAC-based Key Derivation Function” (HKDF), which helps us generate a “key derivation key”. The key derivation key is then used to derive another symmetric key that's used to perform the actual data encryption.
+
+<Callout type='info'>
+  PRF Extention is not yet supported by all the browsers. Last checked Google
+  Password Manager supports PRF. You can also download Chrome Canary and
+  navigate to `chrome://flags/#enable-experimental-web-platform-features` and
+  enable it.
+</Callout>
+
+## Helper Functions
+
+Start by creating helper functions for WebAuthn Authentication and Registration.
+
+### Register Credential
+
+```ts
+import {
+  type WebAuthnManager,
+  startRegistration,
+} from '@nillion-tools/key-manager/webauthn/browser';
+import {
+  generateRegistrationOptions,
+  verifyRegistrationResponse,
+} from '@nillion-tools/key-manager/webauthn/server';
+
+export const register = async (userName: string, manager: WebAuthnManager) => {
+  const exists = Boolean(await manager.dataSource.get(userName));
+
+  if (exists) {
+    throw new Error('User already exists');
+  }
+
+  const opts = await generateRegistrationOptions({
+    rpName: 'Demo',
+    rpID: 'localhost',
+    userName,
+  });
+
+  const credential = await startRegistration(opts);
+
+  const verifiedResponse = await verifyRegistrationResponse({
+    response: credential,
+    expectedChallenge: opts.challenge,
+    expectedOrigin: 'http://localhost:3000',
+  });
+
+  if (!verifiedResponse.verified) {
+    throw new Error('Credential Verification Error');
+  }
+
+  const passkey = await manager.savePasskey(
+    userName,
+    opts,
+    credential,
+    verifiedResponse
+  );
+
+  return passkey;
+};
+```
+
+### Authenticate Credential
+
+```ts
+import {
+  type WebAuthnManager,
+  startAuthentication,
+} from '@nillion-tools/key-manager/webauthn/browser';
+import {
+  generateAuthenticationOptions,
+  verifyAuthenticationResponse,
+} from '@nillion-tools/key-manager/webauthn/server';
+
+export const authenticate = async (
+  userName: string,
+  manager: WebAuthnManager
+) => {
+  const passkey = await manager.getPasskey(userName);
+
+  if (!passkey) {
+    throw new Error('No passkey found');
+  }
+
+  const opts = await generateAuthenticationOptions({
+    rpID: 'localhost',
+    allowCredentials: [
+      {
+        id: passkey.credentialId,
+        transports: passkey.transports,
+      },
+    ],
+  });
+
+  const response = await startAuthentication(opts);
+
+  const verificationResponse = await verifyAuthenticationResponse({
+    response,
+    expectedChallenge: opts.challenge,
+    expectedOrigin: 'http://localhost:3000',
+    expectedRPID: 'localhost',
+    authenticator: {
+      credentialID: passkey.credentialId,
+      credentialPublicKey: passkey.publicKey,
+      counter: passkey.counter,
+      transports: passkey.transports,
+    },
+  });
+
+  return { response, verificationResponse };
+};
+```
+
+## Provider
+
+Next we need to wrap our app inside a `KeyChainProvider` with encrypt and decrypt functions derived from WebAuthn
+
+```tsx title="provider.tsx"
+'use client';
+
+import React, { type PropsWithChildren } from 'react';
+
+import { authenticate } from '~/lib/helpers/webauthn';
+
+import { KeyChain } from '@nillion-tools/key-manager/keychain';
+import { KeyChainProvider as NillionKeyChainProvider } from '@nillion-tools/key-manager/react';
+import { IndexedDBDataSource } from '@nillion-tools/key-manager/storage';
+import type { KeyType, Passkey } from '@nillion-tools/key-manager/types';
+import {
+  WebAuthnManager,
+  decryptData,
+  encryptData,
+} from '@nillion-tools/key-manager/webauthn/browser';
+
+export const KeyChainProvider = ({ children }: PropsWithChildren) => {
+  const keyChainDB = new IndexedDBDataSource<KeyType>('keychain');
+  const webauthnDB = new IndexedDBDataSource<Passkey>('webauthn');
+
+  const webAuthnManager = new WebAuthnManager(webauthnDB);
+
+  const encrypt = async (id: string, data: Uint8Array, nonce: Uint8Array) => {
+    const passKey = await webAuthnManager.getPasskey(id);
+    if (!passKey) {
+      throw new Error('No passkey found');
+    }
+    const { response } = await authenticate(id, webAuthnManager);
+    const { encrypted } = await encryptData({
+      keyData: new Uint8Array(
+        response.clientExtensionResults.prf?.results.first ?? []
+      ),
+      nonce,
+      data,
+    });
+
+    return new Uint8Array(encrypted);
+  };
+
+  const decrypt = async (id: string, encryptedData: Uint8Array) => {
+    const passKey = await webAuthnManager.getPasskey(id);
+    if (!passKey) {
+      throw new Error('No passkey found');
+    }
+    const { response } = await authenticate(id, webAuthnManager);
+    const key = await keyChainDB.get(id);
+    if (!key) {
+      throw new Error('Passkey Not Found');
+    }
+    const { decrypted } = await decryptData({
+      keyData: new Uint8Array(
+        response.clientExtensionResults.prf?.results.first ?? []
+      ),
+      nonce: key.nonce,
+      encryptedData,
+    });
+
+    return new Uint8Array(decrypted);
+  };
+
+  const keyChain = new KeyChain(keyChainDB, encrypt, decrypt);
+
+  return (
+    <NillionKeyChainProvider
+      keyChain={keyChain}
+      webAuthnManager={webAuthnManager}
+    >
+      {children}
+    </NillionKeyChainProvider>
+  );
+};
+```
+
+```tsx title="layout.tsx"
+import React, { type PropsWithChildren } from 'react';
+
+import { KeyChainProvider } from '~/lib/providers/keychain';
+
+export const Layout = ({ children }: PropsWithChildren) => {
+  return <KeyChainProvider>{children}</KeyChainProvider>;
+};
+```
+
+## Usage
+
+```tsx title="component.tsx"
+'use client';
+
+import React from 'react';
+
+import { authenticate, register } from '~/lib/helpers/webauthn';
+
+import { useKeyChain } from '@nillion-tools/key-manager/react';
+
+export const DemoComponent = () => {
+  const { webAuthnManager, keyChain } = useKeyChain();
+
+  const userName = 'testUser';
+
+  const onRegister = async () => {
+    if (!webAuthnManager) {
+      throw new Error('WebAuthn Manager not initialized');
+    }
+    await register(userName, webAuthnManager);
+  };
+
+  const onAuthenticate = async () => {
+    if (!webAuthnManager) {
+      throw new Error('WebAuthn Manager not initialized');
+    }
+    await authenticate(userName, webAuthnManager);
+  };
+
+  const onCreateKey = async () => {
+    const res = await keyChain.createKey(userName);
+    console.log(res); // { id: 'testUser', userId: '...', encryptedUserKey: '...' }
+  };
+
+  const onDecryptKey = async () => {
+    const key = await keyChain.getKey(userName);
+    if (!key) {
+      throw new Error('Key not found');
+    }
+
+    const res = await keyChain.decryptKey(key);
+    console.log(res); // { id: 'testUser', userId: '...', userKey: '...' }
+  };
+
+  return (
+    <div className='flex w-full flex-col gap-3'>
+      <button type='button' onClick={onRegister}>
+        Register
+      </button>
+      <button type='button' onClick={onAuthenticate}>
+        Authenticate
+      </button>
+      <button type='button' onClick={onCreateKey}>
+        Create Key
+      </button>
+      <button type='button' onClick={onDecryptKey}>
+        Decrypt Key
+      </button>
+    </div>
+  );
+};
+```

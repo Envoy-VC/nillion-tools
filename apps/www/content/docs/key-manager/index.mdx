@@ -1,5 +1,18 @@
 ---
-title: Key Manager
-description: Manage and Authenticate with Ed25519 Keys
-icon: Album
+title: Introduction
+description: 'Manage and Authenticate Ed25519 Keys'
+icon: Hand
 ---
+
+![Nillion Key Manager](/api/og?title=Key%20Manager&description=Manage%20and%20Authenticate%20Ed25519%20Keys)
+
+# Introduction
+
+Key Manager is a tool to manage and authenticate Ed25519 keys. It provides a simple workflow to create, import, and export keys. It also provides a way to authenticate keys using WebAuthn and FIDO2.
+
+The Package is divided into the following parts:
+
+1. [KeyChain](/docs/key-manager/keychain): A KeyChain is a root class that manages keys. It provides a way to create, import, and export keys.
+2. [Storage](/docs/key-manager/storage): A Storage class that provides a way to store keys securely. It provides implementations for local storage and browser storage(IndexedDB).
+3. [WebaAthn](/docs/key-manager/webauthn): A WebAuthn based implementation that can encrypt and decrypt Private keys using PRF(Pseudo Random Function).
+4. [Types](/docs/key-manager/types): Shared types used in the package.

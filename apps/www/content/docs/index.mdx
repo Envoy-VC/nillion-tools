@@ -1,5 +1,21 @@
 ---
 title: Documentation
-description: Documentation for the various features of the platform.
-full: false
+description: ''
 ---
+
+import { KeyIcon, WalletIcon } from 'lucide-react';
+
+<Cards>
+  <Card
+    icon={<KeyIcon className='text-purple-400' />}
+    href='/docs/key-manager'
+    title='Key Manager'
+    description='Manage and Authenticate Ed25519 Keys'
+  />
+  <Card
+    icon={<WalletIcon className='text-blue-400' />}
+    href='/docs/connect-kit'
+    title='Connect Kit'
+    description='Connect to Nillion Network'
+  />
+</Cards>

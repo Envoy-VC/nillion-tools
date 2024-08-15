@@ -1,0 +1,59 @@
+---
+title: Quickstart
+description: 'Start using Key Manager in your project'
+icon: Album
+---
+
+# Installation
+
+To install Key Manager in your project, run the following command:
+
+```package-install
+npm i @nillion-tools/key-manager
+```
+
+---
+
+## Storage
+
+To Start using the key manager, you first need to define a data source. This can be of any type that follows the [DataSource](/docs/key-manager/storage/data-source) Interface. For Example, you can use the IndexedDB data source as shown below:
+
+```tsx title="storage.ts"
+import { IndexedDBDataSource } from '@nillion-tools/key-manager/storage';
+import type { KeyType } from '@nillion-tools/key-manager/types';
+
+const keyChainDB = new IndexedDBDataSource<KeyType>('keychain');
+```
+
+## Keychain
+
+Two Initialize keychain you need two functions: **encrypt** and **decrypt**. These functions are used to encrypt and decrypt the data. You can use any encryption library of your choice. The function takes in the id and data in from of `Uint8Array` and returns encrypted or decrypted `Uint8Array`.
+
+```tsx title="keychain.ts"
+import { KeyChain } from '@nillion-tools/key-manager/keychain';
+
+const encrypt = (id: string, data: Uint8Array, nonce: Uint8Array) => {
+  // Your encryption logic
+  // Nonce is used to prevent replay attacks
+  return data;
+};
+
+const decrypt = (id: string, data: Uint8Array) => {
+  // Your decryption logic
+  return data;
+};
+
+const keyChain = new KeyChain(keyChainDB, encrypt, decrypt);
+
+const key = await keyChain.createKey('username');
+console.log(key);
+```
+
+```json
+{
+  "id": "username",
+  "userId": "z2i83AvZqBYe7NPR6rUdLMw1P8pW6J6dV7PSjWRLUZWW5SCDJm6KXTujZBtF1iJMxe7iLufkNQr5pSibz5kfiusTt",
+  "encryptedUserKey": "z3dod5kUYH3KNhdhQzpC7BQDp3cAKA3MeN4kEQJf6qu63oxzoujnJHtEek3M2jgZ5Yf",
+  "nonce": [178, 34, 89, 112, 98, 12, 67, 87, 3, 8, 33, 21]
+}
+```

@@ -1,5 +1,14 @@
 {
   "title": "Key Manager",
   "root": true,
-  "pages": ["index", "getting-started"]
+  "pages": [
+    "index",
+    "quickstart",
+    "webauthn-integration",
+    "---Key Chain---",
+    "---Storage---",
+    "---WebAuthn---",
+    "---Types---",
+    "..."
+  ]
 }
