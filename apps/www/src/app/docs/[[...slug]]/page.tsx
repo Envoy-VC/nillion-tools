@@ -1,8 +1,14 @@
 import { notFound } from 'next/navigation';
 
+import { createMetadata } from '~/lib/metadata';
+
 import { DocsBody, DocsPage } from 'fumadocs-ui/page';
 import type { Metadata } from 'next';
 import { docsSource } from '~/app/source';
+
+interface Param {
+  slug: string[];
+}
 
 const Page = ({ params }: { params: { slug?: string[] } }) => {
   const { getPage } = docsSource;
@@ -43,17 +49,32 @@ export function generateStaticParams() {
   }));
 }
 
-export function generateMetadata({ params }: { params: { slug?: string[] } }) {
-  const { getPage } = docsSource;
-
-  const page = getPage(params.slug);
+export function generateMetadata({ params }: { params: Param }): Metadata {
+  const page = docsSource.getPage(params.slug);
 
   if (!page) notFound();
 
-  return {
+  const description =
+    page.data.description ?? 'The library for building documentation sites';
+
+  const image = {
+    alt: 'Banner',
+    url: `/og/docs/${page.slugs.join('/')}.png`,
+    width: 1200,
+    height: 630,
+  };
+
+  return createMetadata({
     title: page.data.title,
-    description: page.data.description,
-  } satisfies Metadata;
+    description,
+    openGraph: {
+      url: `/docs/${page.slugs.join('/')}`,
+      images: image,
+    },
+    twitter: {
+      images: image,
+    },
+  });
 }
 
 export default Page;
