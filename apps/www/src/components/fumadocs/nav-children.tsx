@@ -8,7 +8,7 @@ export const NavChildren = () => {
       {modes.map((m) => (
         <Link
           key={m.param}
-          className='hidden rounded-md px-2 py-1 transition-colors hover:text-fd-accent-foreground sm:block'
+          className='rounded-md px-2 py-1 transition-colors hover:text-fd-accent-foreground'
           href={m.href}
         >
           {m.name}

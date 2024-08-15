@@ -9,7 +9,7 @@ import { demoSource, docsSource } from '~/app/source';
 
 import { Banner, NavChildren } from '~/components/fumadocs';
 
-import { BookIcon, LibraryIcon } from 'lucide-react';
+import { LibraryIcon } from 'lucide-react';
 
 export const baseOptions: HomeLayoutProps = {
   githubUrl: 'https://github.com/Envoy-vc/nillion-tools',
@@ -25,17 +25,17 @@ export const baseOptions: HomeLayoutProps = {
   },
   links: [
     {
-      icon: <BookIcon />,
-      text: (
+      icon: (
         <Image
           alt='NPM Icon'
-          className='rounded-xs size-6 cursor-pointer'
+          className='size-5 cursor-pointer rounded-sm'
           height={20}
           src={NPMIcon as unknown as string}
           width={20}
         />
       ),
-      url: 'https://www.npmjs.com/package/nillion-key-manager',
+      text: 'NPM Package',
+      url: 'https://www.npmjs.com/org/nillion-tools',
       active: 'nested-url',
     },
   ],

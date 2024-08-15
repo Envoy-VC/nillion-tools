@@ -6,9 +6,9 @@ export function createMetadata(override: Metadata): Metadata {
     openGraph: {
       title: override.title ?? undefined,
       description: override.description ?? undefined,
-      url: 'https://fumadocs.vercel.app',
-      images: '/banner.png',
-      siteName: 'Fumadocs',
+      url: 'https://nillion-tools.envoy1084.xyz',
+      images: '/og.png',
+      siteName: 'Nillion Tools',
       ...override.openGraph,
     },
     twitter: {
@@ -16,9 +16,10 @@ export function createMetadata(override: Metadata): Metadata {
       creator: '@Envoy_1084',
       title: override.title ?? undefined,
       description: override.description ?? undefined,
-      images: '/banner.png',
+      images: '/og.png',
       ...override.twitter,
     },
+    metadataBase: baseUrl,
   };
 }
 

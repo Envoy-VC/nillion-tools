@@ -58,8 +58,8 @@ export function generateMetadata({ params }: { params: Param }): Metadata {
     page.data.description ?? 'The library for building documentation sites';
 
   const image = {
-    alt: 'Banner',
-    url: `/og/demo/${page.slugs.join('/')}.png`,
+    alt: page.data.title,
+    url: `/api/og?title=${encodeURIComponent(page.data.title)}&description=${encodeURIComponent(String(page.data.description))}`,
     width: 1200,
     height: 630,
   };

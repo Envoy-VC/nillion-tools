@@ -8,14 +8,14 @@ export const Hero = () => {
   return (
     <div className='container relative z-[2] flex h-[60dvh] flex-col items-center overflow-hidden border-x border-t bg-fd-background px-6 pt-12 text-center md:pt-32'>
       <h1 className='mb-6 text-4xl font-semibold md:text-5xl'>
-        Build Your Docs.
+        Build Apps on Nillion.
       </h1>
       <p className='mb-6 h-fit p-2 text-fd-muted-foreground md:max-w-[80%] md:text-xl'>
-        Fumadocs is the framework for building documentation with{' '}
+        Nillion Tools is a developer-centric toolkit that simplifies building on
+        the Nillion network.{' '}
         <b className='font-medium text-fd-foreground'>
-          excellent UI and user experience
+          Seamless integration with Next.js, React, Vite, and more. 🚀
         </b>
-        . Using the power of Next.js App Router and React Component.
       </p>
       <div className='inline-flex items-center gap-3'>
         <Link

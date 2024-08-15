@@ -17,12 +17,7 @@ export const Banner = ({ basePath = 'docs' }: { basePath?: string }) => {
           />
         ),
         title: project.name,
-        description: (
-          <>
-            {/* <span className='hidden sm:block'>{project.description.large}</span> */}
-            <span>{project.description.small}</span>
-          </>
-        ),
+        description: project.description.small,
       }))}
     />
   );

@@ -15,7 +15,7 @@ const Home = () => {
         }}
       />
 
-      <main className='container relative max-w-[1100px] px-2 py-4 lg:py-24'>
+      <main className='container relative min-h-screen max-w-[1100px] px-2 py-4 lg:py-24'>
         <div
           style={{
             background:

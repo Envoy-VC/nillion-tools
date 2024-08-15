@@ -13,7 +13,8 @@ export const metadata = createMetadata({
     template: '%s | Nillion Tools',
     default: 'Nillion Tools',
   },
-  description: 'The Next.js framework for building documentation sites',
+  description:
+    'Build blazing-fast apps on Nillion with our developer-friendly toolkit. Simple API, seamless integrations. 🚀',
   metadataBase: baseUrl,
 });
 
