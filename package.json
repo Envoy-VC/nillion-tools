@@ -8,19 +8,22 @@
     "format": "prettier . --write --cache",
     "release": "pnpm turbo build --filter=@nillion-tools/* && changeset publish",
     "version-packages": "changeset version",
-    "changeset": "changeset"
+    "changeset": "changeset",
+    "typedoc": "typedoc"
   },
   "devDependencies": {
-    "config": "workspace:*",
     "@changesets/cli": "^2.27.1",
+    "config": "workspace:*",
     "prettier": "^3.2.5",
-    "turbo": "^2"
+    "turbo": "^2",
+    "typedoc-plugin-extras": "^3.1.0"
   },
   "packageManager": "pnpm@8.9.0",
   "engines": {
     "node": ">=18"
   },
   "dependencies": {
-    "@wagmi/cli": "^2.1.8"
+    "@wagmi/cli": "^2.1.8",
+    "typedoc": "^0.26.5"
   }
 }

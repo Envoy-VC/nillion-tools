@@ -1,0 +1,15 @@
+{
+  "tsconfig": "./tsconfig.json",
+  "readme": "./README.md",
+  "entryPoints": [
+    "src/keychain/index.ts",
+    "src/react/index.ts",
+    "src/storage/index.ts",
+    "src/types/index.ts",
+    "src/webauthn/index.ts",
+    "src/webauthn/browser/index.ts",
+    "src/webauthn/server/index.ts",
+    "src/webauthn/types.ts"
+  ],
+  "name": "Key Manager"
+}

@@ -8,5 +8,6 @@
   "[solidity]": {
     "editor.defaultFormatter": "NomicFoundation.hardhat-solidity"
   },
-  "solidity.formatter": "forge"
+  "solidity.formatter": "forge",
+  "liveServer.settings.port": 3001
 }

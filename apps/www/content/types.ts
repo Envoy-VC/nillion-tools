@@ -1,1 +1,2 @@
-export type * from '@nillion-tools/key-manager/keychain';
+export type { KeyChainProps } from '@nillion-tools/key-manager/keychain';
+export * from '@nillion-tools/key-manager/types';

@@ -11,6 +11,10 @@
     "---Storage---",
     "data-source",
     "---WebAuthn---",
+    "webauthn-quickstart",
+    "webauthn-browser",
+    "webauthn-server",
+    "webauthn-manager",
     "---Types---",
     "..."
   ]

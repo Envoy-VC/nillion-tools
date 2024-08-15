@@ -1,0 +1,22 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["packages/key-manager"],
+  "entryPointStrategy": "packages",
+  "name": "Nillion Tool",
+  "out": "docs",
+  "readme": "./README.md",
+  "plugin": ["typedoc-plugin-extras"],
+  "navigation": {
+    "includeCategories": false,
+    "includeGroups": false,
+    "includeFolders": true
+  },
+  "visibilityFilters": {
+    "protected": true,
+    "private": true,
+    "inherited": true,
+    "external": true
+  },
+  "categorizeByGroup": false,
+  "hideGenerator": false
+}

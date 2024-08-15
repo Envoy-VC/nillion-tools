@@ -10,7 +10,7 @@ import type {
   Base64URLString,
 } from '@simplewebauthn/types';
 
-type WithPRF<T> = Omit<T, 'extensions'> & {
+export type WithPRF<T> = Omit<T, 'extensions'> & {
   extensions?: AuthenticationExtensionsClientInputs & {
     prf: {
       eval: {
