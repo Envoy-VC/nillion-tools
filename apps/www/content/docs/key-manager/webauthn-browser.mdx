@@ -5,9 +5,34 @@ description: 'Register and Authenticate Credentials'
 
 ## Start Registration
 
+"Registration" is analogous to new account creation. The user will be prompted to create a new credential. It takes in the following props:
+
 import { AutoTypeTable } from 'fumadocs-typescript/ui';
 
 <AutoTypeTable
   path='content/types.ts'
   name='PublicKeyCredentialCreationOptionsJSONWithPRF'
 />
+
+It returns [RegistrationResponseJSONWitPRF](/api-docs/types/types.RegistrationResponseJSONWitPRF.html)
+
+<Callout type='info'>
+  If PRF is not supported for the authenticator this will throw an error.
+</Callout>
+
+For detailed information on each of these fields, visit [PublicKeyCredentialCreationOptionsJSONWithPRF](/api-docs/functions/webauthn_browser.startRegistration.html)
+
+### Usage
+
+```tsx
+import { startRegistration } from '@nillion-tools/key-manager/webauthn/browser';
+import { generateRegistrationOptions } from '@nillion-tools/key-manager/webauthn/server';
+
+const opts = await generateRegistrationOptions({
+  rpName: 'Demo',
+  rpID: 'localhost',
+  userName: 'testUser',
+});
+
+const credential = await startRegistration(opts);
+```
