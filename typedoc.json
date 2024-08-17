@@ -4,7 +4,6 @@
   "entryPointStrategy": "packages",
   "name": "Nillion Tool",
   "out": "api-docs",
-  "readme": "./README.md",
   "plugin": ["typedoc-plugin-extras"],
   "navigation": {
     "includeCategories": false,
