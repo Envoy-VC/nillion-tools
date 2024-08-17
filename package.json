@@ -2,14 +2,14 @@
   "name": "web3-turbo-starter",
   "private": true,
   "scripts": {
-    "build": "turbo build --no-cache --force",
+    "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier . --write --cache",
     "release": "pnpm turbo build --filter=@nillion-tools/* && changeset publish",
     "version-packages": "changeset version",
     "changeset": "changeset",
-    "typedoc": "typedoc && mkdir docs/apps/www"
+    "typedoc": "typedoc"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
