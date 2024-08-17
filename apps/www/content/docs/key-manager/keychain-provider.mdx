@@ -1,0 +1,55 @@
+---
+title: Key Chain Provider
+description: 'Wrapper for key chain class for React Applications'
+---
+
+## Introduction
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+The package exposes a `KeyChainProvider` which you can wrap in your own React application to access `KeyChain` and `WebAuthnManager` in child components.
+
+It takes in [KeyChainProviderProps](/api-docs/types/types.KeyChainProviderProps.html) as props:
+
+<AutoTypeTable path='content/types.ts' name='KeyChainProviderProps' />
+
+## Usage
+
+```tsx
+import type { PropsWithChildren } from 'react';
+
+import { KeyChain } from '@nillion-tools/key-manager/keychain';
+import { KeyChainProvider } from '@nillion-tools/key-manager/react';
+import { IndexedDBDataSource } from '@nillion-tools/key-manager/storage';
+import type { KeyType, Passkey } from '@nillion-tools/key-manager/types';
+import { WebAuthnManager } from '@nillion-tools/key-manager/webauthn/browser';
+
+const App = ({ children }: PropsWithChildren) => {
+  const keyChainDB = new IndexedDBDataSource<KeyType>('keychain');
+  const webauthnDB = new IndexedDBDataSource<Passkey>('webauthn');
+
+  const webAuthnManager = new WebAuthnManager({ store: webauthnDB });
+
+  const encryptFn = async (id: string, data: Uint8Array, nonce: Uint8Array) => {
+    // your encryption logic here
+    return new Uint8Array();
+  };
+
+  const decryptFn = async (id: string, encryptedData: Uint8Array) => {
+    // your decryption logic here
+    return new Uint8Array();
+  };
+
+  const keyChain = new KeyChain({
+    store: keyChainDB,
+    encryptFn,
+    decryptFn,
+  });
+
+  return (
+    <KeyChainProvider keyChain={keyChain} webAuthnManager={webAuthnManager}>
+      {children}
+    </KeyChainProvider>
+  );
+};
+```

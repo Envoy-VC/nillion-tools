@@ -2,3 +2,134 @@
 title: Quickstart
 description: 'Start using WebAuthn for Credential Registration and Authentication'
 ---
+
+## WebAuthn Manager
+
+The WebAuthn Manager is a tool that allows you to manage WebAuthn credentials. It provides a simple interface to store and retreive credentials. It takes in[WebAuthnManagerProps](/api-docs/types/webauthn_types.WebAuthnManagerProps.html) as props:
+
+```tsx
+import { IndexedDBDataSource } from '@nillion-tools/key-manager/storage';
+import type { Passkey } from '@nillion-tools/key-manager/types';
+import { WebAuthnManager } from '@nillion-tools/key-manager/webauthn/browser';
+
+const webauthnDB = new IndexedDBDataSource<Passkey>('webauthn');
+
+const webAuthnManager = new WebAuthnManager({ store: webauthnDB });
+```
+
+Data Source and be any object that implements the `DataSource` interface. The `IndexedDBDataSource` is a simple implementation that uses IndexedDB as the storage mechanism.
+
+---
+
+## Registration
+
+To start a credential registration process you need to generate registration options. The `generateRegistrationOptions` method takes in [GenerateRegistrationOptionsOpts](/api-docs/types/webauthn_types.GenerateRegistrationOptionsOpts.html) as props:
+
+```tsx
+import { Passkey } from '@nillion-tools/key-manager/types';
+import { generateRegistrationOptions } from '@nillion-tools/key-manager/webauthn/server';
+
+const userName = 'testUser';
+
+const userPasskeys = await webAuthnManager.getPasskey(userName);
+
+const options = await generateRegistrationOptions({
+  rpName: 'Demo',
+  rpID: 'localhost',
+  userName:,
+  attestationType: 'none', // "direct" | "enterprise" | "indirect" | "none"
+  // Prevent users from re-registering existing authenticators
+  excludeCredentials: [userPasskeys].map((passkey) => ({
+    id: passkey.id,
+    transports: passkey.transports,
+  })),
+  authenticatorSelection: {
+    // Defaults
+    residentKey: 'preferred',
+    userVerification: 'preferred',
+    // Optional
+    authenticatorAttachment: 'platform',
+  },
+});
+```
+
+Next you need to start the registration process in the browser. The `startRegistration` method takes in [PublicKeyCredentialCreationOptionsJSONWithPRF](/api-docs/types/types.PublicKeyCredentialCreationOptionsJSONWithPRF.html) as props:
+
+```tsx
+import { startRegistration } from '@nillion-tools/key-manager/webauthn/browser';
+
+const credential = await startRegistration(options);
+```
+
+Now we can verify the registration response. The `verifyRegistrationResponse` method takes in [VerifyRegistrationResponseOpts](/api-docs/types/webauthn_types.VerifyRegistrationResponseOpts.html) as props:
+
+```tsx
+import { verifyRegistrationResponse } from '@nillion-tools/key-manager/webauthn/server';
+
+const verifiedResponse = await verifyRegistrationResponse({
+  response: credential,
+  expectedChallenge: options.challenge,
+  expectedOrigin: 'http://localhost:3000',
+});
+```
+
+At last we can save the passkey using the `WebAuthnManager.savePasskey` method. The following code snippet demonstrates how to save the passkey:
+
+```tsx
+await webAuthnManager.savePasskey(
+  userName,
+  options,
+  credential,
+  verifiedResponse
+);
+```
+
+---
+
+## Authentication
+
+To start an authentication process you need to generate authentication options. The `generateAuthenticationOptions` method takes in [GenerateAuthenticationOptionsOpts](/api-docs/types/webauthn_types.GenerateAuthenticationOptionsOpts.html) as props:
+
+```tsx
+import { generateAuthenticationOptions } from '@nillion-tools/key-manager/webauthn/server';
+
+const passkeys = await webAuthnManager.getPasskey(userName);
+
+const options = await generateAuthenticationOptions({
+  rpID: 'localhost',
+  // Require users to use a previously-registered authenticator
+  allowCredentials: [passkeys].map((passkey) => ({
+    id: passkey.id,
+    transports: passkey.transports,
+  })),
+});
+```
+
+Next you need to start the authentication process in the browser. The `startAuthentication` method takes in [PublicKeyCredentialRequestOptionsJSONWitPRF](/api-docs/types/types.PublicKeyCredentialRequestOptionsJSONWitPRF.html) as props:
+
+```tsx
+import { startAuthentication } from '@nillion-tools/key-manager/webauthn/browser';
+
+const response = await startAuthentication(options);
+```
+
+Now we can verify the authentication response. The `verifyAuthenticationResponse` method takes in [VerifyAuthenticationResponseOpts](/api-docs/types/webauthn_types.VerifyAuthenticationResponseOpts.html) as props:
+
+```tsx
+import { verifyAuthenticationResponse } from '@nillion-tools/key-manager/webauthn/server';
+
+const passkey = await webAuthnManager.getPasskey(userName);
+
+const verificationResponse = await verifyAuthenticationResponse({
+  response,
+  expectedChallenge: options.challenge,
+  expectedOrigin: 'http://localhost:3000',
+  expectedRPID: 'localhost',
+  authenticator: {
+    credentialID: passkey.credentialId,
+    credentialPublicKey: passkey.publicKey,
+    counter: passkey.counter,
+    transports: passkey.transports,
+  },
+});
+```

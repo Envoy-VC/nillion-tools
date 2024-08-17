@@ -5,8 +5,8 @@ import type * as Types from '../../types/webauthn';
 export class WebAuthnManager {
   public dataSource: DataSource<Types.Passkey>;
 
-  constructor(store: DataSource<Types.Passkey>) {
-    this.dataSource = store;
+  constructor(props: Types.WebAuthnManagerProps) {
+    this.dataSource = props.store;
   }
 
   async savePasskey(

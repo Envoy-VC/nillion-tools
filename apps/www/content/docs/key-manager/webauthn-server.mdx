@@ -1,4 +1,175 @@
 ---
 title: Server
-description: 'Generate and verify Credential Responses'
+description: 'Generate and Verify Registration and Authentication Information'
+---
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+## Generate Registration Options
+
+"Registration" is analogous to new account creation. The server will generate the options for the user to create a new credential. It takes in [GenerateRegistrationOptionsOpts](/api-docs/types/webauthn_types.GenerateRegistrationOptionsOpts.html) as props:
+
+<AutoTypeTable path='content/types.ts' name='GenerateRegistrationOptionsOpts' />
+
+It returns [PublicKeyCredentialCreationOptionsJSONWithPRF](/api-docs/types/types.PublicKeyCredentialCreationOptionsJSONWithPRF.html) as the response:
+
+<AutoTypeTable
+  path='content/types.ts'
+  name='PublicKeyCredentialCreationOptionsJSONWithPRF'
+/>
+
+### Usage
+
+```tsx
+import { Passkey } from '@nillion-tools/key-manager/types';
+import { generateRegistrationOptions } from '@nillion-tools/key-manager/webauthn/server';
+
+// (Pseudocode) Retrieve any of the user's previously-registered authenticators
+const userPasskeys: Passkey[] = [];
+
+const options = await generateRegistrationOptions({
+  rpName: 'Demo',
+  rpID: 'localhost',
+  userName: 'testUser',
+  attestationType: 'none', // "direct" | "enterprise" | "indirect" | "none"
+  // Prevent users from re-registering existing authenticators
+  excludeCredentials: userPasskeys.map((passkey) => ({
+    id: passkey.id,
+    transports: passkey.transports,
+  })),
+  authenticatorSelection: {
+    // Defaults
+    residentKey: 'preferred',
+    userVerification: 'preferred',
+    // Optional
+    authenticatorAttachment: 'platform',
+  },
+});
+```
+
+---
+
+## Verify Registration Response
+
+After the user has created a new credential, the server will verify the registration response. It takes in [VerifyRegistrationResponseOpts](/api-docs/types/webauthn_types.VerifyRegistrationResponseOpts.html) as props:
+
+<AutoTypeTable path='content/types.ts' name='VerifyRegistrationResponseOpts' />
+
+It returns [VerifiedRegistrationResponse](/api-docs/types/webauthn_types.VerifiedRegistrationResponse.html) as the response:
+
+<AutoTypeTable path='content/types.ts' name='VerifiedRegistrationResponse' />
+
+### Usage
+
+```tsx
+import { startRegistration } from '@nillion-tools/key-manager/webauthn/browser';
+import {
+  generateRegistrationOptions,
+  verifyRegistrationResponse,
+} from '@nillion-tools/key-manager/webauthn/server';
+
+const opts = await generateRegistrationOptions({
+  rpName: 'Demo',
+  rpID: 'localhost',
+  userName: 'test',
+});
+
+const credential = await startRegistration(opts);
+
+const verifiedResponse = await verifyRegistrationResponse({
+  response: credential,
+  expectedChallenge: opts.challenge,
+  expectedOrigin: 'http://localhost:3000',
+});
+```
+
+---
+
+## Generate Authentication Options
+
+"Authentication" is analogous to logging in. The server will generate the options for the user to authenticate. It takes in [GenerateAuthenticationOptionsOpts](/api-docs/types/webauthn_types.GenerateAuthenticationOptionsOpts.html) as props:
+
+<AutoTypeTable
+  path='content/types.ts'
+  name='GenerateAuthenticationOptionsOpts'
+/>
+
+It returns [PublicKeyCredentialRequestOptionsJSONWitPRF](/api-docs/types/types.PublicKeyCredentialRequestOptionsJSONWitPRF.html) as the response:
+
+<AutoTypeTable
+  path='content/types.ts'
+  name='PublicKeyCredentialRequestOptionsJSONWitPRF'
+/>
+
+### Usage
+
+```tsx
+import { generateAuthenticationOptions } from '@nillion-tools/key-manager/webauthn/server';
+
+// (Pseudocode) Retrieve any of the user's previously-registered authenticators
+const userPasskeys: Passkey[] = getUserPasskeys('username');
+
+const options = await generateAuthenticationOptions({
+  rpID: 'localhost',
+  // Require users to use a previously-registered authenticator
+  allowCredentials: userPasskeys.map((passkey) => ({
+    id: passkey.id,
+    transports: passkey.transports,
+  })),
+});
+```
+
+---
+
+## Verify Authentication Response
+
+After the user has authenticated, the server will verify the authentication response. It takes in [VerifyAuthenticationResponseOpts](/api-docs/types/webauthn_types.VerifyAuthenticationResponseOpts.html) as props:
+
+<AutoTypeTable
+  path='content/types.ts'
+  name='VerifyAuthenticationResponseOpts'
+/>
+
+It returns [VerifiedAuthenticationResponse](/api-docs/types/webauthn_types.VerifiedAuthenticationResponse.html) as the response:
+
+<AutoTypeTable path='content/types.ts' name='VerifiedAuthenticationResponse' />
+
+### Usage
+
+```tsx
+import { startAuthentication } from '@nillion-tools/key-manager/webauthn/browser';
+import {
+  generateAuthenticationOptions,
+  verifyAuthenticationResponse,
+} from '@nillion-tools/key-manager/webauthn/server';
+
+// Pseudocode to retrieve the user's previously-registered authenticator
+const passkey = await getUserPasskey('username');
+
+const opts = await generateAuthenticationOptions({
+  rpID: 'localhost',
+  allowCredentials: [
+    {
+      id: passkey.credentialId,
+      transports: passkey.transports,
+    },
+  ],
+});
+
+const response = await startAuthentication(opts);
+
+const verificationResponse = await verifyAuthenticationResponse({
+  response,
+  expectedChallenge: opts.challenge,
+  expectedOrigin: 'http://localhost:3000',
+  expectedRPID: 'localhost',
+  authenticator: {
+    credentialID: passkey.credentialId,
+    credentialPublicKey: passkey.publicKey,
+    counter: passkey.counter,
+    transports: passkey.transports,
+  },
+});
+```
+
 ---

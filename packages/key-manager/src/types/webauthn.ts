@@ -1,3 +1,4 @@
+import type { DataSource } from '../storage/data-source';
 import type {
   PublicKeyCredentialCreationOptionsJSON,
   PublicKeyCredentialRequestOptionsJSON,
@@ -74,4 +75,8 @@ export interface Passkey {
   deviceType: CredentialDeviceType;
   backedUp: boolean;
   transports?: AuthenticatorTransportFuture[];
+}
+
+export interface WebAuthnManagerProps {
+  store: DataSource<Passkey>;
 }

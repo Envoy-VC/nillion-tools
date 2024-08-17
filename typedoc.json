@@ -3,7 +3,7 @@
   "entryPoints": ["packages/key-manager"],
   "entryPointStrategy": "packages",
   "name": "Nillion Tool",
-  "out": "docs",
+  "out": "api-docs",
   "readme": "./README.md",
   "plugin": ["typedoc-plugin-extras"],
   "navigation": {

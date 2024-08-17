@@ -145,7 +145,7 @@ export const KeyChainProvider = ({ children }: PropsWithChildren) => {
   const keyChainDB = new IndexedDBDataSource<KeyType>('keychain');
   const webauthnDB = new IndexedDBDataSource<Passkey>('webauthn');
 
-  const webAuthnManager = new WebAuthnManager(webauthnDB);
+  const webAuthnManager = new WebAuthnManager({ store: webauthnDB });
 
   const encrypt = async (id: string, data: Uint8Array, nonce: Uint8Array) => {
     const passKey = await webAuthnManager.getPasskey(id);

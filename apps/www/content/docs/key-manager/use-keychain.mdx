@@ -1,0 +1,16 @@
+---
+title: useKeychain Hook
+description: 'React Hook for using the Keychain'
+---
+
+The package exposes a `useKeychain` hook which you can use in your own React application to access `KeyChain` and `WebAuthnManager` in child components.
+
+```tsx
+import { useKeychain } from '@nillion-tools/key-manager/react';
+
+const App = () => {
+  const { keyChain, webAuthnManager } = useKeychain();
+
+  return <div></div>;
+};
+```

@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "https://nillion-tools.envoy1084.me/:path*",
-      "destination": "/api-docs/:path*"
-    }
-  ]
-}

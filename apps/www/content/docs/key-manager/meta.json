@@ -5,6 +5,7 @@
     "index",
     "quickstart",
     "webauthn-integration",
+    "installation",
     "---Keychain---",
     "keychain",
     "keychain-helpers",
@@ -15,7 +16,9 @@
     "webauthn-browser",
     "webauthn-server",
     "webauthn-manager",
-    "---Types---",
+    "---React---",
+    "keychain-provider",
+    "use-keychain",
     "..."
   ]
 }

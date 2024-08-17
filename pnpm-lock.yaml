@@ -45,6 +45,15 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.1.0
         version: 1.1.0(@types/react@18.3.3)(react@18.3.1)
+      '@simplewebauthn/browser':
+        specifier: ^10.0.0
+        version: 10.0.0
+      '@simplewebauthn/server':
+        specifier: ^10.0.1
+        version: 10.0.1
+      '@simplewebauthn/types':
+        specifier: ^10.0.0
+        version: 10.0.0
       '@t3-oss/env-nextjs':
         specifier: ^0.11.0
         version: 0.11.0(typescript@5.5.4)(zod@3.23.8)
@@ -75,6 +84,9 @@ importers:
       fumadocs-mdx:
         specifier: ^9.0.0
         version: 9.0.0(fumadocs-core@13.2.0(@types/react@18.3.3)(next@14.2.5(@babel/core@7.24.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(next@14.2.5(@babel/core@7.24.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
+      fumadocs-twoslash:
+        specifier: ^1.1.1
+        version: 1.1.1(fumadocs-ui@13.2.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(next@14.2.5(@babel/core@7.24.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tailwindcss@3.4.9))(shiki@1.12.1)(typescript@5.5.4)
       fumadocs-typescript:
         specifier: ^2.0.1
         version: 2.0.1(typescript@5.5.4)
@@ -1737,11 +1749,17 @@ packages:
   '@shikijs/core@1.12.1':
     resolution: {integrity: sha512-biCz/mnkMktImI6hMfMX3H9kOeqsInxWEyCHbSlL8C/2TR1FqfmGxTLRNwYCKsyCyxWLbB8rEqXRVZuyxuLFmA==}
 
+  '@shikijs/core@1.13.0':
+    resolution: {integrity: sha512-Mj5NVfbAXcD1GnwOTSPl8hBn/T8UDpfFQTptp+p41n/CbUcJtOq98WaRD7Lz3hCglYotUTHUWtzu3JhK6XlkAA==}
+
   '@shikijs/rehype@1.12.1':
     resolution: {integrity: sha512-AZLC80TIiRWFwPbSqdwykeSeMjQwYWlkX8yfI7T4nan0qgWfvv/oP7C767JQ8USudEylbe5KzBdE8Ao2sHsidA==}
 
   '@shikijs/transformers@1.12.1':
     resolution: {integrity: sha512-zOpj/S2thBvnJV4Ty3EE8aRs/VqCbV+lgtEYeBRkPxTW22uLADEIZq0qjt5W2Rfy2KSu29e73nRyzp4PefjUTg==}
+
+  '@shikijs/twoslash@1.13.0':
+    resolution: {integrity: sha512-OjtxBFYCGqZOnJYMM1qSuHOiHM0cbH64HQ3/7oWR2sfftbCLLqOIJ1+Sja5KnWRTXtW/hZtf4V22g+oX7KB29g==}
 
   '@shuding/opentype.js@1.4.0-beta.0':
     resolution: {integrity: sha512-3NgmNyH3l/Hv6EvsWJbsvpcpUba6R8IREQ83nH83cyakCw7uM1arZKNfHwv1Wz6jgqrF/j4x5ELvR6PnK9nTcA==}
@@ -2111,6 +2129,9 @@ packages:
   '@typescript-eslint/visitor-keys@8.0.1':
     resolution: {integrity: sha512-W5E+o0UfUcK5EgchLZsyVWqARmsM7v54/qEq6PY3YI5arkgmCzHiuk0zKSJJbm71V0xdRna4BGomkCTXz2/LkQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@typescript/vfs@1.5.0':
+    resolution: {integrity: sha512-AJS307bPgbsZZ9ggCT3wwpg3VbTKMFNHfaY/uF0ahSkYYrPF2dSSKDNIDIQAHm9qJqbLvCsSJH7yN4Vs/CsMMg==}
 
   '@ungap/structured-clone@1.2.0':
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
@@ -3216,6 +3237,12 @@ packages:
     peerDependencies:
       fumadocs-core: 13.x.x
       next: '>= 14.1.0'
+
+  fumadocs-twoslash@1.1.1:
+    resolution: {integrity: sha512-wUJmB5nny6EqlM7w2UHxVAZMDnegrOxW2gs9Vk6R1nR9kg9zHJ5zGBRf+mSpV6LYu6g5hWCiDC/8PHrLpo0ZUw==}
+    peerDependencies:
+      fumadocs-ui: 13.x.x
+      shiki: 1.x.x
 
   fumadocs-typescript@2.0.1:
     resolution: {integrity: sha512-FKgO/g23tcRbXnv47blZ+KLs6HacKB5eO13d+LmQyBZxa3J5L+Ewi3vjjQmkf33Gva1WMojhYELe4m6YXZLErA==}
@@ -5318,6 +5345,14 @@ packages:
     resolution: {integrity: sha512-8s2KwqjwQj7z8Z53SUZSKVkQOZ2/Sl4D2F440oaBY/k2lGju60dW6srEpnn8/RIDeICZmQn3pQHF79Jfnc5Skw==}
     hasBin: true
 
+  twoslash-protocol@0.2.9:
+    resolution: {integrity: sha512-uKQl8UboT6JU4VAtYaSI3DbNtgaNhFaTpCSMy/n3tRl5lMlMhrjiuNKdqx15xjcviconuGJ9oObkz1h9zJFrJg==}
+
+  twoslash@0.2.9:
+    resolution: {integrity: sha512-oj7XY6h8E9nTZBmfRE1gpsSSUqAQo5kcIpFkXyQPp8UCsyCQsUlP2bJ2s32o02c1n5+xl4h9rcCsQ1F97Z6LZg==}
+    peerDependencies:
+      typescript: '*'
+
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
@@ -7227,6 +7262,10 @@ snapshots:
     dependencies:
       '@types/hast': 3.0.4
 
+  '@shikijs/core@1.13.0':
+    dependencies:
+      '@types/hast': 3.0.4
+
   '@shikijs/rehype@1.12.1':
     dependencies:
       '@shikijs/transformers': 1.12.1
@@ -7239,6 +7278,14 @@ snapshots:
   '@shikijs/transformers@1.12.1':
     dependencies:
       shiki: 1.12.1
+
+  '@shikijs/twoslash@1.13.0(typescript@5.5.4)':
+    dependencies:
+      '@shikijs/core': 1.13.0
+      twoslash: 0.2.9(typescript@5.5.4)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
 
   '@shuding/opentype.js@1.4.0-beta.0':
     dependencies:
@@ -7841,6 +7888,12 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.0.1
       eslint-visitor-keys: 3.4.3
+
+  '@typescript/vfs@1.5.0':
+    dependencies:
+      debug: 4.3.6
+    transitivePeerDependencies:
+      - supports-color
 
   '@ungap/structured-clone@1.2.0': {}
 
@@ -9554,6 +9607,18 @@ snapshots:
       zod: 3.23.8
     transitivePeerDependencies:
       - supports-color
+
+  fumadocs-twoslash@1.1.1(fumadocs-ui@13.2.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(next@14.2.5(@babel/core@7.24.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tailwindcss@3.4.9))(shiki@1.12.1)(typescript@5.5.4):
+    dependencies:
+      '@shikijs/twoslash': 1.13.0(typescript@5.5.4)
+      fumadocs-ui: 13.2.0(@types/react-dom@18.3.0)(@types/react@18.3.3)(next@14.2.5(@babel/core@7.24.6)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(tailwindcss@3.4.9)
+      mdast-util-from-markdown: 2.0.1
+      mdast-util-gfm: 3.0.0
+      mdast-util-to-hast: 13.2.0
+      shiki: 1.12.1
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
 
   fumadocs-typescript@2.0.1(typescript@5.5.4):
     dependencies:
@@ -11964,6 +12029,16 @@ snapshots:
       turbo-linux-arm64: 2.0.12
       turbo-windows-64: 2.0.12
       turbo-windows-arm64: 2.0.12
+
+  twoslash-protocol@0.2.9: {}
+
+  twoslash@0.2.9(typescript@5.5.4):
+    dependencies:
+      '@typescript/vfs': 1.5.0
+      twoslash-protocol: 0.2.9
+      typescript: 5.5.4
+    transitivePeerDependencies:
+      - supports-color
 
   type-check@0.4.0:
     dependencies:

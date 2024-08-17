@@ -9,6 +9,8 @@ export function createMetadata(override: Metadata): Metadata {
       url: 'https://nillion-tools.envoy1084.xyz',
       images: '/og.png',
       siteName: 'Nillion Tools',
+      type: 'website',
+      locale: 'en_US',
       ...override.openGraph,
     },
     twitter: {

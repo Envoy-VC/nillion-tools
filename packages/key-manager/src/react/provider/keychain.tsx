@@ -1,14 +1,18 @@
 import { createContext, useContext, type PropsWithChildren } from 'react';
 import type { KeyChainProviderProps } from '../../types/react';
-import type { KeyType } from '../../types/keychain';
+import type { KeyType, Passkey } from '../../types';
 import { KeyChain } from '../../keychain';
 import { InMemoryDataSource } from '../../storage';
+import { WebAuthnManager } from '../../webauthn/browser';
 
 const KeyChainContext = createContext<KeyChainProviderProps>({
   keyChain: new KeyChain({
     store: new InMemoryDataSource<KeyType>(),
     encryptFn: () => new Uint8Array(),
     decryptFn: () => new Uint8Array(),
+  }),
+  webAuthnManager: new WebAuthnManager({
+    store: new InMemoryDataSource<Passkey>(),
   }),
 });
 
@@ -26,14 +30,8 @@ export const KeyChainProvider = ({
 export const useKeyChain = () => {
   const data = useContext(KeyChainContext);
 
-  if ('webAuthnManager' in data) {
-    return {
-      keyChain: data.keyChain,
-      webAuthnManager: data.webAuthnManager,
-    };
-  }
   return {
     keyChain: data.keyChain,
-    webAuthnManager: null,
+    webAuthnManager: data.webAuthnManager,
   };
 };
