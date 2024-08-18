@@ -30,3 +30,8 @@ export const baseUrl =
     ? new URL('http://localhost:3000')
     : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- safe
       new URL(`https://${process.env.VERCEL_URL!}`);
+
+export const host =
+  process.env.NODE_ENV === 'development'
+    ? 'localhost'
+    : (process.env.VERCEL_URL ?? 'nillion-tools.envoy1084.xyz');

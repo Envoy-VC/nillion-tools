@@ -1,4 +1,21 @@
 ---
-title: Demo Page Home
-description: Demo Description
+title: Demo
+description: 'Try out the toolkit in your browser'
 ---
+
+import { KeyIcon, WalletIcon } from 'lucide-react';
+
+<Cards>
+  <Card
+    icon={<KeyIcon className='text-purple-400' />}
+    href='/demo/key-manager'
+    title='Key Manager'
+    description='Manage and Authenticate Ed25519 Keys'
+  />
+  <Card
+    icon={<WalletIcon className='text-blue-400' />}
+    href='/demo/connect-kit'
+    title='Connect Kit'
+    description='Connect to Nillion Network'
+  />
+</Cards>

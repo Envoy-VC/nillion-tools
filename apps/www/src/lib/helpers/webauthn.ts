@@ -10,6 +10,8 @@ import {
   verifyRegistrationResponse,
 } from '@nillion-tools/key-manager/webauthn/server';
 
+import { baseUrl, host } from '../metadata';
+
 export const register = async (
   userName: string,
   manager: WebAuthnManager,
@@ -23,7 +25,7 @@ export const register = async (
 
   const opts = await generateRegistrationOptions({
     rpName: 'Demo',
-    rpID: 'localhost',
+    rpID: host,
     userName,
   });
 
@@ -57,7 +59,7 @@ Type: ${credential.type}\n`
   const verifiedResponse = await verifyRegistrationResponse({
     response: credential,
     expectedChallenge: opts.challenge,
-    expectedOrigin: 'http://localhost:3000',
+    expectedOrigin: baseUrl.toString(),
   });
 
   if (!verifiedResponse.verified) {
@@ -105,7 +107,7 @@ export const authenticate = async (
   }
 
   const opts = await generateAuthenticationOptions({
-    rpID: 'localhost',
+    rpID: host,
     allowCredentials: [
       {
         id: passkey.credentialId,
@@ -142,8 +144,8 @@ export const authenticate = async (
   const verificationResponse = await verifyAuthenticationResponse({
     response,
     expectedChallenge: opts.challenge,
-    expectedOrigin: 'http://localhost:3000',
-    expectedRPID: 'localhost',
+    expectedOrigin: baseUrl.toString(),
+    expectedRPID: host,
     authenticator: {
       credentialID: passkey.credentialId,
       credentialPublicKey: passkey.publicKey,
