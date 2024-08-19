@@ -209,6 +209,30 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
 
+  packages/connect-kit:
+    devDependencies:
+      '@changesets/cli':
+        specifier: ^2.27.1
+        version: 2.27.7
+      '@types/node':
+        specifier: ^18.19.3
+        version: 18.19.44
+      '@types/react':
+        specifier: ^18.3.3
+        version: 18.3.3
+      config:
+        specifier: workspace:*
+        version: link:../config
+      react:
+        specifier: ^18
+        version: 18.3.1
+      tsup:
+        specifier: ^8.0.1
+        version: 8.2.4(jiti@1.21.6)(postcss@8.4.41)(typescript@5.5.4)(yaml@2.5.0)
+      typescript:
+        specifier: ^5
+        version: 5.5.4
+
   packages/key-manager:
     dependencies:
       '@noble/ed25519':

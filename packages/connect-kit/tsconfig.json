@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "config/typescript/base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".eslintrc.cjs",
+    "*.config.mjs",
+    "prettier.config.cjs"
+  ],
+  "exclude": ["dist", "build", "node_modules"]
+}

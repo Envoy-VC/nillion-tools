@@ -1,0 +1,49 @@
+{
+  "name": "@nillion-tools/connect-kit",
+  "version": "0.0.0",
+  "description": "",
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/Envoy-VC/nillion-tools/issues"
+  },
+  "repository": "https://github.com/Envoy-VC/nillion-tools/packages/connect-kit",
+  "license": "MIT",
+  "author": "Vedant Chainani <vedantchainani1084@gmail.com>",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && tsup",
+    "ci": "pnpm run lint && pnpm run test && pnpm run build",
+    "dev": "tsup --watch",
+    "format": "prettier . --write --cache",
+    "lint": "tsc",
+    "release": "pnpm run lint && pnpm run test && pnpm run build && changeset publish"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "@types/node": "^18.19.3",
+    "@types/react": "^18.3.3",
+    "config": "workspace:*",
+    "react": "^18",
+    "tsup": "^8.0.1",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
