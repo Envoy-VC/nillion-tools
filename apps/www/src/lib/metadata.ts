@@ -1,5 +1,7 @@
 import type { Metadata } from 'next/types';
 
+import { env } from '~/env';
+
 export function createMetadata(override: Metadata): Metadata {
   return {
     ...override,
@@ -26,12 +28,12 @@ export function createMetadata(override: Metadata): Metadata {
 }
 
 export const baseUrl =
-  process.env.NODE_ENV === 'development'
+  env.NEXT_PUBLIC_ENVIRONMENT === 'development'
     ? new URL('http://localhost:3000')
     : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- safe
       new URL(`https://${process.env.VERCEL_URL!}`);
 
 export const host =
-  process.env.NODE_ENV === 'development'
+  env.NEXT_PUBLIC_ENVIRONMENT === 'development'
     ? 'localhost'
-    : (process.env.VERCEL_URL ?? 'nillion-tools.envoy1084.xyz');
+    : 'nillion-tools.envoy1084.xyz';

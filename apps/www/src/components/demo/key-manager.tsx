@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { authenticate, register } from '~/lib/helpers/webauthn';
 
+import { baseUrl, host } from '~/lib/metadata';
 import { errorHandler } from '~/lib/utils';
 
 import { useKeyChain } from '@nillion-tools/key-manager/react';
@@ -24,6 +25,11 @@ import { Input } from '../ui/input';
 export const DemoComponent = () => {
   const { webAuthnManager, keyChain } = useKeyChain();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  console.log({
+    baseUrl,
+    host,
+  });
 
   const [output, setOutput] = useState<string>('');
 
