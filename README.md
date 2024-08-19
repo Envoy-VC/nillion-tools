@@ -1,82 +1,30 @@
 <p align="center">
-<img src="./assets/logo.svg" alt=""  width="200px"/></p>
+  <img src="./assets/logo-text.png" alt="Nillion Tools"  width="200px"/>
+</p>
 
-## Architecture 🏗️
+Nillion Tools is a developer-centric toolkit that simplifies building on the Nillion network. It includes various packages that help developers interact with the Nillion network, build dApps, manage Ed25519 Keys and more.
 
-## How it works 🛠️
+![OG Image](assets/og.png)
 
-## Demo Video 🎥
+---
 
-## Screenshots 📸
+## Packages
 
-<table>
-  <tr>
-    <td valign="top" width="50%">
-      <br>
-      <img src="./assets/1.png" alt="" >
-    </td>
-    <td valign="top" width="50%">
-      <br>
-      <img src="./assets/2.png" alt="" >
-    </td>
-  </tr>
-</table>
+- **`Key Manager`**: Key Manager is a tool to manage and authenticate Ed25519 keys. It provides a simple workflow to create, import, and export keys. It also provides a way to authenticate keys using WebAuthn and FIDO2.
+- **`Connect Kit`(coming soon...)**: Connect Kit is a wallet connect library that helps you connect your dApp to the Nillion network.
 
-<table>
-  <tr>
-    <td valign="top" width="50%">
-      <br>
-            <img src="./assets/3.png" alt="" >
-    </td>
-    <td valign="top" width="50%">
-      <br>
-            <img src="./assets/4.png" alt="" >
-    </td>
-  </tr>
-</table>
+---
 
-<table>
-  <tr>
-    <td valign="top" width="50%">
-      <br>
-            <img src="./assets/5.png" alt="" >
-    </td>
-    <td valign="top" width="50%">
-      <br>
-            <img src="./assets/6.png" alt="" >
-    </td>
-  </tr>
-</table>
+## Documentation
 
-## 🧑🏼‍💻 Tech Stack
+For a complete overview of available functions and usage examples, please refer to the official documentation: [https://nillion-tools.envoy1084.xyz](https://nillion-tools.envoy1084.xyz/docs/key-manager)
 
-- **Frontend**: Next.js, Tailwind CSS, `@shadcn/ui`
-- **Integration**: `wagmi`, `web3modal`
+API docs are available at: [https://nillion-tools.envoy1084.xyz/api-docs](https://nillion-tools.envoy1084.xyz/api-docs)
 
-## Get Started 🚀
+---
 
-The following repository is a turborepo and divided into the following:
+# Contributing
 
-- **apps/www** - The web application built using NextJS.
-
-First install the dependencies by running the following:
-
-```
-
-pnpm install
-
-```
-
-Then fill in the Environment variables in `apps/www/.env.local`
-
-```bash
-
-```
-
-Then run the following command to start the application:
-
-```bash
-pnpm dev
-```
+We welcome contributions! Check out our [contributing guide](./CONTRIBUTING.md) for more information
 
 ---
