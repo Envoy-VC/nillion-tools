@@ -29,7 +29,7 @@ export function createMetadata(override: Metadata): Metadata {
 
 export const baseUrl =
   env.NEXT_PUBLIC_ENVIRONMENT === 'development'
-    ? new URL('http://localhost:3000')
+    ? new URL('http://localhost:3000/')
     : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- safe
       new URL(`https://${process.env.VERCEL_URL!}`);
 

@@ -9,8 +9,18 @@ import {
   verifyAuthenticationResponse,
   verifyRegistrationResponse,
 } from '@nillion-tools/key-manager/webauthn/server';
+import { env } from '~/env';
 
-import { baseUrl, host } from '../metadata';
+const { host, origin } =
+  env.NEXT_PUBLIC_ENVIRONMENT === 'development'
+    ? {
+        host: 'localhost',
+        origin: 'http://localhost:3000',
+      }
+    : {
+        host: 'nillion-tools.envoy1084.xyz',
+        origin: 'https://nillion-tools.envoy1084.xyz',
+      };
 
 export const register = async (
   userName: string,
@@ -59,7 +69,7 @@ Type: ${credential.type}\n`
   const verifiedResponse = await verifyRegistrationResponse({
     response: credential,
     expectedChallenge: opts.challenge,
-    expectedOrigin: baseUrl.toString(),
+    expectedOrigin: origin,
   });
 
   if (!verifiedResponse.verified) {
@@ -144,7 +154,7 @@ export const authenticate = async (
   const verificationResponse = await verifyAuthenticationResponse({
     response,
     expectedChallenge: opts.challenge,
-    expectedOrigin: baseUrl.toString(),
+    expectedOrigin: origin,
     expectedRPID: host,
     authenticator: {
       credentialID: passkey.credentialId,
