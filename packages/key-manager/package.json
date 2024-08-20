@@ -2,11 +2,18 @@
   "name": "@nillion-tools/key-manager",
   "version": "0.0.3",
   "description": "",
-  "keywords": [],
+  "keywords": [
+    "Nillion",
+    "WebAuthn",
+    "Key Manager",
+    "Ed25519",
+    "TypeScript",
+    "React"
+  ],
   "bugs": {
     "url": "https://github.com/Envoy-VC/nillion-tools/issues"
   },
-  "repository": "https://github.com/Envoy-VC/nillion-tool/packages/nillion-tool",
+  "repository": "https://github.com/Envoy-VC/nillion-tools/tree/main/packages/key-manager",
   "license": "MIT",
   "author": "Vedant Chainani <vedantchainani1084@gmail.com>",
   "exports": {
@@ -28,12 +35,12 @@
     "./webauthn": {
       "types": "./dist/webauthn/index.d.ts",
       "import": "./dist/webauthn/index.mjs",
-      "require": "./dist/webauthnindex.js"
+      "require": "./dist/webauthn/index.js"
     },
     "./webauthn/server": {
       "types": "./dist/webauthn/server/index.d.ts",
       "import": "./dist/webauthn/server/index.mjs",
-      "require": "./dist/webauthn/serverindex.js"
+      "require": "./dist/webauthn/server/index.js"
     },
     "./webauthn/browser": {
       "types": "./dist/webauthn/browser/index.d.ts",
@@ -69,11 +76,8 @@
   "dependencies": {
     "@noble/ed25519": "^2.1.0",
     "@noble/hashes": "^1.4.0",
-    "@simplewebauthn/browser": "^10.0.0",
-    "@simplewebauthn/server": "^10.0.1",
-    "@simplewebauthn/types": "^10.0.0",
-    "idb-keyval": "^6.2.1",
-    "multiformats": "^13.2.2"
+    "base-x": "^5.0.0",
+    "idb-keyval": "^6.2.1"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
@@ -85,6 +89,11 @@
     "tsup": "^8.0.1",
     "typescript": "^5",
     "vitest": "^2.0.5"
+  },
+  "peerDependencies": {
+    "@simplewebauthn/browser": "^10.0.0",
+    "@simplewebauthn/server": "^10.0.1",
+    "@simplewebauthn/types": "^10.0.0"
   },
   "engines": {
     "node": ">=18"

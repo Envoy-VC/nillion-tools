@@ -1,5 +1,10 @@
 import { sha512 } from '@noble/hashes/sha512';
-import { base58btc } from 'multiformats/bases/base58';
+
+import basex from 'base-x';
+
+const base58btc = basex(
+  '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
+);
 
 export const pubKeyToUserId = (pubKey: Uint8Array) => {
   const hash = sha512.create().update(pubKey).digest();
