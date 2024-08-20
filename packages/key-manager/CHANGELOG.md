@@ -1,5 +1,12 @@
 # @nillion-tools/key-manager
 
+## 0.0.4
+
+### Patch Changes
+
+- 662a764: - Move `@simplewebauthn` to Peer Dependencies
+  - Use `base-x` instead of `multiformats` for encoding/decoding.
+
 ## 0.0.3
 
 ### Patch Changes
