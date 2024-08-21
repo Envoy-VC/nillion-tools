@@ -11,6 +11,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@nillion-tools/connect-kit": "workspace:*",
     "@nillion-tools/key-manager": "workspace:*",
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-select": "^2.1.1",

@@ -1,14 +1,13 @@
 import { defineConfig, type Options } from 'tsup';
 
 const commonConfig: Options = {
-  treeshake: true,
+  // treeshake: true,
   sourcemap: true,
   minify: true,
   shims: true,
   format: ['cjs', 'esm'],
   dts: true,
-  splitting: false,
-  clean: true,
+  splitting: true,
   target: ['es6', 'es2022'],
   tsconfig: 'tsconfig.json',
   banner: {
@@ -20,7 +19,7 @@ const commonConfig: Options = {
 
 export default defineConfig([
   {
-    entry: ['./src/index.ts'],
+    entry: ['./src/index.tsx'],
     outDir: 'dist/',
     ...commonConfig,
   },

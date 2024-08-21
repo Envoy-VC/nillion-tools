@@ -31,12 +31,15 @@
     "release": "pnpm run lint && pnpm run test && pnpm run build && changeset publish"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.1",
+    "@radix-ui/react-slot": "^1.1.0",
+    "avvvatars-react": "^0.4.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "graz": "^0.1.19",
     "lucide-react": "^0.427.0",
     "tailwind-merge": "^2.5.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zustand": "^4.5.4"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",

@@ -1,1 +1,1 @@
-export * from './animate-height';
+export * from './connect-button';
