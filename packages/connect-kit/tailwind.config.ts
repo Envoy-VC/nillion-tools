@@ -1,7 +1,13 @@
 import type { Config } from 'tailwindcss';
 
 const config = {
-  darkMode: ['class'],
+  darkMode: [
+    'variant',
+    [
+      '@media (prefers-color-scheme: dark) { &:not(.light *) }',
+      '&:is(.dark *)',
+    ],
+  ],
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
@@ -9,6 +15,9 @@ const config = {
     './src/**/*.{ts,tsx}',
   ],
   prefix: 'ck-',
+  corePlugins: {
+    preflight: false,
+  },
   theme: {
     container: {
       center: true,
@@ -19,38 +28,22 @@ const config = {
     },
     extend: {
       colors: {
-        border: 'hsl(var(--ck-border))',
-        input: 'hsl(var(--ck-input))',
-        ring: 'hsl(var(--ck-ring))',
-        background: 'hsl(var(--ck-background))',
-        foreground: 'hsl(var(--ck-foreground))',
+        background: 'var(--ck-background)',
+        foreground: 'var(--ck-foreground)',
+        overlay: 'var(--ck-overlay)',
         primary: {
-          DEFAULT: 'hsl(var(--ck-primary))',
-          foreground: 'hsl(var(--ck-primary-foreground))',
+          DEFAULT: 'var(--ck-primary)',
+          foreground: 'var(--ck-primary-foreground)',
         },
         secondary: {
-          DEFAULT: 'hsl(var(--ck-secondary))',
-          foreground: 'hsl(var(--ck-secondary-foreground))',
-        },
-        destructive: {
-          DEFAULT: 'hsl(var(--ck-destructive))',
-          foreground: 'hsl(var(--ck-destructive-foreground))',
+          DEFAULT: 'var(--ck-secondary)',
+          foreground: 'var(--ck-secondary-foreground)',
         },
         muted: {
-          DEFAULT: 'hsl(var(--ck-muted))',
-          foreground: 'hsl(var(--ck-muted-foreground))',
+          foreground: 'var(--ck-muted-foreground)',
         },
         accent: {
-          DEFAULT: 'hsl(var(--ck-accent))',
-          foreground: 'hsl(var(--ck-accent-foreground))',
-        },
-        popover: {
-          DEFAULT: 'hsl(var(--ck-popover))',
-          foreground: 'hsl(var(--ck-popover-foreground))',
-        },
-        card: {
-          DEFAULT: 'hsl(var(--ck-card))',
-          foreground: 'hsl(var(--ck-card-foreground))',
+          DEFAULT: 'var(--ck-accent)',
         },
       },
       borderRadius: {

@@ -11,9 +11,7 @@ export const keplrExtensionInfo: Wallet = {
     !(
       typeof document !== 'undefined' &&
       document.readyState === 'complete' &&
-      // @ts-expect-error keplr is available
       window.keplr &&
-      // @ts-expect-error keplr has mode
       window.keplr.mode === 'mobile-web'
     ),
   rejectMessage: {
@@ -77,7 +75,7 @@ export const keplrExtensionInfo: Wallet = {
 
 export const keplrMobileInfo: Wallet = {
   name: 'keplr-mobile',
-  prettyName: 'Keplr Mobile',
+  prettyName: 'Keplr',
   logo: KeplrExtensionIcon,
   mode: 'wallet-connect',
   mobileDisabled: false,

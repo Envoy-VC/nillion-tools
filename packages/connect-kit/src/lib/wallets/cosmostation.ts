@@ -30,7 +30,7 @@ export const cosmostationExtensionInfo: Wallet = {
 
 export const cosmostationMobileInfo: Wallet = {
   name: 'cosmostation-mobile',
-  prettyName: 'Cosmostation Mobile',
+  prettyName: 'Cosmostation',
   logo: CosmostationExtensionIcon,
   mode: 'wallet-connect',
   downloads: [

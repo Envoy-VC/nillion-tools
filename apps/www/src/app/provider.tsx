@@ -3,7 +3,7 @@
 import type { ReactNode } from 'react';
 
 import { RootProvider } from 'fumadocs-ui/provider';
-import { ConnectKitProvider, QueryProvider } from '~/providers';
+import { CosmosProvider, QueryProvider } from '~/providers';
 
 export const Provider = ({
   children,
@@ -13,7 +13,7 @@ export const Provider = ({
   return (
     <QueryProvider>
       <RootProvider>
-        <ConnectKitProvider>{children}</ConnectKitProvider>
+        <CosmosProvider>{children}</CosmosProvider>
       </RootProvider>
     </QueryProvider>
   );

@@ -6,3 +6,10 @@ export const KeyManagerDemo = dynamic(
     ssr: false,
   }
 );
+
+export const ConnectKitDemo = dynamic(
+  () => import('~/components/demo/connect-kit').then((m) => m.ConnectKitDemo),
+  {
+    ssr: false,
+  }
+);

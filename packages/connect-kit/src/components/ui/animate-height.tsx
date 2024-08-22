@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { cn } from '~/lib/utils';
 
-import { motion } from 'framer-motion';
+import { motion, cubicBezier } from 'framer-motion';
 
 interface AnimateChangeInHeightProps {
   children: React.ReactNode;
@@ -38,7 +38,7 @@ export const AnimateChangeInHeight: React.FC<AnimateChangeInHeightProps> = ({
       animate={{ height }}
       className={cn(className, 'overflow-hidden')}
       style={{ height }}
-      transition={{ duration: 0.1 }}
+      transition={{ duration: 0.5, ease: cubicBezier(0.77, 0, 0.175, 1) }}
     >
       <div ref={containerRef}>{children}</div>
     </motion.div>

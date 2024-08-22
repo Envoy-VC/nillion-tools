@@ -26,7 +26,7 @@ export const leapExtensionInfo: Wallet = {
 
 export const leapMobileInfo: Wallet = {
   name: 'leap-cosmos-mobile',
-  prettyName: 'Leap Mobile',
+  prettyName: 'Leap',
   logo: LeapExtensionIcon,
   mode: 'wallet-connect',
   mobileDisabled: () =>
