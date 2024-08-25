@@ -37,6 +37,7 @@ const config = {
         },
         secondary: {
           DEFAULT: 'var(--ck-secondary)',
+          hover: 'var(--ck-secondary-hover)',
           foreground: 'var(--ck-secondary-foreground)',
         },
         muted: {

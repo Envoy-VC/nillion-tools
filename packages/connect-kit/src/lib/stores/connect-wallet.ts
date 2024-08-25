@@ -1,8 +1,8 @@
-import { createContext, useContext } from 'react';
+import { createContext } from 'react';
 
 import * as wallets from '~/lib/wallets';
 
-import { createStore, useStore } from 'zustand';
+import { createStore } from 'zustand';
 
 export const supportedWallets = {
   keplr: wallets.keplrExtensionInfo,

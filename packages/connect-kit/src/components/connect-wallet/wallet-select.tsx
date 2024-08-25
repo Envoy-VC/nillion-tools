@@ -1,23 +1,23 @@
-/* eslint-disable @next/next/no-img-element -- custom urls  */
-
 import { nillionTestnet } from '~/lib/chain';
 
 import { type WalletType, type supportedWallets } from '~/lib/stores';
-import { useConnectKitStore } from '~/lib/hooks';
+import { useConnectKitStore, useConnectWallet } from '~/lib/hooks';
 import { cn, errorHandler } from '~/lib/utils';
 
-import { type Variants, motion } from 'framer-motion';
+import { AnimatePresence, type Variants, motion } from 'framer-motion';
 import {
   type WalletType as GrazWalletType,
   checkWallet,
   useSuggestChainAndConnect,
 } from 'graz';
 
-import { Button, buttonVariants } from './ui/button';
+import { Button, buttonVariants } from '../ui/button';
 
-import { Wallet, X } from 'lucide-react';
-import { useIsMobile } from '../lib/hooks/use-is-mobile';
+import { Wallet } from 'lucide-react';
+import { useIsMobile } from '../../lib/hooks/use-is-mobile';
 import { useMemo } from 'react';
+import { AnimateSlide } from '../animate-slide';
+import { ConnectingComponent } from './connecting';
 
 export const WalletSelect = () => {
   const {
@@ -26,6 +26,7 @@ export const WalletSelect = () => {
     showAllWallets,
     setShowAllWallets,
   } = useConnectKitStore();
+  const { modalOptions } = useConnectWallet();
 
   const { isMobile } = useIsMobile();
 
@@ -46,29 +47,33 @@ export const WalletSelect = () => {
       }
       return wallet.mobileDisabled;
     });
-  }, []);
+  }, [isMobile, supportedWallets]);
 
-  if (!activeWalletType) {
-    return (
+  if (activeWalletType && modalOptions?.size === 'compact') {
+    return <ConnectingComponent />;
+  }
+
+  return (
+    <AnimateSlide>
       <div className='ck-flex ck-flex-col'>
-        <div className='ck-flex ck-w-full ck-flex-col ck-gap-1'>
-          {walletList
-            .slice(0, showAllWallets ? undefined : 4)
-            .map(([type, wallet], index) => {
-              return (
-                <WalletButton
-                  key={type}
-                  index={index}
-                  type={type as WalletType}
-                  wallet={wallet}
-                />
-              );
-            })}
+        <div className='ck-flex ck-w-full ck-flex-col ck-gap-[6px]'>
+          <AnimatePresence mode='popLayout'>
+            {walletList
+              .slice(0, showAllWallets ? undefined : 4)
+              .map(([type, wallet], index) => {
+                return (
+                  <WalletButton
+                    key={type}
+                    index={index}
+                    type={type as WalletType}
+                    wallet={wallet}
+                  />
+                );
+              })}
+          </AnimatePresence>
           {walletList.length > 4 && (
             <Button
-              className={
-                'ck-flex ck-h-12 ck-w-full ck-flex-row ck-items-center ck-justify-between ck-rounded-xl ck-px-4 ck-transition-all ck-duration-300 ck-ease-in-out'
-              }
+              className='ck-flex ck-h-12 ck-w-full ck-flex-row ck-items-center ck-justify-between ck-rounded-xl ck-px-4 ck-transition-all ck-duration-300 ck-ease-in-out'
               variant='secondary'
               onClick={() => {
                 setShowAllWallets(!showAllWallets);
@@ -84,10 +89,8 @@ export const WalletSelect = () => {
           )}
         </div>
       </div>
-    );
-  }
-
-  return <ConnectingComponent />;
+    </AnimateSlide>
+  );
 };
 
 interface WalletButtonProps {
@@ -110,22 +113,30 @@ const WalletButton = ({ type, wallet, index }: WalletButtonProps) => {
         delay: (index - 3) * 0.1,
       },
     },
+    exit: {
+      opacity: 0,
+      transition: {
+        delay: 0.1,
+      },
+    },
   };
 
   const isWalletReady = checkWallet(type as GrazWalletType);
   const logo =
     typeof wallet.logo === 'object' ? wallet.logo.major : wallet.logo ?? '';
+
   return (
     <motion.button
       key={wallet.name}
+      layout
       animate='animate'
-      className={cn(
-        'ck-flex ck-h-12 ck-w-full ck-flex-row ck-items-center ck-justify-between ck-rounded-xl ck-px-4 ck-transition-all ck-duration-300 ck-ease-in-out',
-        buttonVariants({ variant: 'secondary' })
-      )}
-      initial='initial'
+      exit='exit'
       type='button'
       variants={variants}
+      className={cn(
+        'ck-flex ck-h-[3.125rem] ck-w-full ck-flex-row ck-items-center ck-justify-between ck-rounded-xl ck-px-4 ck-transition-all ck-duration-300 ck-ease-in-out',
+        buttonVariants({ variant: 'secondary' })
+      )}
       onClick={async () => {
         try {
           setActiveWalletType(type);
@@ -145,54 +156,18 @@ const WalletButton = ({ type, wallet, index }: WalletButtonProps) => {
       }}
     >
       <div className='ck-flex ck-flex-row ck-items-center ck-gap-[10px]'>
-        <img alt={wallet.name} className='ck-h-7 ck-w-7' src={logo} />
+        <img
+          alt={wallet.name}
+          className='ck-h-8 ck-w-8 ck-rounded-sm'
+          src={logo}
+        />
         <div className='ck-text-base ck-font-medium'>{wallet.prettyName}</div>
       </div>
       {isWalletReady ? (
-        <div className='ck-rounded-lg ck-bg-green-100 ck-px-2 ck-py-1 ck-text-xs ck-uppercase ck-tracking-tight ck-text-green-500'>
+        <div className='ck-rounded-lg ck-bg-green-100 ck-px-2 ck-py-[2px] ck-text-[10px] ck-uppercase ck-tracking-tight ck-text-green-500'>
           installed
         </div>
       ) : null}
     </motion.button>
-  );
-};
-
-const ConnectingComponent = () => {
-  const { supportedWallets, activeWalletType, error } = useConnectKitStore();
-  if (!activeWalletType) return null;
-
-  const wallet = supportedWallets[activeWalletType];
-  const logo =
-    typeof wallet.logo === 'object' ? wallet.logo.major : wallet.logo ?? '';
-
-  return (
-    <div className='ck-flex ck-w-full ck-flex-col ck-items-center ck-justify-center ck-gap-3 ck-py-8 ck-text-center'>
-      <div className={cn('relative', error ? '' : 'connectingLoader')}>
-        <img
-          alt={wallet.name}
-          className='ck-h-20 ck-w-20 ck-rounded-2xl'
-          src={logo}
-        />
-        {error ? (
-          <div className='ck-absolute ck--bottom-1 ck--right-1 ck-flex ck-h-6 ck-w-6 ck-items-center ck-justify-center ck-rounded-full ck-bg-red-100 ck-text-red-400'>
-            <X size={16} strokeWidth={3} />
-          </div>
-        ) : null}
-      </div>
-      <div className='ck-flex ck-flex-col'>
-        {error ? (
-          <div className='ck-text-lg ck-font-medium ck-text-red-400'>
-            {error}
-          </div>
-        ) : (
-          <div className='ck-text-lg ck-font-medium'>
-            Continue in {wallet.prettyName}
-          </div>
-        )}
-        <div className='ck-text-sm ck-font-medium ck-text-neutral-500'>
-          Accept Connect request in wallet
-        </div>
-      </div>
-    </div>
   );
 };

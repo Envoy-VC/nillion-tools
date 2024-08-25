@@ -38,18 +38,18 @@ const DialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        'ck-fixed ck-left-[50%] ck-top-[50%] ck-z-50 ck-grid ck-w-full ck-max-w-lg ck-translate-x-[-50%] ck-translate-y-[-50%] ck-gap-4 ck-border ck-bg-background ck-p-6 ck-shadow-lg ck-duration-200 data-[state=open]:ck-animate-in data-[state=closed]:ck-animate-out data-[state=closed]:ck-fade-out-0 data-[state=open]:ck-fade-in-0 data-[state=closed]:ck-zoom-out-95 data-[state=open]:ck-zoom-in-95 data-[state=closed]:ck-slide-out-to-left-1/2 data-[state=closed]:ck-slide-out-to-top-[48%] data-[state=open]:ck-slide-in-from-left-1/2 data-[state=open]:ck-slide-in-from-top-[48%] sm:ck-rounded-lg',
+        'ck-fixed ck-left-[50%] ck-top-[50%] ck-z-50 ck-grid ck-translate-x-[-50%] ck-translate-y-[-50%] ck-gap-4 ck-border ck-bg-background ck-p-6 ck-shadow-lg ck-duration-200 data-[state=open]:ck-animate-in data-[state=closed]:ck-animate-out data-[state=closed]:ck-fade-out-0 data-[state=open]:ck-fade-in-0 data-[state=closed]:ck-zoom-out-95 data-[state=open]:ck-zoom-in-95 data-[state=closed]:ck-slide-out-to-left-1/2 data-[state=closed]:ck-slide-out-to-top-[48%] data-[state=open]:ck-slide-in-from-left-1/2 data-[state=open]:ck-slide-in-from-top-[48%] sm:ck-rounded-lg',
         className
       )}
       {...props}
     >
       {children}
-      {showCloseButton && (
+      {showCloseButton ? (
         <DialogPrimitive.Close className='ck-absolute ck-right-4 ck-top-4 ck-rounded-sm ck-opacity-70 ck-ring-offset-background ck-transition-opacity hover:ck-opacity-100 focus:ck-outline-none focus:ck-ring-2 focus:ck-ring-ring focus:ck-ring-offset-2 disabled:ck-pointer-events-none data-[state=open]:ck-bg-accent data-[state=open]:ck-text-muted-foreground'>
           <X className='ck-h-4 ck-w-4' />
           <span className='ck-sr-only'>Close</span>
         </DialogPrimitive.Close>
-      )}
+      ) : null}
     </DialogPrimitive.Content>
   </DialogPortal>
 ));

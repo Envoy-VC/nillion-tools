@@ -11,7 +11,6 @@ module.exports = {
   settings: {
     'import/resolver': { typescript: { project } },
   },
-  ignores: ['dist'],
   rules: {
     'no-console': ['off'],
     '@typescript-eslint/explicit-function-return-type': 'off',

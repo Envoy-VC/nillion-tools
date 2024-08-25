@@ -12,7 +12,7 @@ const buttonVariants = cva(
         default:
           'ck-bg-primary ck-text-primary-foreground hover:ck-bg-primary/90',
         secondary:
-          'ck-bg-secondary/40 ck-text-secondary-foreground hover:ck-bg-secondary',
+          'ck-bg-secondary ck-text-secondary-foreground hover:ck-bg-secondary-hover',
         link: 'ck-text-primary ck-underline-offset-4 hover:ck-underline',
       },
       size: {
