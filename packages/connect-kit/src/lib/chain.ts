@@ -1,4 +1,6 @@
-export const nillionTestnet = {
+import type { ChainInfo } from '@keplr-wallet/types';
+
+export const nillionTestnet: ChainInfo = {
   rpc: 'https://testnet-nillion-rpc.lavenderfive.com',
   rest: 'https://testnet-nillion-api.lavenderfive.com',
   nodeProvider: {

@@ -2,6 +2,7 @@ import { createContext } from 'react';
 import type { ConnectWalletProps } from '~/types';
 
 export const ConnectWalletContext = createContext<ConnectWalletProps>({
+  mode: 'modal',
   signInButton: {
     label: 'Connect Wallet',
     className: '',

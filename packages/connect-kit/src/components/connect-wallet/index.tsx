@@ -8,16 +8,16 @@ import { ConnectWalletContext } from '~/providers';
 import { MobileConnectButton } from './mobile';
 import { DesktopConnectButton } from './desktop';
 
-import type { ConnectWalletProps, DeepPartial } from '~/types';
+import type { PartialConnectWalletProps } from '~/types';
 import { buildConnectWalletProps } from '~/lib/helpers';
 
-export const ConnectWallet = (props: DeepPartial<ConnectWalletProps>) => {
-  const { data: account } = useAccount();
+export const ConnectWallet = (props: PartialConnectWalletProps) => {
+  const { isConnected } = useAccount();
 
   const { isMobile } = useIsMobile();
   const isMobileDevice = useMemo(() => isMobile(), [isMobile]);
 
-  if (!account) {
+  if (!isConnected) {
     return (
       <ConnectWalletContext.Provider value={buildConnectWalletProps(props)}>
         {isMobileDevice ? <MobileConnectButton /> : <DesktopConnectButton />}

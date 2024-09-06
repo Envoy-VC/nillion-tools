@@ -1,9 +1,15 @@
-import type { ConnectWalletProps, DeepPartial } from '~/types';
+import type { ConnectWalletProps, PartialConnectWalletProps } from '~/types';
+import { nillionTestnet } from './chain';
 
 export const buildConnectWalletProps = (
-  props: DeepPartial<ConnectWalletProps>
+  props: PartialConnectWalletProps
 ): ConnectWalletProps => {
   const newProps: ConnectWalletProps = {
+    chainOptions: {
+      chains: props.chainOptions?.chains ?? [nillionTestnet.chainId],
+      defaultChain: props.chainOptions?.defaultChain ?? nillionTestnet.chainId,
+      chainInfos: props.chainOptions?.chainInfos ?? [nillionTestnet],
+    },
     mode: props.mode ?? 'modal',
     signInButton: {
       label: props.signInButton?.label ?? 'Connect Wallet',
@@ -20,7 +26,6 @@ export const buildConnectWalletProps = (
       privacyPolicyUrl: props.modalOptions?.privacyPolicyUrl ?? '',
       termsOfServiceUrl: props.modalOptions?.termsOfServiceUrl ?? '',
       title: props.modalOptions?.title ?? 'Connect Wallet',
-      titleIcon: props.modalOptions?.titleIcon,
       welcomeScreen: props.modalOptions?.welcomeScreen ?? (() => null),
     },
   };

@@ -2,13 +2,14 @@ import { nillionTestnet } from '~/lib/chain';
 
 import { type supportedWallets } from '~/providers';
 import type { WalletType } from '~/types';
-import { useConnectKitStore } from '~/lib/hooks';
+import { useConnectKitStore, useConnectWallet } from '~/lib/hooks';
 import { cn, errorHandler } from '~/lib/utils';
 
 import { type Variants, motion } from 'framer-motion';
 import {
   type WalletType as GrazWalletType,
   checkWallet,
+  useConnect,
   useSuggestChainAndConnect,
 } from 'graz';
 
@@ -23,7 +24,9 @@ interface WalletButtonProps {
 export const WalletButton = ({ type, wallet, index }: WalletButtonProps) => {
   const { setActiveWalletType, setError, setActiveScreen } =
     useConnectKitStore();
+  const { chainOptions } = useConnectWallet();
   const { suggestAndConnectAsync } = useSuggestChainAndConnect();
+  const { connectAsync } = useConnect();
 
   const variants: Variants = {
     initial: {
@@ -64,13 +67,27 @@ export const WalletButton = ({ type, wallet, index }: WalletButtonProps) => {
           setError(null);
           setActiveWalletType(type);
           setActiveScreen('connecting');
-          const res = await suggestAndConnectAsync({
-            chainInfo: nillionTestnet,
-            walletType: type as GrazWalletType,
-          });
+
+          const chainInfo = chainOptions.chainInfos.find(
+            (i) => i.chainId === chainOptions.defaultChain
+          );
+
+          let res;
+
+          if (chainInfo) {
+            res = await suggestAndConnectAsync({
+              chainInfo: nillionTestnet,
+              walletType: type as GrazWalletType,
+            });
+          } else {
+            res = await connectAsync({
+              chainId: chainOptions.defaultChain,
+              walletType: type as GrazWalletType,
+            });
+          }
 
           const address =
-            res.accounts['nillion-chain-testnet-1']?.bech32Address;
+            res.accounts[chainOptions.defaultChain]?.bech32Address;
           if (!address) {
             throw new Error('Failed to connect');
           }

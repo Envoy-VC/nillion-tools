@@ -1,12 +1,12 @@
 import { type WalletType } from '~/types';
-import { useConnectKitStore } from '~/lib/hooks';
+import { useConnectKitStore, useIsMobile } from '~/lib/hooks';
 
 import { AnimatePresence } from 'framer-motion';
 
 import { Button } from '../../ui/button';
 
-import { Wallet } from 'lucide-react';
-import { useIsMobile } from '../../../lib/hooks/use-is-mobile';
+import { WalletIcon } from 'lucide-react';
+
 import { useMemo } from 'react';
 import { AnimateSlide } from '../../animate-slide';
 import { WalletButton } from './button';
@@ -16,25 +16,19 @@ export const WalletSelectList = () => {
     useConnectKitStore();
 
   const { isMobile } = useIsMobile();
+  const isMobileDevice = useMemo(() => isMobile(), [isMobile]);
 
   const walletList = useMemo(() => {
-    const isMobileDevice = isMobile();
     if (isMobileDevice) {
-      return Object.entries(supportedWallets).filter(([_, wallet]) => {
-        if (typeof wallet.mobileDisabled === 'function') {
-          return !wallet.mobileDisabled();
-        }
-        return !wallet.mobileDisabled;
+      return Object.entries(supportedWallets).filter(([k]) => {
+        return k.startsWith('wc_') && k.endsWith('_mobile');
       });
     }
 
-    return Object.entries(supportedWallets).filter(([_, wallet]) => {
-      if (typeof wallet.mobileDisabled === 'function') {
-        return wallet.mobileDisabled();
-      }
-      return wallet.mobileDisabled;
+    return Object.entries(supportedWallets).filter(([k]) => {
+      return !(k.startsWith('wc_') && k.endsWith('_mobile'));
     });
-  }, [isMobile, supportedWallets]);
+  }, [isMobileDevice, supportedWallets]);
 
   return (
     <AnimateSlide>
@@ -63,7 +57,7 @@ export const WalletSelectList = () => {
               }}
             >
               <div className='ck-flex ck-flex-row ck-items-center ck-gap-[10px]'>
-                <Wallet className='ck-h-6 ck-w-6' />
+                <WalletIcon className='ck-h-6 ck-w-6' />
                 <div className='ck-text-base ck-font-medium'>
                   {showAllWallets ? 'Show less' : 'Show all Wallets'}
                 </div>

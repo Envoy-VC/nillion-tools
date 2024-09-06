@@ -31,6 +31,7 @@
     "release": "pnpm run lint && pnpm run test && pnpm run build && changeset publish"
   },
   "dependencies": {
+    "@keplr-wallet/types": "^0.12.127",
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-slot": "^1.1.0",
     "avvvatars-react": "^0.4.2",

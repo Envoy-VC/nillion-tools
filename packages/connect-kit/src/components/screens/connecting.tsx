@@ -14,10 +14,10 @@ export const ConnectingScreen = () => {
   return (
     <AnimateSlide>
       <div className='ck-flex ck-w-full ck-flex-col ck-items-center ck-justify-center ck-gap-3 ck-py-8 ck-text-center'>
-        <div className={cn('relative', error ? '' : 'connectingLoader')}>
+        <div className={cn('ck-relative', error ? '' : 'connectingLoader')}>
           <img
             alt={wallet.name}
-            className='ck-h-20 ck-w-20 ck-rounded-2xl'
+            className='ck-h-20 ck-w-20 ck-rounded-2xl !my-0 !py-0'
             src={logo}
           />
           {error ? (

@@ -1,4 +1,5 @@
-import { type CSSProperties } from 'react';
+import type { ChainInfo } from '@keplr-wallet/types';
+import type { ReactNode, CSSProperties } from 'react';
 import type { supportedWallets } from '~/providers';
 
 type WelcomeScreen =
@@ -10,6 +11,11 @@ type WelcomeScreen =
   | (() => React.ReactNode);
 
 export interface ConnectWalletProps {
+  chainOptions: {
+    chains: string[];
+    defaultChain: string;
+    chainInfos: ChainInfo[];
+  };
   mode: 'inline' | 'modal';
   signInButton: {
     label: string;
@@ -25,8 +31,7 @@ export interface ConnectWalletProps {
     size: 'compact' | 'wide';
     privacyPolicyUrl?: string;
     termsOfServiceUrl?: string;
-    title: string;
-    titleIcon?: string;
+    title: ReactNode;
     welcomeScreen?: WelcomeScreen;
   };
 }
@@ -34,10 +39,28 @@ export interface ConnectWalletProps {
 export type WalletType = keyof typeof supportedWallets;
 export type Screen = 'home' | 'connecting' | 'error';
 
-export type DeepPartial<T> = {
-  [P in keyof T]?: T[P] extends (infer U)[]
-    ? DeepPartial<U>[]
-    : T[P] extends object | undefined
-      ? DeepPartial<T[P]>
-      : T[P];
-};
+export interface PartialConnectWalletProps {
+  chainOptions?: {
+    chains?: string[];
+    defaultChain?: string;
+    chainInfos?: ChainInfo[];
+  };
+  mode?: 'inline' | 'modal';
+  signInButton?: {
+    label?: string;
+    className?: string;
+    style?: CSSProperties;
+  };
+  switchButton?: {
+    className?: string;
+    label?: string;
+    style?: React.CSSProperties;
+  };
+  modalOptions?: {
+    size?: 'compact' | 'wide';
+    privacyPolicyUrl?: string;
+    termsOfServiceUrl?: string;
+    title?: ReactNode;
+    welcomeScreen?: WelcomeScreen;
+  };
+}
