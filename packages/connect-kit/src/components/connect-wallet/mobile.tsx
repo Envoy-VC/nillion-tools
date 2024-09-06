@@ -1,9 +1,10 @@
 import { ConnectButtonTrigger } from './trigger';
 
 import { Drawer, DrawerContent, DrawerTrigger } from '~/components/ui/drawer';
-import { ConnectButtonContent } from './content';
 import { useConnectKitStore } from '~/lib/hooks';
 import { sleep } from '~/lib/utils';
+import { WalletScreen } from '~/components/screens';
+import { MobileLayout } from '../layouts';
 
 export const MobileConnectButton = () => {
   const {
@@ -31,7 +32,9 @@ export const MobileConnectButton = () => {
         <ConnectButtonTrigger />
       </DrawerTrigger>
       <DrawerContent className='ck-rounded-t-[2rem]'>
-        <ConnectButtonContent />
+        <MobileLayout>
+          <WalletScreen />
+        </MobileLayout>
       </DrawerContent>
     </Drawer>
   );

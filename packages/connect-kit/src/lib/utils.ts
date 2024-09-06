@@ -1,6 +1,8 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
+import { serializeError } from 'serialize-error';
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -28,25 +30,5 @@ export const truncate = (
 };
 
 export const errorHandler = (error: unknown) => {
-  console.error(error);
-  if (error instanceof Error) {
-    return error.message;
-  } else if (typeof error === 'string') {
-    return error;
-  } else if (
-    error &&
-    typeof error === 'object' &&
-    'message' in error &&
-    typeof error.message === 'string'
-  ) {
-    return error.message;
-  } else if (
-    error &&
-    typeof error === 'object' &&
-    'error' in error &&
-    typeof error.error === 'string'
-  ) {
-    return error.error;
-  }
-  return 'An error occurred';
+  return serializeError(error);
 };

@@ -40,6 +40,10 @@ const config = {
           hover: 'var(--ck-secondary-hover)',
           foreground: 'var(--ck-secondary-foreground)',
         },
+        link: {
+          hover: 'var(--ck-link-hover)',
+          foreground: 'var(--ck-link-foreground)',
+        },
         muted: {
           foreground: 'var(--ck-muted-foreground)',
         },

@@ -8,18 +8,21 @@
     --ck-foreground: rgb(10, 10, 10);
 
     --ck-primary: rgb(23, 23, 23);
-    --ck-primary-foreground: hsl(0 0% 98%);
+    --ck-primary-foreground: rgb(250, 250, 250);
 
     --ck-secondary: rgb(242, 239, 243, 0);
     --ck-secondary-hover: rgb(242, 239, 243);
     --secondary-foreground: rgb(23, 23, 23);
 
-    --ck-muted-foreground: hsl(0 0% 45.1%);
+    --ck-muted-foreground: rgb(115, 115, 115);
 
     --ck-radius: 0.5rem;
     --ck-overlay: rgba(0, 0, 0, 0.8);
 
-    --ck-accent: hsl(0 0% 96.1%);
+    --ck-link-foreground: rgb(59, 130, 246);
+    --ck-link-hover: rgb(64, 64, 64);
+
+    --ck-accent: rgb(245, 245, 245);
   }
 
   .dark {
@@ -33,12 +36,15 @@
     --ck-secondary-hover: rgb(27, 28, 34);
     --ck-secondary-foreground: rgb(250, 250, 250);
 
+    --ck-muted-foreground: rgb(163, 163, 163);
+
     --ck-radius: 0.5rem;
-    --ck-overlay: hsla(0, 0%, 0%, 0.8);
+    --ck-overlay: rgba(0, 0, 0, 0.8);
+
+    --ck-link-foreground: rgb(59, 130, 246);
+    --ck-link-hover: rgb(255, 255, 255);
 
     --ck-accent: rgb(38, 38, 38);
-
-    --ck-muted-foreground: rgb(163, 163, 163);
   }
 }
 
@@ -51,4 +57,57 @@ iframe,
 embed,
 object {
   display: block;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+.connectingLoader {
+  position: relative;
+  z-index: 0;
+  border-radius: 2rem;
+  overflow: hidden;
+  padding: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.connectingLoader::before {
+  content: '';
+  position: absolute;
+  z-index: -2;
+  left: -50%;
+  top: -50%;
+  width: 200%;
+  height: 200%;
+  background-color: #00000000;
+  background-repeat: no-repeat;
+  background-size:
+    50% 50%,
+    50% 50%;
+  background-position:
+    0 0,
+    100% 0,
+    100% 100%,
+    0 100%;
+  background-image: linear-gradient(#00000000, #00000000),
+    linear-gradient(#00000000, #00000000), linear-gradient(#00000000, #00000000),
+    linear-gradient(#377af5, #377af5);
+  animation: rotate 1.75s linear infinite;
+}
+
+.connectingLoader::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 4px;
+  top: 4px;
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
+  background: var(--ck-background);
+  border-radius: 1.7rem;
 }

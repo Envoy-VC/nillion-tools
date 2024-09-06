@@ -3,7 +3,7 @@ import { AnimateSlide } from '../animate-slide';
 import { cn } from '~/lib/utils';
 import { X } from 'lucide-react';
 
-export const ConnectingComponent = () => {
+export const ConnectingScreen = () => {
   const { supportedWallets, activeWalletType, error } = useConnectKitStore();
   if (!activeWalletType) return null;
 

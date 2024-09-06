@@ -18,11 +18,12 @@ export const supportedWallets = {
 };
 
 export type WalletType = keyof typeof supportedWallets;
-
+export type Screen = 'home' | 'connecting' | 'error';
 export interface ConnectKitState {
   supportedWallets: typeof supportedWallets;
   isModalOpen: boolean;
   isUserModalOpen: boolean;
+  activeScreen: Screen;
   activeWalletType: WalletType | null;
   error: string | null;
   showAllWallets: boolean;
@@ -33,6 +34,7 @@ export interface ConnectKitActions {
   setActiveWalletType: (walletType: WalletType | null) => void;
   setError: (error: string | null) => void;
   setShowAllWallets: (showAllWallets: boolean) => void;
+  setActiveScreen: (activeScreen: Screen) => void;
   setUserModalOpen: (isUserModalOpen: boolean) => void;
 }
 
@@ -45,6 +47,7 @@ export const createConnectKitStore = () => {
     isModalOpen: false,
     activeWalletType: null,
     error: null,
+    activeScreen: 'home',
     showAllWallets: false,
     isUserModalOpen: false,
   };
@@ -55,6 +58,7 @@ export const createConnectKitStore = () => {
     setActiveWalletType: (activeWalletType) => set({ activeWalletType }),
     setError: (error) => set({ error }),
     setShowAllWallets: (showAllWallets) => set({ showAllWallets }),
+    setActiveScreen: (activeScreen) => set({ activeScreen }),
     setUserModalOpen: (isUserModalOpen) => set({ isUserModalOpen }),
   }));
 };
