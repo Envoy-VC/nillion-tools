@@ -1,6 +1,7 @@
 import { nillionTestnet } from '~/lib/chain';
 
-import { type WalletType, type supportedWallets } from '~/lib/stores';
+import { type supportedWallets } from '~/providers';
+import type { WalletType } from '~/types';
 import { useConnectKitStore } from '~/lib/hooks';
 import { cn, errorHandler } from '~/lib/utils';
 

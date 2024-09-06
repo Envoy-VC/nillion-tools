@@ -1,9 +1,10 @@
-import type { ConnectWalletProps } from '~/types';
+import type { ConnectWalletProps, DeepPartial } from '~/types';
 
 export const buildConnectWalletProps = (
-  props: Partial<ConnectWalletProps>
+  props: DeepPartial<ConnectWalletProps>
 ): ConnectWalletProps => {
   const newProps: ConnectWalletProps = {
+    mode: props.mode ?? 'modal',
     signInButton: {
       label: props.signInButton?.label ?? 'Connect Wallet',
       className: props.signInButton?.className ?? '',

@@ -8,10 +8,10 @@ import { ConnectWalletContext } from '~/providers';
 import { MobileConnectButton } from './mobile';
 import { DesktopConnectButton } from './desktop';
 
-import type { ConnectWalletProps } from '~/types';
+import type { ConnectWalletProps, DeepPartial } from '~/types';
 import { buildConnectWalletProps } from '~/lib/helpers';
 
-export const ConnectWallet = (props: Partial<ConnectWalletProps>) => {
+export const ConnectWallet = (props: DeepPartial<ConnectWalletProps>) => {
   const { data: account } = useAccount();
 
   const { isMobile } = useIsMobile();

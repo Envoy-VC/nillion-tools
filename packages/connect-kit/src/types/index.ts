@@ -1,4 +1,5 @@
 import { type CSSProperties } from 'react';
+import type { supportedWallets } from '~/providers';
 
 type WelcomeScreen =
   | {
@@ -9,6 +10,7 @@ type WelcomeScreen =
   | (() => React.ReactNode);
 
 export interface ConnectWalletProps {
+  mode: 'inline' | 'modal';
   signInButton: {
     label: string;
     className: string;
@@ -28,3 +30,14 @@ export interface ConnectWalletProps {
     welcomeScreen?: WelcomeScreen;
   };
 }
+
+export type WalletType = keyof typeof supportedWallets;
+export type Screen = 'home' | 'connecting' | 'error';
+
+export type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends (infer U)[]
+    ? DeepPartial<U>[]
+    : T[P] extends object | undefined
+      ? DeepPartial<T[P]>
+      : T[P];
+};

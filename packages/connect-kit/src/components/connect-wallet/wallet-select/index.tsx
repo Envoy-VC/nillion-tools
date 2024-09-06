@@ -1,4 +1,4 @@
-import { type WalletType } from '~/lib/stores';
+import { type WalletType } from '~/types';
 import { useConnectKitStore } from '~/lib/hooks';
 
 import { AnimatePresence } from 'framer-motion';
