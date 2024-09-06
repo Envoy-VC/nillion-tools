@@ -11,6 +11,7 @@ export const CosmosProvider = ({ children }: PropsWithChildren) => {
     <GrazProvider
       grazOptions={{
         chains: [nillionTestnet],
+        autoReconnect: false,
         walletConnect: {
           options: { projectId: env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID },
         },
