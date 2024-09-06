@@ -8,5 +8,4 @@ export type {
   PartialConnectWalletProps as ConnectWalletProps,
   WalletType,
   Screen,
-  DeepPartial,
 } from './types';

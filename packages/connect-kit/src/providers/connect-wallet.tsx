@@ -3,6 +3,11 @@ import type { ConnectWalletProps } from '~/types';
 
 export const ConnectWalletContext = createContext<ConnectWalletProps>({
   mode: 'modal',
+  chainOptions: {
+    chains: [],
+    defaultChain: '',
+    chainInfos: [],
+  },
   signInButton: {
     label: 'Connect Wallet',
     className: '',

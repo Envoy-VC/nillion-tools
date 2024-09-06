@@ -93,6 +93,7 @@ export const WalletButton = ({ type, wallet, index }: WalletButtonProps) => {
           }
         } catch (error) {
           const serialized = errorHandler(error);
+          console.log(serialized);
           setError(serialized.message ?? 'An Unknown Error Occurred');
           setActiveScreen('error');
         }
