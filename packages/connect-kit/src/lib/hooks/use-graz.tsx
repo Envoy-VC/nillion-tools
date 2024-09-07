@@ -1,5 +1,6 @@
 import {
   useConnect,
+  useDisconnect,
   useSuggestChainAndConnect,
   type WalletType as GrazWalletType,
 } from 'graz';
@@ -17,12 +18,14 @@ export const useGraz = () => {
     setActiveWalletType,
     setError,
     setActiveScreen,
+    setIsModalOpen,
     defaultChain,
     chains,
   } = useConnectKitStore();
   const { chain } = useConnectWallet();
   const { suggestAndConnectAsync } = useSuggestChainAndConnect();
   const { connectAsync } = useConnect();
+  const { disconnectAsync } = useDisconnect();
 
   const connect = async (type: WalletType) => {
     try {
@@ -54,6 +57,8 @@ export const useGraz = () => {
       if (!address) {
         throw new Error('Failed to connect');
       }
+      setActiveScreen('home');
+      setActiveWalletType(null);
     } catch (error) {
       const serialized = errorHandler(error);
       setError(serialized.message ?? 'An Unknown Error Occurred');
@@ -61,5 +66,12 @@ export const useGraz = () => {
     }
   };
 
-  return { connect };
+  const onDisconnect = async () => {
+    await disconnectAsync();
+    setActiveScreen('home');
+    setIsModalOpen(false);
+    setError(null);
+  };
+
+  return { connect, onDisconnect };
 };

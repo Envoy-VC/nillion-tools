@@ -29,5 +29,10 @@ export const useConnectKitStore = () => {
     store.setActiveScreen('home');
   };
 
-  return { ...store, onDialogOpenChange, onBack, onClose };
+  return {
+    ...store,
+    onDialogOpenChange,
+    onBack,
+    onClose,
+  };
 };

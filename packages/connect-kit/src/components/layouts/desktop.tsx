@@ -5,8 +5,16 @@ import { TermsAndConditions } from '../terms';
 import { WalletSelectList } from '../connect-wallet/wallet-select';
 import { AnimateChangeInHeight } from '../ui/animate-height';
 import { Header } from '../header';
+import { cn } from '~/lib/utils';
 
-export const DesktopLayout = ({ children }: PropsWithChildren) => {
+interface DesktopLayoutProps extends PropsWithChildren {
+  isUserModal?: boolean;
+}
+
+export const DesktopLayout = ({
+  children,
+  isUserModal = false,
+}: DesktopLayoutProps) => {
   const { modalOptions } = useConnectWallet();
 
   if (modalOptions.size === 'compact') {
@@ -15,12 +23,12 @@ export const DesktopLayout = ({ children }: PropsWithChildren) => {
         <div className='ck-pt-5 ck-pb-3'>
           <div className='ck-relative ck-text-center'>
             <Header />
-            <div className='absolute ck-top-1/2 ck--translate-y-1/2 ck-w-full ck-px-3'>
+            <div className='ck-absolute ck-top-1/2 ck--translate-y-1/2 ck-w-full ck-px-3'>
               <Navigation />
             </div>
           </div>
           <div className='ck-px-3'>{children}</div>
-          <TermsAndConditions />
+          {!isUserModal && <TermsAndConditions />}
         </div>
       </AnimateChangeInHeight>
     );
@@ -28,20 +36,30 @@ export const DesktopLayout = ({ children }: PropsWithChildren) => {
 
   return (
     <AnimateChangeInHeight>
-      <div className='ck-flex ck-flex-row ck-w-full ck-gap-2'>
-        <div className='ck-flex ck-w-full ck-basis-2/5 ck-px-3'>
-          <div className='ck-relative ck-flex ck-w-full ck-flex-col ck-min-h-[20rem] ck-py-5'>
-            <Header />
-            <WalletSelectList />
+      <div className='ck-flex ck-flex-row ck-w-full ck-gap-1'>
+        {!isUserModal && (
+          <div className='ck-flex ck-w-full ck-basis-2/5 ck-px-3'>
+            <div className='ck-relative ck-flex ck-w-full ck-flex-col ck-min-h-[20rem] ck-py-5'>
+              <Header />
+              <WalletSelectList />
+            </div>
           </div>
-        </div>
-        <div className='ck-min-h-full ck-border-r' />
-        <div className='ck-flex ck-flex-col ck-basis-3/5 ck-w-full ck-py-5 ck-relative ck-justify-between'>
-          <div className='absolute ck-top-4 ck-w-full'>
-            <Navigation />
+        )}
+        {!isUserModal && <div className='ck-min-h-full ck-border-r' />}
+        <div
+          className={cn(
+            'ck-flex ck-flex-col ck-w-full ck-pt-5 ck-pb-3 ck-relative ck-justify-start',
+            isUserModal ? '' : 'ck-basis-3/5'
+          )}
+        >
+          <div className='ck-text-center'>
+            <div className='ck-absolute ck-top-2 ck-w-full  ck-px-3'>
+              <Navigation />
+            </div>
+            {isUserModal ? <Header /> : null}
           </div>
-          {children}
-          <TermsAndConditions />
+          <div className='ck-px-3'>{children}</div>
+          {!isUserModal && <TermsAndConditions />}
         </div>
       </div>
     </AnimateChangeInHeight>

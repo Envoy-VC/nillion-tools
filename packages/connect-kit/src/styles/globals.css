@@ -12,7 +12,7 @@
     --ck-primary: rgb(23, 23, 23);
     --ck-primary-foreground: rgb(250, 250, 250);
 
-    --ck-secondary: rgba(242, 239, 243, 0.25);
+    --ck-secondary: rgba(242, 239, 243, 0.5);
     --ck-secondary-hover: rgb(242, 239, 243);
     --secondary-foreground: rgba(23, 23, 23, 1);
 
@@ -36,7 +36,7 @@
     --ck-primary: rgb(250, 250, 250);
     --ck-primary-foreground: rgb(23, 23, 23);
 
-    --ck-secondary: rgba(27, 28, 34, 0);
+    --ck-secondary: rgba(27, 28, 34, 0.5);
     --ck-secondary-hover: rgb(27, 28, 34);
     --ck-secondary-foreground: rgba(250, 250, 250, 1);
 

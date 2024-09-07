@@ -4,19 +4,19 @@ import { ChevronLeft, X } from 'lucide-react';
 import { cn } from '~/lib/utils';
 
 export const Navigation = () => {
-  const { activeWalletType, onBack, onClose } = useConnectKitStore();
+  const { activeScreen, onBack, onClose } = useConnectKitStore();
   const { mode } = useConnectWallet();
 
   return (
     <div
       className={cn(
         'ck-w-full ck-flex ck-flex-row ck-items-center',
-        activeWalletType ? 'ck-justify-between' : 'ck-justify-end'
+        activeScreen !== 'home' ? 'ck-justify-between' : 'ck-justify-end'
       )}
     >
-      {activeWalletType ? (
+      {activeScreen !== 'home' ? (
         <Button
-          className='!ck-m-0 !ck-p-0 ck-cursor-pointer hover:ck-bg-neutral-100 !ck-rounded-xl ck-w-9 ck-h-9 ck-transition-all ck-duration-300 ck-ease-in-out'
+          className='!ck-m-0 !ck-p-0 ck-cursor-pointer hover:ck-bg-secondary-hover !ck-rounded-xl ck-w-9 ck-h-9 ck-transition-all ck-duration-300 ck-ease-in-out'
           variant='link'
           onClick={onBack}
         >
@@ -26,7 +26,7 @@ export const Navigation = () => {
 
       {mode === 'modal' && (
         <Button
-          className='!ck-m-0 !ck-p-0 ck-cursor-pointer hover:ck-bg-neutral-100 !ck-rounded-xl ck-w-9 ck-h-9 ck-transition-all ck-duration-300 ck-ease-in-out'
+          className='!ck-m-0 !ck-p-0 ck-cursor-pointer hover:ck-bg-secondary-hover !ck-rounded-xl ck-w-9 ck-h-9 ck-transition-all ck-duration-300 ck-ease-in-out'
           variant='link'
           onClick={onClose}
         >

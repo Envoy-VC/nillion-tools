@@ -3,7 +3,7 @@ import { WelcomeIcon } from './icons/welcome';
 
 export const Welcome = () => {
   return (
-    <div className='ck-flex ck-flex-col ck-justify-between ck-h-full'>
+    <div className='ck-flex ck-flex-col ck-justify-start'>
       <AnimateSlide>
         <div className='ck-min-h-[16rem] ck-flex ck-flex-col ck-gap-4 ck-pb-5 ck-justify-center ck-items-center'>
           <WelcomeIcon height={200} width={200} />

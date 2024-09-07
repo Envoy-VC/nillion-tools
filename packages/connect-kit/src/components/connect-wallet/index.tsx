@@ -10,9 +10,17 @@ import { DesktopConnectButton } from './desktop';
 
 import type { PartialConnectWalletProps } from '~/types';
 import { buildConnectWalletProps } from '~/lib/helpers';
-import { UserButton } from '../user-button';
+import { DesktopUserModal, MobileUserModal } from '../user-modal';
 
 export const ConnectWallet = (props: PartialConnectWalletProps) => {
+  return (
+    <ConnectWalletContext.Provider value={buildConnectWalletProps(props)}>
+      <Modal />
+    </ConnectWalletContext.Provider>
+  );
+};
+
+const Modal = () => {
   const { isConnected } = useAccount();
 
   const { isMobile } = useIsMobile();
@@ -20,10 +28,8 @@ export const ConnectWallet = (props: PartialConnectWalletProps) => {
 
   if (!isConnected) {
     return (
-      <ConnectWalletContext.Provider value={buildConnectWalletProps(props)}>
-        {isMobileDevice ? <MobileConnectButton /> : <DesktopConnectButton />}
-      </ConnectWalletContext.Provider>
+      <>{isMobileDevice ? <MobileConnectButton /> : <DesktopConnectButton />}</>
     );
   }
-  return <UserButton />;
+  return <>{isMobileDevice ? <MobileUserModal /> : <DesktopUserModal />}</>;
 };

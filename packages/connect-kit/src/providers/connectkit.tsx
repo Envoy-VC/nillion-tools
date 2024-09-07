@@ -20,7 +20,6 @@ export const supportedWallets = {
 export interface ConnectKitState {
   supportedWallets: typeof supportedWallets;
   isModalOpen: boolean;
-  isUserModalOpen: boolean;
   activeScreen: Screen;
   activeWalletType: WalletType | null;
   error: string | null;
@@ -40,7 +39,6 @@ export type ConnectKitAction =
 const initialState: ConnectKitState = {
   supportedWallets,
   isModalOpen: false,
-  isUserModalOpen: false,
   activeScreen: 'home',
   activeWalletType: null,
   error: null,
@@ -63,8 +61,6 @@ const connectKitReducer = (
       return { ...state, showAllWallets: action.payload };
     case 'SET_ACTIVE_SCREEN':
       return { ...state, activeScreen: action.payload };
-    case 'SET_IS_USER_MODAL_OPEN':
-      return { ...state, isUserModalOpen: action.payload };
     default:
       return state;
   }
@@ -76,7 +72,6 @@ export interface ConnectKitActions {
   setError: (error: string | null) => void;
   setShowAllWallets: (showAllWallets: boolean) => void;
   setActiveScreen: (activeScreen: Screen) => void;
-  setIsUserModalOpen: (isUserModalOpen: boolean) => void;
 }
 
 export type ConnectKitProps = ConnectKitState & ConnectKitActions;
@@ -88,7 +83,6 @@ export const ConnectKitContext = createContext<ConnectKitProps>({
   setError: () => null,
   setShowAllWallets: () => null,
   setActiveScreen: () => null,
-  setIsUserModalOpen: () => null,
 });
 
 export interface ConnectKitProviderProps {
@@ -119,8 +113,6 @@ export const ConnectKitProvider = (props: ConnectKitProviderProps) => {
       dispatch({ type: 'SET_SHOW_ALL_WALLETS', payload: showAllWallets }),
     setActiveScreen: (activeScreen: Screen) =>
       dispatch({ type: 'SET_ACTIVE_SCREEN', payload: activeScreen }),
-    setIsUserModalOpen: (isUserModalOpen: boolean) =>
-      dispatch({ type: 'SET_IS_USER_MODAL_OPEN', payload: isUserModalOpen }),
   };
 
   return (
