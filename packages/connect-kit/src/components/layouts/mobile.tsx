@@ -5,7 +5,13 @@ import { TermsAndConditions } from '../terms';
 import { AnimateChangeInHeight } from '../ui/animate-height';
 import { Header } from '../header';
 
-export const MobileLayout = ({ children }: PropsWithChildren) => {
+interface MobileLayoutProps extends PropsWithChildren {
+  isUserModal?: boolean;
+}
+export const MobileLayout = ({
+  children,
+  isUserModal = false,
+}: MobileLayoutProps) => {
   return (
     <AnimateChangeInHeight>
       <div className='ck-py-2 ck-w-full'>
@@ -16,7 +22,7 @@ export const MobileLayout = ({ children }: PropsWithChildren) => {
           </div>
         </div>
         <div className='ck-px-3'>{children}</div>
-        <TermsAndConditions />
+        {!isUserModal && <TermsAndConditions />}
       </div>
     </AnimateChangeInHeight>
   );
