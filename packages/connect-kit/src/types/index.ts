@@ -18,7 +18,7 @@ export interface ConnectWalletProps {
   };
   mode: 'inline' | 'modal';
   signInButton: {
-    label: string;
+    label: ReactNode;
     className: string;
     style: CSSProperties;
   };
@@ -37,7 +37,7 @@ export interface ConnectWalletProps {
 }
 
 export type WalletType = keyof typeof supportedWallets;
-export type Screen = 'home' | 'connecting';
+export type Screen = 'home' | 'connecting' | 'error';
 
 export interface PartialConnectWalletProps {
   chainOptions?: {

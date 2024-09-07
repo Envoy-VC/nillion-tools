@@ -1,36 +1,19 @@
 import { useConnectKitStore, useConnectWallet } from '~/lib/hooks';
 
 import { Dialog, DialogContent, DialogTrigger } from '~/components/ui/dialog';
-import { cn, sleep } from '~/lib/utils';
+import { cn } from '~/lib/utils';
 import { ConnectButtonTrigger } from './trigger';
 import { WalletScreen } from '~/components/screens';
 import { DesktopLayout } from '../layouts';
 
 export const DesktopConnectButton = () => {
-  const {
-    isModalOpen,
-    setIsModalOpen,
-    setActiveWalletType,
-    setError,
-    setShowAllWallets,
-  } = useConnectKitStore();
+  const { isModalOpen, onDialogOpenChange } = useConnectKitStore();
 
   const { modalOptions, mode } = useConnectWallet();
 
   if (mode === 'modal') {
     return (
-      <Dialog
-        open={isModalOpen}
-        onOpenChange={async (open) => {
-          setIsModalOpen(open);
-          await sleep(500);
-          if (!open) {
-            setError(null);
-            setActiveWalletType(null);
-            setShowAllWallets(false);
-          }
-        }}
-      >
+      <Dialog open={isModalOpen} onOpenChange={onDialogOpenChange}>
         <DialogTrigger>
           <ConnectButtonTrigger />
         </DialogTrigger>

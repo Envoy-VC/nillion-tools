@@ -1,5 +1,6 @@
 import { HomeScreen } from './home';
 import { ConnectingScreen } from './connecting';
+import { ErrorScreen } from './error';
 import { useConnectKitStore } from '~/lib/hooks';
 
 export const WalletScreen = () => {
@@ -11,6 +12,6 @@ export const WalletScreen = () => {
     case 'connecting':
       return <ConnectingScreen />;
     case 'error':
-      return <ConnectingScreen />;
+      return <ErrorScreen />;
   }
 };

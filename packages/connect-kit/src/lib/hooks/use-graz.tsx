@@ -51,6 +51,7 @@ export const useGraz = () => {
     } catch (error) {
       const serialized = errorHandler(error);
       setError(serialized.message ?? 'An Unknown Error Occurred');
+      setActiveScreen('error');
     }
   };
 
