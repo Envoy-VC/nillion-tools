@@ -18,7 +18,7 @@ export const CosmosProvider = ({ children }: PropsWithChildren) => {
         return undefined;
       }
     })
-    .filter((c) => !!c);
+    .filter((c) => c !== undefined);
 
   return (
     <GrazProvider
