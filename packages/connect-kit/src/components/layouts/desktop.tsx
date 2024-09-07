@@ -4,6 +4,7 @@ import { Navigation } from '../navigation';
 import { TermsAndConditions } from '../terms';
 import { WalletSelectList } from '../connect-wallet/wallet-select';
 import { AnimateChangeInHeight } from '../ui/animate-height';
+import { Header } from '../header';
 
 export const DesktopLayout = ({ children }: PropsWithChildren) => {
   const { modalOptions } = useConnectWallet();
@@ -13,9 +14,7 @@ export const DesktopLayout = ({ children }: PropsWithChildren) => {
       <AnimateChangeInHeight>
         <div className='ck-pt-5 ck-pb-3'>
           <div className='ck-relative ck-text-center'>
-            <div className='ck-font-semibold ck-text-base px-2 ck-text-center'>
-              {modalOptions.title}
-            </div>
+            <Header />
             <div className='absolute ck-top-1/2 ck--translate-y-1/2 ck-w-full ck-px-3'>
               <Navigation />
             </div>
@@ -32,9 +31,7 @@ export const DesktopLayout = ({ children }: PropsWithChildren) => {
       <div className='ck-flex ck-flex-row ck-w-full ck-gap-2'>
         <div className='ck-flex ck-w-full ck-basis-2/5 ck-px-3'>
           <div className='ck-relative ck-flex ck-w-full ck-flex-col ck-min-h-[20rem] ck-py-5'>
-            <div className='ck-font-semibold ck-text-base px-2 ck-text-start'>
-              {modalOptions.title}
-            </div>
+            <Header />
             <WalletSelectList />
           </div>
         </div>

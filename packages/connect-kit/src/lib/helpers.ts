@@ -1,14 +1,14 @@
 import type { ConnectWalletProps, PartialConnectWalletProps } from '~/types';
 import { nillionTestnet } from './chain';
+import { type Coin } from '@keplr-wallet/types';
 
 export const buildConnectWalletProps = (
   props: PartialConnectWalletProps
 ): ConnectWalletProps => {
   const newProps: ConnectWalletProps = {
     chainOptions: {
-      chains: props.chainOptions?.chains ?? [nillionTestnet.chainId],
-      defaultChain: props.chainOptions?.defaultChain ?? nillionTestnet.chainId,
-      chainInfos: props.chainOptions?.chainInfos ?? [nillionTestnet],
+      chains: props.chainOptions?.chains ?? [nillionTestnet],
+      defaultChain: props.chainOptions?.defaultChain ?? nillionTestnet,
     },
     mode: props.mode ?? 'modal',
     signInButton: {
@@ -30,4 +30,12 @@ export const buildConnectWalletProps = (
     },
   };
   return newProps;
+};
+
+export const formatBalance = (coin: Coin, decimals: number) => {
+  const formattedAmount = new Intl.NumberFormat('en-US', {
+    maximumFractionDigits: 3,
+  }).format(Number(coin.amount) / 10 ** decimals);
+
+  return `${formattedAmount} ${coin.denom}`;
 };

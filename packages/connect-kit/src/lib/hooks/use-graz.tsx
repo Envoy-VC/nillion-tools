@@ -26,25 +26,22 @@ export const useGraz = () => {
       setActiveWalletType(type);
       setActiveScreen('connecting');
 
-      const chainInfo = chainOptions.chainInfos.find(
-        (i) => i.chainId === chainOptions.defaultChain
-      );
-
       let res;
 
-      if (chainInfo && !isMobileDevice) {
+      if (!isMobileDevice) {
         res = await suggestAndConnectAsync({
           chainInfo: nillionTestnet,
           walletType: type as GrazWalletType,
         });
       } else {
         res = await connectAsync({
-          chainId: chainOptions.defaultChain,
+          chainId: chainOptions.defaultChain.chainId,
           walletType: type as GrazWalletType,
         });
       }
 
-      const address = res.accounts[chainOptions.defaultChain]?.bech32Address;
+      const address =
+        res.accounts[chainOptions.defaultChain.chainId]?.bech32Address;
       if (!address) {
         throw new Error('Failed to connect');
       }

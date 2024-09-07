@@ -45,6 +45,7 @@ const config = {
           foreground: 'var(--ck-link-foreground)',
         },
         muted: {
+          DEFAULT: 'var(--ck-muted)',
           foreground: 'var(--ck-muted-foreground)',
         },
         accent: {

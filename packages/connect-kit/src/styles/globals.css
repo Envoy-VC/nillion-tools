@@ -14,7 +14,7 @@
 
     --ck-secondary: rgba(242, 239, 243, 0.25);
     --ck-secondary-hover: rgb(242, 239, 243);
-    --secondary-foreground: rgb(23, 23, 23);
+    --secondary-foreground: rgba(23, 23, 23, 1);
 
     --ck-muted-foreground: rgb(115, 115, 115);
 
@@ -25,6 +25,8 @@
     --ck-link-hover: rgb(64, 64, 64);
 
     --ck-accent: rgb(245, 245, 245);
+
+    --ck-muted: rgb(241, 245, 249);
   }
 
   .dark {
@@ -36,7 +38,7 @@
 
     --ck-secondary: rgba(27, 28, 34, 0);
     --ck-secondary-hover: rgb(27, 28, 34);
-    --ck-secondary-foreground: rgb(250, 250, 250);
+    --ck-secondary-foreground: rgba(250, 250, 250, 1);
 
     --ck-muted-foreground: rgb(163, 163, 163);
 
@@ -47,6 +49,8 @@
     --ck-link-hover: rgb(255, 255, 255);
 
     --ck-accent: rgb(38, 38, 38);
+
+    --ck-muted: rgb(38, 38, 38);
   }
 }
 

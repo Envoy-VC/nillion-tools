@@ -12,9 +12,8 @@ type WelcomeScreen =
 
 export interface ConnectWalletProps {
   chainOptions: {
-    chains: string[];
-    defaultChain: string;
-    chainInfos: ChainInfo[];
+    chains: ChainInfo[];
+    defaultChain: ChainInfo;
   };
   mode: 'inline' | 'modal';
   signInButton: {
@@ -41,9 +40,8 @@ export type Screen = 'home' | 'connecting' | 'error';
 
 export interface PartialConnectWalletProps {
   chainOptions?: {
-    chains?: string[];
-    defaultChain?: string;
-    chainInfos?: ChainInfo[];
+    chains?: ChainInfo[];
+    defaultChain?: ChainInfo;
   };
   mode?: 'inline' | 'modal';
   signInButton?: {

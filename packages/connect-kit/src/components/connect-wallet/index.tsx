@@ -10,6 +10,7 @@ import { DesktopConnectButton } from './desktop';
 
 import type { PartialConnectWalletProps } from '~/types';
 import { buildConnectWalletProps } from '~/lib/helpers';
+import { UserButton } from '../user-button';
 
 export const ConnectWallet = (props: PartialConnectWalletProps) => {
   const { isConnected } = useAccount();
@@ -24,5 +25,5 @@ export const ConnectWallet = (props: PartialConnectWalletProps) => {
       </ConnectWalletContext.Provider>
     );
   }
-  return <div>User Modal</div>;
+  return <UserButton />;
 };
