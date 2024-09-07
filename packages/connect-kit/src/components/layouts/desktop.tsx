@@ -20,7 +20,7 @@ export const DesktopLayout = ({
   if (modalOptions.size === 'compact') {
     return (
       <AnimateChangeInHeight>
-        <div className='ck-pt-5 ck-pb-3'>
+        <div className='ck-pt-3 ck-pb-3'>
           <div className='ck-relative ck-text-center'>
             <Header />
             <div className='ck-absolute ck-top-1/2 ck--translate-y-1/2 ck-w-full ck-px-3'>

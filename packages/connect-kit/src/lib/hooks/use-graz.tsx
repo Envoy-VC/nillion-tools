@@ -1,6 +1,7 @@
 import {
   useConnect,
   useDisconnect,
+  useStargateSigningClient,
   useSuggestChainAndConnect,
   type WalletType as GrazWalletType,
 } from 'graz';
@@ -10,9 +11,17 @@ import { useConnectKitStore } from './use-connect-kit-store';
 import type { WalletType } from '~/types';
 import { errorHandler } from '../utils';
 
+export interface TransactionType {
+  hash: string;
+  height: number;
+  attributes: Record<string, Record<string, string>>;
+  success: boolean;
+}
+
 export const useGraz = () => {
   const { isMobile } = useIsMobile();
   const isMobileDevice = isMobile();
+  const { data: stargateClient } = useStargateSigningClient();
 
   const {
     setActiveWalletType,
@@ -73,5 +82,48 @@ export const useGraz = () => {
     setError(null);
   };
 
-  return { connect, onDisconnect };
+  const getTxns = async () => {
+    if (!stargateClient) return [];
+
+    const txns = await stargateClient.searchTx([
+      {
+        key: 'message.sender',
+        value: 'nillion1l478gs22zdkavwegdcfh4gqcfe88ymjns6cmcx',
+      },
+    ]);
+
+    const eventAttributes: Record<string, Record<string, string>> = {};
+
+    const parsedTxns = txns.map((tx) => {
+      const eventTypes = Array.from(
+        new Set(
+          tx.events.map((e) => {
+            return e.type;
+          })
+        )
+      );
+      eventTypes.forEach((type) => {
+        const messageEvents = tx.events.filter((e) => e.type === type);
+        const attributes: Record<string, string> = {};
+
+        messageEvents.forEach((e) => {
+          e.attributes.forEach((attr) => {
+            attributes[attr.key] = attr.value;
+          });
+        });
+
+        eventAttributes[type] = attributes;
+      });
+      return {
+        hash: tx.hash,
+        height: tx.height,
+        attributes: eventAttributes,
+        success: tx.code === 0,
+      };
+    });
+
+    return parsedTxns as TransactionType[];
+  };
+
+  return { connect, onDisconnect, getTxns };
 };

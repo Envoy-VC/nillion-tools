@@ -7,7 +7,20 @@ export const Header = () => {
     useConnectKitStore();
   const { modalOptions } = useConnectWallet();
 
-  if (activeScreen === 'home' && !data) {
+  const isUserModal = Boolean(data);
+
+  if (isUserModal) {
+    if (activeScreen === 'activity') {
+      return (
+        <div className='ck-font-semibold ck-text-base px-2 ck-text-center'>
+          Activity
+        </div>
+      );
+    }
+    return null;
+  }
+
+  if (activeScreen === 'home') {
     return (
       <div className='ck-font-semibold ck-text-base px-2 ck-text-center'>
         {modalOptions.title}

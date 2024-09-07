@@ -1,5 +1,5 @@
 import Avatar from 'avvvatars-react';
-import { useGraz, useUser } from '~/lib/hooks';
+import { useConnectKitStore, useGraz, useUser } from '~/lib/hooks';
 import { truncate } from '~/lib/utils';
 import { Skeleton } from '../ui/skeleton';
 import { Button } from '../ui/button';
@@ -8,6 +8,7 @@ import { ArrowRightLeftIcon, ChevronRightIcon, LogOutIcon } from 'lucide-react';
 export const UserModalHome = () => {
   const { account, balance, currency, chainInfo } = useUser();
   const { onDisconnect } = useGraz();
+  const { setActiveScreen } = useConnectKitStore();
   if (!account) return null;
 
   return (
@@ -61,6 +62,9 @@ export const UserModalHome = () => {
         <Button
           className='ck-w-full !ck-rounded-2xl ck-flex ck-flex-row ck-items-center ck-gap-2 !ck-justify-between ck-h-12'
           variant='secondary'
+          onClick={() => {
+            setActiveScreen('activity');
+          }}
         >
           <div className='ck-flex ck-flex-row ck-items-center ck-gap-2'>
             <div className='ck-h-8 ck-w-8 ck-rounded-full ck-bg-[#E2E6FB] ck-flex ck-items-center ck-justify-center'>

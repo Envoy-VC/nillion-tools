@@ -2,6 +2,8 @@ import type { ChainInfo } from '@keplr-wallet/types';
 import { createContext, useReducer, type ReactNode } from 'react';
 import * as wallets from '~/lib/wallets';
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 import type { WalletType, Screen } from '~/types';
 
 export const supportedWallets = {
@@ -91,6 +93,8 @@ export interface ConnectKitProviderProps {
   defaultChain?: ChainInfo;
 }
 
+const queryClient = new QueryClient({});
+
 export const ConnectKitProvider = (props: ConnectKitProviderProps) => {
   const [state, dispatch] = useReducer(connectKitReducer, initialState);
 
@@ -116,15 +120,17 @@ export const ConnectKitProvider = (props: ConnectKitProviderProps) => {
   };
 
   return (
-    <ConnectKitContext.Provider
-      value={{
-        ...state,
-        chains: props.chains ?? [],
-        defaultChain: props.defaultChain,
-        ...actions,
-      }}
-    >
-      {props.children}
-    </ConnectKitContext.Provider>
+    <QueryClientProvider key='connect-kit-provider' client={queryClient}>
+      <ConnectKitContext.Provider
+        value={{
+          ...state,
+          chains: props.chains ?? [],
+          defaultChain: props.defaultChain,
+          ...actions,
+        }}
+      >
+        {props.children}
+      </ConnectKitContext.Provider>
+    </QueryClientProvider>
   );
 };

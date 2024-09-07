@@ -3,6 +3,7 @@ import { ConnectingScreen } from './connecting';
 import { ErrorScreen } from './error';
 import { UserModalHome } from './user-modal-home';
 import { useConnectKitStore } from '~/lib/hooks';
+import { ActivityScreen } from './activity-screen';
 
 interface WalletScreenProps {
   isUserModal?: boolean;
@@ -18,5 +19,7 @@ export const WalletScreen = ({ isUserModal = false }: WalletScreenProps) => {
       return <ConnectingScreen />;
     case 'error':
       return <ErrorScreen />;
+    case 'activity':
+      return <ActivityScreen />;
   }
 };
