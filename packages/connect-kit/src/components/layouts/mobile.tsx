@@ -9,12 +9,12 @@ export const MobileLayout = ({ children }: PropsWithChildren) => {
 
   return (
     <AnimateChangeInHeight>
-      <div className='ck-pb-2'>
+      <div className='ck-py-2 ck-w-full'>
         <div className='ck-relative ck-text-center ck-px-3'>
           <div className='ck-font-semibold ck-text-base px-2 ck-text-center'>
             {modalOptions.title}
           </div>
-          <div className='absolute ck-top-1/2 ck--translate-y-1/2 ck-w-full'>
+          <div className='absolute ck-top-1/2 ck--translate-y-1/2 ck-w-full ck-px-5'>
             <Navigation />
           </div>
         </div>

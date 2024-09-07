@@ -17,13 +17,13 @@ export const Navigation = () => {
   return (
     <div
       className={cn(
-        'ck-w-full ck-flex ck-flex-row ck-items-center ck-px-3',
+        'ck-w-full ck-flex ck-flex-row ck-items-center',
         activeWalletType ? 'ck-justify-between' : 'ck-justify-end'
       )}
     >
       {activeWalletType ? (
         <Button
-          className='ck-m-0 ck-p-0 ck-cursor-pointer'
+          className='!ck-m-0 !ck-p-0 ck-cursor-pointer hover:ck-bg-neutral-100 !ck-rounded-xl ck-w-9 ck-h-9 ck-transition-all ck-duration-300 ck-ease-in-out'
           variant='link'
           onClick={() => {
             setActiveWalletType(null);
@@ -37,7 +37,7 @@ export const Navigation = () => {
 
       {mode === 'modal' && (
         <Button
-          className='ck-m-0 ck-p-0 ck-cursor-pointer'
+          className='!ck-m-0 !ck-p-0 ck-cursor-pointer hover:ck-bg-neutral-100 !ck-rounded-xl ck-w-9 ck-h-9 ck-transition-all ck-duration-300 ck-ease-in-out'
           variant='link'
           onClick={async () => {
             setIsModalOpen(false);
@@ -48,7 +48,7 @@ export const Navigation = () => {
             setActiveScreen('home');
           }}
         >
-          <X size={16} strokeWidth={3} />
+          <X size={18} strokeWidth={3} />
         </Button>
       )}
     </div>

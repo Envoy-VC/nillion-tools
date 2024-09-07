@@ -12,11 +12,11 @@ export const DesktopLayout = ({ children }: PropsWithChildren) => {
     return (
       <AnimateChangeInHeight>
         <div className='ck-pt-5 ck-pb-3'>
-          <div className='ck-relative ck-text-center ck-px-3'>
+          <div className='ck-relative ck-text-center'>
             <div className='ck-font-semibold ck-text-base px-2 ck-text-center'>
               {modalOptions.title}
             </div>
-            <div className='absolute ck-top-1/2 ck--translate-y-1/2 ck-w-full'>
+            <div className='absolute ck-top-1/2 ck--translate-y-1/2 ck-w-full ck-px-3'>
               <Navigation />
             </div>
           </div>

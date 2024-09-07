@@ -4,13 +4,15 @@
 
 @layer base {
   :root {
+    -webkit-tap-highlight-color: transparent;
+
     --ck-background: rgb(255, 255, 255);
     --ck-foreground: rgb(10, 10, 10);
 
     --ck-primary: rgb(23, 23, 23);
     --ck-primary-foreground: rgb(250, 250, 250);
 
-    --ck-secondary: rgb(242, 239, 243, 0);
+    --ck-secondary: rgba(242, 239, 243, 0.25);
     --ck-secondary-hover: rgb(242, 239, 243);
     --secondary-foreground: rgb(23, 23, 23);
 

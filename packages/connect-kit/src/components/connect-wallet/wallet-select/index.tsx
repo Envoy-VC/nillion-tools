@@ -57,7 +57,10 @@ export const WalletSelectList = () => {
               }}
             >
               <div className='ck-flex ck-flex-row ck-items-center ck-gap-[10px]'>
-                <WalletIcon className='ck-h-6 ck-w-6' />
+                <WalletIcon
+                  className='ck-h-7 ck-w-9 ck-text-primary'
+                  strokeWidth={1.5}
+                />
                 <div className='ck-text-base ck-font-medium'>
                   {showAllWallets ? 'Show less' : 'Show all Wallets'}
                 </div>

@@ -1,17 +1,10 @@
-import { nillionTestnet } from '~/lib/chain';
-
 import { type supportedWallets } from '~/providers';
 import type { WalletType } from '~/types';
-import { useConnectKitStore, useConnectWallet } from '~/lib/hooks';
-import { cn, errorHandler } from '~/lib/utils';
+import { useGraz } from '~/lib/hooks';
+import { cn } from '~/lib/utils';
 
 import { type Variants, motion } from 'framer-motion';
-import {
-  type WalletType as GrazWalletType,
-  checkWallet,
-  useConnect,
-  useSuggestChainAndConnect,
-} from 'graz';
+import { type WalletType as GrazWalletType, checkWallet } from 'graz';
 
 import { buttonVariants } from '~/components/ui/button';
 
@@ -22,11 +15,7 @@ interface WalletButtonProps {
 }
 
 export const WalletButton = ({ type, wallet, index }: WalletButtonProps) => {
-  const { setActiveWalletType, setError, setActiveScreen } =
-    useConnectKitStore();
-  const { chainOptions } = useConnectWallet();
-  const { suggestAndConnectAsync } = useSuggestChainAndConnect();
-  const { connectAsync } = useConnect();
+  const { connect } = useGraz();
 
   const variants: Variants = {
     initial: {
@@ -63,40 +52,7 @@ export const WalletButton = ({ type, wallet, index }: WalletButtonProps) => {
         buttonVariants({ variant: 'secondary' })
       )}
       onClick={async () => {
-        try {
-          setError(null);
-          setActiveWalletType(type);
-          setActiveScreen('connecting');
-
-          const chainInfo = chainOptions.chainInfos.find(
-            (i) => i.chainId === chainOptions.defaultChain
-          );
-
-          let res;
-
-          if (chainInfo) {
-            res = await suggestAndConnectAsync({
-              chainInfo: nillionTestnet,
-              walletType: type as GrazWalletType,
-            });
-          } else {
-            res = await connectAsync({
-              chainId: chainOptions.defaultChain,
-              walletType: type as GrazWalletType,
-            });
-          }
-
-          const address =
-            res.accounts[chainOptions.defaultChain]?.bech32Address;
-          if (!address) {
-            throw new Error('Failed to connect');
-          }
-        } catch (error) {
-          const serialized = errorHandler(error);
-          console.log(serialized);
-          setError(serialized.message ?? 'An Unknown Error Occurred');
-          setActiveScreen('error');
-        }
+        await connect(type);
       }}
     >
       <div className='ck-flex ck-flex-row ck-items-center ck-gap-[10px]'>
@@ -108,7 +64,7 @@ export const WalletButton = ({ type, wallet, index }: WalletButtonProps) => {
         <div className='ck-text-base ck-font-medium'>{wallet.prettyName}</div>
       </div>
       {isWalletReady ? (
-        <div className='ck-rounded-lg ck-bg-green-100 ck-px-2 ck-py-[2px] ck-text-[10px] ck-uppercase ck-tracking-tight ck-text-green-500'>
+        <div className='ck-rounded-lg ck-bg-[#DAF0E4] ck-px-[6px] ck-py-[2px] ck-text-[10px] ck-uppercase ck-tracking-tight ck-text-[#26b562] ck-font-semibold'>
           installed
         </div>
       ) : null}

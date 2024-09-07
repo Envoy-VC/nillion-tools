@@ -1,10 +1,12 @@
-import { useConnectKitStore } from '~/lib/hooks';
+import { useConnectKitStore, useGraz } from '~/lib/hooks';
 import { AnimateSlide } from '../animate-slide';
 import { cn } from '~/lib/utils';
-import { X } from 'lucide-react';
+import { RotateCcwIcon, X } from 'lucide-react';
 
 export const ConnectingScreen = () => {
   const { supportedWallets, activeWalletType, error } = useConnectKitStore();
+  const { connect } = useGraz();
+
   if (!activeWalletType) return null;
 
   const wallet = supportedWallets[activeWalletType];
@@ -39,6 +41,18 @@ export const ConnectingScreen = () => {
           <div className='ck-text-sm ck-font-medium ck-text-neutral-500'>
             Accept Connect request in wallet
           </div>
+          {error ? (
+            <button
+              className='ck-bg-[#F0F1FF] ck-text-[#677DFF] ck-border-[#E3E4F2] ck-h-8 ck-w-fit ck-px-4 !ck-rounded-full ck-text-sm ck-font-semibold ck-my-4 ck-mx-auto ck-flex ck-flex-row ck-items-center ck-gap-2'
+              type='button'
+              onClick={async () => {
+                await connect(activeWalletType);
+              }}
+            >
+              <RotateCcwIcon size={16} strokeWidth={3} />
+              Try again
+            </button>
+          ) : null}
         </div>
       </div>
     </AnimateSlide>

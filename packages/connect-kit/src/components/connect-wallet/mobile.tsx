@@ -44,7 +44,7 @@ export const MobileConnectButton = () => {
   }
 
   return (
-    <div className='!ck-rounded-3xl !ck-px-0 ck-w-full ck-py-0 ck-gap-4 ck-border ck-bg-background ck-p-6 ck-shadow-lg sm:ck-rounded-lg ck-max-w-[22rem]'>
+    <div className='!ck-rounded-3xl !ck-px-0 !ck-w-full ck-gap-4 ck-border ck-bg-background ck-p-6 ck-shadow-lg ck-max-w-[22rem] ck-py-3'>
       <MobileLayout>
         <WalletScreen />
       </MobileLayout>

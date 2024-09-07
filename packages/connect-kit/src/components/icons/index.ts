@@ -5,3 +5,4 @@ export { ICON as CosmostationExtensionIcon } from './cosmostation';
 export { ICON as StationExtensionIcon } from './station';
 export { ICON as XDEFIExtensionLogo } from './xdefi';
 export { ICON as CompassExtentionLogo } from './compass';
+export * from './welcome';

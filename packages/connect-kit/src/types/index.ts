@@ -37,7 +37,7 @@ export interface ConnectWalletProps {
 }
 
 export type WalletType = keyof typeof supportedWallets;
-export type Screen = 'home' | 'connecting' | 'error';
+export type Screen = 'home' | 'connecting';
 
 export interface PartialConnectWalletProps {
   chainOptions?: {
