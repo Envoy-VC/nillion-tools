@@ -1,4 +1,5 @@
 import {
+  useAccount,
   useConnect,
   useDisconnect,
   useStargateSigningClient,
@@ -22,6 +23,7 @@ export const useGraz = () => {
   const { isMobile } = useIsMobile();
   const isMobileDevice = isMobile();
   const { data: stargateClient } = useStargateSigningClient();
+  const { data: account } = useAccount();
 
   const {
     setActiveWalletType,
@@ -88,7 +90,7 @@ export const useGraz = () => {
     const txns = await stargateClient.searchTx([
       {
         key: 'message.sender',
-        value: 'nillion1l478gs22zdkavwegdcfh4gqcfe88ymjns6cmcx',
+        value: account?.bech32Address ?? '',
       },
     ]);
 
