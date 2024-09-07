@@ -44,7 +44,7 @@ export const ConnectKitDemo = () => {
               </Tabs>
             </div>
 
-            <ConnectWallet {...connectProps} />
+            <ConnectWallet {...connectProps} chain='celestia' />
           </div>
         </div>
       </div>

@@ -6,10 +6,7 @@ export const buildConnectWalletProps = (
   props: PartialConnectWalletProps
 ): ConnectWalletProps => {
   const newProps: ConnectWalletProps = {
-    chainOptions: {
-      chains: props.chainOptions?.chains ?? [nillionTestnet],
-      defaultChain: props.chainOptions?.defaultChain ?? nillionTestnet,
-    },
+    chain: props.chain ?? nillionTestnet.chainId,
     mode: props.mode ?? 'modal',
     signInButton: {
       label: props.signInButton?.label ?? 'Connect Wallet',
@@ -32,10 +29,10 @@ export const buildConnectWalletProps = (
   return newProps;
 };
 
-export const formatBalance = (coin: Coin, decimals: number) => {
+export const formatBalance = (coin: Coin, decimals: number, ticker: string) => {
   const formattedAmount = new Intl.NumberFormat('en-US', {
     maximumFractionDigits: 3,
   }).format(Number(coin.amount) / 10 ** decimals);
 
-  return `${formattedAmount} ${coin.denom}`;
+  return `${formattedAmount} ${ticker}`;
 };

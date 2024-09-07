@@ -7,16 +7,20 @@ import { useConnectWallet } from './use-connect-wallet';
 import { useIsMobile } from './use-is-mobile';
 import { useConnectKitStore } from './use-connect-kit-store';
 import type { WalletType } from '~/types';
-import { nillionTestnet } from '../chain';
 import { errorHandler } from '../utils';
 
 export const useGraz = () => {
   const { isMobile } = useIsMobile();
   const isMobileDevice = isMobile();
 
-  const { setActiveWalletType, setError, setActiveScreen } =
-    useConnectKitStore();
-  const { chainOptions } = useConnectWallet();
+  const {
+    setActiveWalletType,
+    setError,
+    setActiveScreen,
+    defaultChain,
+    chains,
+  } = useConnectKitStore();
+  const { chain } = useConnectWallet();
   const { suggestAndConnectAsync } = useSuggestChainAndConnect();
   const { connectAsync } = useConnect();
 
@@ -27,21 +31,26 @@ export const useGraz = () => {
       setActiveScreen('connecting');
 
       let res;
+      const chainToConnect = chain ?? defaultChain?.chainId;
+      if (!chainToConnect) {
+        throw new Error('Chain not found');
+      }
 
-      if (!isMobileDevice) {
+      const chainInfo = chains.filter((c) => c.chainId === chainToConnect)[0];
+
+      if (!isMobileDevice && chainInfo) {
         res = await suggestAndConnectAsync({
-          chainInfo: nillionTestnet,
+          chainInfo,
           walletType: type as GrazWalletType,
         });
       } else {
         res = await connectAsync({
-          chainId: chainOptions.defaultChain.chainId,
+          chainId: chainToConnect,
           walletType: type as GrazWalletType,
         });
       }
 
-      const address =
-        res.accounts[chainOptions.defaultChain.chainId]?.bech32Address;
+      const address = res.accounts[chainToConnect]?.bech32Address;
       if (!address) {
         throw new Error('Failed to connect');
       }

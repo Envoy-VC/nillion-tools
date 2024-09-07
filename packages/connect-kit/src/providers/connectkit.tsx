@@ -1,4 +1,5 @@
-import { createContext, type PropsWithChildren, useReducer } from 'react';
+import type { ChainInfo } from '@keplr-wallet/types';
+import { createContext, useReducer, type ReactNode } from 'react';
 import * as wallets from '~/lib/wallets';
 
 import type { WalletType, Screen } from '~/types';
@@ -24,6 +25,8 @@ export interface ConnectKitState {
   activeWalletType: WalletType | null;
   error: string | null;
   showAllWallets: boolean;
+  chains: ChainInfo[];
+  defaultChain?: ChainInfo;
 }
 
 export type ConnectKitAction =
@@ -42,6 +45,7 @@ const initialState: ConnectKitState = {
   activeWalletType: null,
   error: null,
   showAllWallets: false,
+  chains: [],
 };
 
 const connectKitReducer = (
@@ -87,7 +91,13 @@ export const ConnectKitContext = createContext<ConnectKitProps>({
   setIsUserModalOpen: () => null,
 });
 
-export const ConnectKitProvider = ({ children }: PropsWithChildren) => {
+export interface ConnectKitProviderProps {
+  children?: ReactNode;
+  chains?: ChainInfo[];
+  defaultChain?: ChainInfo;
+}
+
+export const ConnectKitProvider = (props: ConnectKitProviderProps) => {
   const [state, dispatch] = useReducer(connectKitReducer, initialState);
 
   if (
@@ -117,10 +127,12 @@ export const ConnectKitProvider = ({ children }: PropsWithChildren) => {
     <ConnectKitContext.Provider
       value={{
         ...state,
+        chains: props.chains ?? [],
+        defaultChain: props.defaultChain,
         ...actions,
       }}
     >
-      {children}
+      {props.children}
     </ConnectKitContext.Provider>
   );
 };

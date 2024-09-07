@@ -33,6 +33,9 @@ importers:
 
   apps/www:
     dependencies:
+      '@chain-registry/keplr':
+        specifier: ^1.68.83
+        version: 1.68.83
       '@nillion-tools/connect-kit':
         specifier: workspace:*
         version: link:../../packages/connect-kit
@@ -90,6 +93,9 @@ importers:
       '@vercel/og':
         specifier: ^0.6.2
         version: 0.6.2
+      chain-registry:
+        specifier: ^1.63.83
+        version: 1.63.83
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -502,6 +508,12 @@ packages:
 
   '@celo/utils@3.2.0':
     resolution: {integrity: sha512-Om1mTzwsdV6FVPvraafcJeRnzz7Xv/lyGmyZaoEZ9fErRadu9ZrOsuDQniYe+lD78DQ0NATxJL04WjhEKVkn+A==}
+
+  '@chain-registry/keplr@1.68.83':
+    resolution: {integrity: sha512-uHERbh1/igHZAQc46lsgWl0qJoC2v/ODZ0ReBqYUMXK2CcOpJQWuNc/qg5Ai/4eyMe4B1AzfgSQfqFK74PCHXA==}
+
+  '@chain-registry/types@0.45.66':
+    resolution: {integrity: sha512-nWaAfd9cOilInPi1IPnblh1AjOxKgsqtDhekBpnyKVby20k7zGYI0QTVMrHtAV5m1oCj8O9CAEnzU9ocZmYZ3w==}
 
   '@chainsafe/is-ip@2.0.2':
     resolution: {integrity: sha512-ndGqEMG1W5WkGagaqOZHpPU172AGdxr+LD15sv3WIUvT5oCFUrG1Y0CW/v2Egwj4JXEvSibaIIIqImsm98y1nA==}
@@ -1246,11 +1258,20 @@ packages:
   '@keplr-wallet/common@0.12.121':
     resolution: {integrity: sha512-CPycrXnBy7+l6qUlOROIt4jXCSdpyTfIJHzDaI5zzBAKxRKFCPx+4LzOb0ZEhZvs8m328f+tfCnWUqngCBPWkA==}
 
+  '@keplr-wallet/common@0.12.28':
+    resolution: {integrity: sha512-ESQorPZw8PRiUXhsrxED+E1FEWkAdc6Kwi3Az7ce204gMBQDI2j0XJtTd4uCUp+C24Em9fk0samdHzdoB4caIg==}
+
   '@keplr-wallet/cosmos@0.12.121':
     resolution: {integrity: sha512-8NvV+4uhy/0Xxet9uMUu6AgkJHCt6nNHe2F2A6wyzNBSehW1igQJIWVEhQFj2Nb58SfR0Xt10lQpVEKvdeIIsQ==}
 
+  '@keplr-wallet/cosmos@0.12.28':
+    resolution: {integrity: sha512-IuqmSBgKgIeWBA0XGQKKs28IXFeFMCrfadCbtiZccNc7qnNr5Y/Cyyk01BPC8Dd1ZyEyAByoICgrxvtGN0GGvA==}
+
   '@keplr-wallet/crypto@0.12.121':
     resolution: {integrity: sha512-kHYl/u8msZKhHT0MbfywHUk881d8Cy9JcYjC/gaOk+YiDr5vx9IKC2G1XHR28YHs1cQtx6h+L/nw56ZdsYYpow==}
+
+  '@keplr-wallet/crypto@0.12.28':
+    resolution: {integrity: sha512-le1je+78/4213qshSMgQTYqhCCvzsL9+YfhjXg1kd/ali69MLWK8L8Z09ducHPS6C+LqQXXTNJQpbH2uiFSd5w==}
 
   '@keplr-wallet/proto-types@0.12.12':
     resolution: {integrity: sha512-iAqqNlJpxu/8j+SwOXEH2ymM4W0anfxn+eNeWuqz2c/0JxGTWeLURioxQmCtewtllfHdDHHcoQ7/S+NmXiaEgQ==}
@@ -1258,8 +1279,14 @@ packages:
   '@keplr-wallet/proto-types@0.12.121':
     resolution: {integrity: sha512-WagQOzCEcV95wmwMM/97SVhEXACc54o4nVE4iJE+HWirij/ITjPfVIATwlnO/SsKsU8G0XcDZcxQSxCmMIK4pA==}
 
+  '@keplr-wallet/proto-types@0.12.28':
+    resolution: {integrity: sha512-ukti/eCTltPUP64jxtk5TjtwJogyfKPqlBIT3KGUCGzBLIPeYMsffL5w5aoHsMjINzOITjYqzXyEF8LTIK/fmw==}
+
   '@keplr-wallet/simple-fetch@0.12.121':
     resolution: {integrity: sha512-wpBYFvd98tIOEnU2wEdA+EileyEUTQwONRF4bZzRz5IPUewhe+sV2VHVFx/Bwps14CcB7Ka/U90LjdTfcPoIGw==}
+
+  '@keplr-wallet/simple-fetch@0.12.28':
+    resolution: {integrity: sha512-T2CiKS2B5n0ZA7CWw0CA6qIAH0XYI1siE50MP+i+V0ZniCGBeL+BMcDw64vFJUcEH+1L5X4sDAzV37fQxGwllA==}
 
   '@keplr-wallet/types@0.12.12':
     resolution: {integrity: sha512-fo6b8j9EXnJukGvZorifJWEm1BPIrvaTLuu5PqaU5k1ANDasm/FL1NaUuaTBVvhRjINtvVXqYpW/rVUinA9MBA==}
@@ -1270,8 +1297,14 @@ packages:
   '@keplr-wallet/types@0.12.127':
     resolution: {integrity: sha512-U9oKmhx38lOBKUSsB0appFfeRX6yl540Ar0OEwnmuiHXj3vp+ELgWmFM/2T8tMOMQJvfoxhF8rKVoWniJICobA==}
 
+  '@keplr-wallet/types@0.12.28':
+    resolution: {integrity: sha512-EcM9d46hYDm3AO4lf4GUbTSLRySONtTmhKb7p88q56OQOgJN3MMjRacEo2p9jX9gpPe7gRIjMUalhAfUiFpZoQ==}
+
   '@keplr-wallet/unit@0.12.121':
     resolution: {integrity: sha512-zshS9bd9Y9FJY7d54ZqrUUXY1BAFhD1ClLyeGpeXGk0SSOPPmHk6/j2f14Uk6zUZzb5iAtloBTZ4g2fGdQIiSQ==}
+
+  '@keplr-wallet/unit@0.12.28':
+    resolution: {integrity: sha512-kpXigHDBJGOmhtPkv9hqsQid9zkFo7OQPeKgO2n8GUlOINIXW6kWG5LXYTi/Yg9Uiw1CQF69gFMuZCJ8IzVHlA==}
 
   '@leapwallet/cosmos-social-login-capsule-provider@0.0.39':
     resolution: {integrity: sha512-7u9ZhiBHK7MeCNFNcnN4ttS11LITL5P6NtBwZ331MppAsGqRkexJQq6fofDZIiGaKiBqAp4qsFKEVM0fohOZBA==}
@@ -3255,6 +3288,9 @@ packages:
   chai@5.1.1:
     resolution: {integrity: sha512-pT1ZgP8rPNqUgieVaEY+ryQr6Q4HXNg8Ei9UnLUrjN4IA7dvQC5JB+/kxVcPNDHyBcc/26CXPkbNzq3qwrOEKA==}
     engines: {node: '>=12'}
+
+  chain-registry@1.63.83:
+    resolution: {integrity: sha512-Vq+aQtwIB3WM8M467EzlkioIGRYPeaPPB1GdhfjI5R4/Kd0iYW8olh4aWsKF6S0fXVkkeoetLrn0ml4b30Qjtg==}
 
   chalk@2.4.2:
     resolution: {integrity: sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==}
@@ -5377,6 +5413,9 @@ packages:
 
   mlly@1.7.1:
     resolution: {integrity: sha512-rrVRZRELyQzrIUAVMHxP97kv+G786pHmOKzuFII8zDYahFBS7qnHh2AlYSl1GAHhaMPCz6/oHjVMcfFYgFYHgA==}
+
+  mobx@6.13.1:
+    resolution: {integrity: sha512-ekLRxgjWJr8hVxj9ZKuClPwM/iHckx3euIJ3Np7zLVNtqJvfbbq7l370W/98C8EabdQ1pB5Jd3BbDWxJPNnaOg==}
 
   motion@10.16.2:
     resolution: {integrity: sha512-p+PurYqfUdcJZvtnmAqu5fJgV2kR0uLFQuBKtLeFVTrYEVllI99tiOTSefVNYuip9ELTEkepIIDftNdze76NAQ==}
@@ -7586,6 +7625,15 @@ snapshots:
     transitivePeerDependencies:
       - fp-ts
 
+  '@chain-registry/keplr@1.68.83':
+    dependencies:
+      '@chain-registry/types': 0.45.66
+      '@keplr-wallet/cosmos': 0.12.28
+      '@keplr-wallet/crypto': 0.12.28
+      semver: 7.6.3
+
+  '@chain-registry/types@0.45.66': {}
+
   '@chainsafe/is-ip@2.0.2': {}
 
   '@chainsafe/netmask@2.0.0':
@@ -8443,6 +8491,14 @@ snapshots:
       buffer: 6.0.3
       delay: 4.4.1
 
+  '@keplr-wallet/common@0.12.28':
+    dependencies:
+      '@keplr-wallet/crypto': 0.12.28
+      '@keplr-wallet/types': 0.12.28
+      buffer: 6.0.3
+      delay: 4.4.1
+      mobx: 6.13.1
+
   '@keplr-wallet/cosmos@0.12.121':
     dependencies:
       '@ethersproject/address': 5.7.0
@@ -8457,7 +8513,32 @@ snapshots:
       long: 4.0.0
       protobufjs: 6.11.4
 
+  '@keplr-wallet/cosmos@0.12.28':
+    dependencies:
+      '@ethersproject/address': 5.7.0
+      '@keplr-wallet/common': 0.12.28
+      '@keplr-wallet/crypto': 0.12.28
+      '@keplr-wallet/proto-types': 0.12.28
+      '@keplr-wallet/simple-fetch': 0.12.28
+      '@keplr-wallet/types': 0.12.28
+      '@keplr-wallet/unit': 0.12.28
+      bech32: 1.1.4
+      buffer: 6.0.3
+      long: 4.0.0
+      protobufjs: 6.11.4
+
   '@keplr-wallet/crypto@0.12.121':
+    dependencies:
+      '@ethersproject/keccak256': 5.7.0
+      bip32: 2.0.6
+      bip39: 3.1.0
+      bs58check: 2.1.2
+      buffer: 6.0.3
+      crypto-js: 4.2.0
+      elliptic: 6.5.7
+      sha.js: 2.4.11
+
+  '@keplr-wallet/crypto@0.12.28':
     dependencies:
       '@ethersproject/keccak256': 5.7.0
       bip32: 2.0.6
@@ -8478,7 +8559,14 @@ snapshots:
       long: 4.0.0
       protobufjs: 6.11.4
 
+  '@keplr-wallet/proto-types@0.12.28':
+    dependencies:
+      long: 4.0.0
+      protobufjs: 6.11.4
+
   '@keplr-wallet/simple-fetch@0.12.121': {}
+
+  '@keplr-wallet/simple-fetch@0.12.28': {}
 
   '@keplr-wallet/types@0.12.12':
     dependencies:
@@ -8492,9 +8580,19 @@ snapshots:
     dependencies:
       long: 4.0.0
 
+  '@keplr-wallet/types@0.12.28':
+    dependencies:
+      long: 4.0.0
+
   '@keplr-wallet/unit@0.12.121':
     dependencies:
       '@keplr-wallet/types': 0.12.121
+      big-integer: 1.6.52
+      utility-types: 3.11.0
+
+  '@keplr-wallet/unit@0.12.28':
+    dependencies:
+      '@keplr-wallet/types': 0.12.28
       big-integer: 1.6.52
       utility-types: 3.11.0
 
@@ -11139,6 +11237,10 @@ snapshots:
       deep-eql: 5.0.2
       loupe: 3.1.1
       pathval: 2.0.0
+
+  chain-registry@1.63.83:
+    dependencies:
+      '@chain-registry/types': 0.45.66
 
   chalk@2.4.2:
     dependencies:
@@ -14150,6 +14252,8 @@ snapshots:
       pathe: 1.1.2
       pkg-types: 1.1.3
       ufo: 1.5.4
+
+  mobx@6.13.1: {}
 
   motion@10.16.2:
     dependencies:
