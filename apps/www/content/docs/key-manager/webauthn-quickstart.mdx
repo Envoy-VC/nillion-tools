@@ -5,7 +5,7 @@ description: 'Start using WebAuthn for Credential Registration and Authenticatio
 
 ## WebAuthn Manager
 
-The WebAuthn Manager is a tool that allows you to manage WebAuthn credentials. It provides a simple interface to store and retreive credentials. It takes in[WebAuthnManagerProps](/api-docs/types/webauthn_types.WebAuthnManagerProps.html) as props:
+The WebAuthn Manager is a tool that allows you to manage WebAuthn credentials. It provides a simple interface to store and retreive credentials. It takes in[WebAuthnManagerProps](/api-docs/interfaces/Key_Manager.types.WebAuthnManagerProps.html) as props:
 
 ```tsx
 import { IndexedDBDataSource } from '@nillion-tools/key-manager/storage';
@@ -23,7 +23,7 @@ Data Source and be any object that implements the `DataSource` interface. The `I
 
 ## Registration
 
-To start a credential registration process you need to generate registration options. The `generateRegistrationOptions` method takes in [GenerateRegistrationOptionsOpts](/api-docs/types/webauthn_types.GenerateRegistrationOptionsOpts.html) as props:
+To start a credential registration process you need to generate registration options. The `generateRegistrationOptions` method takes in [GenerateRegistrationOptionsOpts](/api-docs/types/Key_Manager.webauthn_types.GenerateRegistrationOptionsOpts.html) as props:
 
 ```tsx
 import { Passkey } from '@nillion-tools/key-manager/types';
@@ -53,7 +53,7 @@ const options = await generateRegistrationOptions({
 });
 ```
 
-Next you need to start the registration process in the browser. The `startRegistration` method takes in [PublicKeyCredentialCreationOptionsJSONWithPRF](/api-docs/types/types.PublicKeyCredentialCreationOptionsJSONWithPRF.html) as props:
+Next you need to start the registration process in the browser. The `startRegistration` method takes in [PublicKeyCredentialCreationOptionsJSONWithPRF](/api-docs/types/Key_Manager.types.PublicKeyCredentialCreationOptionsJSONWithPRF.html) as props:
 
 ```tsx
 import { startRegistration } from '@nillion-tools/key-manager/webauthn/browser';
@@ -61,7 +61,7 @@ import { startRegistration } from '@nillion-tools/key-manager/webauthn/browser';
 const credential = await startRegistration(options);
 ```
 
-Now we can verify the registration response. The `verifyRegistrationResponse` method takes in [VerifyRegistrationResponseOpts](/api-docs/types/webauthn_types.VerifyRegistrationResponseOpts.html) as props:
+Now we can verify the registration response. The `verifyRegistrationResponse` method takes in [VerifyRegistrationResponseOpts](/api-docs/types/Key_Manager.webauthn_types.VerifyRegistrationResponseOpts.html) as props:
 
 ```tsx
 import { verifyRegistrationResponse } from '@nillion-tools/key-manager/webauthn/server';
@@ -88,7 +88,7 @@ await webAuthnManager.savePasskey(
 
 ## Authentication
 
-To start an authentication process you need to generate authentication options. The `generateAuthenticationOptions` method takes in [GenerateAuthenticationOptionsOpts](/api-docs/types/webauthn_types.GenerateAuthenticationOptionsOpts.html) as props:
+To start an authentication process you need to generate authentication options. The `generateAuthenticationOptions` method takes in [GenerateAuthenticationOptionsOpts](/api-docs/types/Key_Manager.webauthn_types.GenerateAuthenticationOptionsOpts.html) as props:
 
 ```tsx
 import { generateAuthenticationOptions } from '@nillion-tools/key-manager/webauthn/server';
@@ -105,7 +105,7 @@ const options = await generateAuthenticationOptions({
 });
 ```
 
-Next you need to start the authentication process in the browser. The `startAuthentication` method takes in [PublicKeyCredentialRequestOptionsJSONWitPRF](/api-docs/types/types.PublicKeyCredentialRequestOptionsJSONWitPRF.html) as props:
+Next you need to start the authentication process in the browser. The `startAuthentication` method takes in [PublicKeyCredentialRequestOptionsJSONWitPRF](/api-docs/types/Key_Manager.types.PublicKeyCredentialRequestOptionsJSONWitPRF.html) as props:
 
 ```tsx
 import { startAuthentication } from '@nillion-tools/key-manager/webauthn/browser';
@@ -113,7 +113,7 @@ import { startAuthentication } from '@nillion-tools/key-manager/webauthn/browser
 const response = await startAuthentication(options);
 ```
 
-Now we can verify the authentication response. The `verifyAuthenticationResponse` method takes in [VerifyAuthenticationResponseOpts](/api-docs/types/webauthn_types.VerifyAuthenticationResponseOpts.html) as props:
+Now we can verify the authentication response. The `verifyAuthenticationResponse` method takes in [VerifyAuthenticationResponseOpts](/api-docs/types/Key_Manager.webauthn_types.VerifyAuthenticationResponseOpts.html) as props:
 
 ```tsx
 import { verifyAuthenticationResponse } from '@nillion-tools/key-manager/webauthn/server';
