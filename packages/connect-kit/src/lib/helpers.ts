@@ -23,7 +23,7 @@ export const buildConnectWalletProps = (
       privacyPolicyUrl: props.modalOptions?.privacyPolicyUrl ?? '',
       termsOfServiceUrl: props.modalOptions?.termsOfServiceUrl ?? '',
       title: props.modalOptions?.title ?? 'Connect Wallet',
-      welcomeScreen: props.modalOptions?.welcomeScreen ?? (() => null),
+      welcomeScreen: props.modalOptions?.welcomeScreen ?? null,
     },
   };
   return newProps;
