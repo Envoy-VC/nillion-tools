@@ -2,7 +2,13 @@ import type { ReactNode, CSSProperties } from 'react';
 import type { supportedWallets } from '~/providers';
 
 export interface ButtonOptions {
+  /**
+   * The label for the button
+   */
   label?: string;
+  /**
+   * CSS class for the button
+   */
   className?: string;
   style?: CSSProperties;
 }

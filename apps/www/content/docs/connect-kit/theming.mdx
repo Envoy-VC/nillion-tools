@@ -1,0 +1,58 @@
+---
+title: Theming
+description: 'Using and customizing the themes'
+---
+
+## Theme Colors
+
+You can tweak the ConnectKit UI to match your branding. The following are the theme colors that you can customize:
+
+```css {2-5}
+:root {
+  --ck-background: rgb(255, 255, 255);
+  --ck-foreground: rgb(10, 10, 10);
+
+  --ck-primary: rgb(23, 23, 23);
+  --ck-primary-foreground: rgb(250, 250, 250);
+
+  --ck-secondary: rgba(242, 239, 243, 0.5);
+  --ck-secondary-hover: rgb(242, 239, 243);
+  --secondary-foreground: rgba(23, 23, 23, 1);
+
+  --ck-muted-foreground: rgb(115, 115, 115);
+
+  --ck-radius: 0.5rem;
+  --ck-overlay: rgba(0, 0, 0, 0.8);
+
+  --ck-link-foreground: rgb(59, 130, 246);
+  --ck-link-hover: rgb(64, 64, 64);
+
+  --ck-accent: rgb(245, 245, 245);
+
+  --ck-muted: rgb(241, 245, 249);
+}
+
+.dark {
+  --ck-background: rgb(19, 20, 24);
+  --ck-foreground: rgb(250, 250, 250);
+
+  --ck-primary: rgb(250, 250, 250);
+  --ck-primary-foreground: rgb(23, 23, 23);
+
+  --ck-secondary: rgba(27, 28, 34, 0.5);
+  --ck-secondary-hover: rgb(27, 28, 34);
+  --ck-secondary-foreground: rgba(250, 250, 250, 1);
+
+  --ck-muted-foreground: rgb(163, 163, 163);
+
+  --ck-radius: 0.5rem;
+  --ck-overlay: rgba(0, 0, 0, 0.8);
+
+  --ck-link-foreground: rgb(59, 130, 246);
+  --ck-link-hover: rgb(255, 255, 255);
+
+  --ck-accent: rgb(38, 38, 38);
+
+  --ck-muted: rgb(38, 38, 38);
+}
+```

@@ -1,0 +1,32 @@
+---
+title: Modal Options
+description: 'Customize the modal options'
+---
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+## Modal Options
+
+This helps you customize the modal options like modal size, title and footer.
+
+```tsx
+import { ConnectButton } from '@nillion-tools/connect-kit';
+
+const Page = () => {
+  return (
+    <ConnectButton
+      modalOptions={{
+        size: 'wide',
+        title: 'Sign In',
+        privacyPolicyUrl: 'https://example.com/privacy-policy',
+        termsOfServiceUrl: 'https://example.com/terms-of-service',
+        welcomeScreen: <div>Welcome Screen</div>,
+      }}
+    />
+  );
+};
+```
+
+Modal options take in [ModalOptions](/api-docs/interfaces/Connect_Kit.ModalOptions.html) as props:
+
+<AutoTypeTable path='content/types.ts' name='ModalOptions' />

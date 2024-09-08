@@ -1,5 +1,16 @@
 {
   "title": "Connect Kit",
   "root": true,
-  "pages": ["index", "introduction"]
+  "pages": [
+    "index",
+    "quickstart",
+    "installation",
+    "---Connect Modal---",
+    "connect-button",
+    "modal-options",
+    "theming",
+    "chains",
+    "---Advanced---",
+    "user-hook"
+  ]
 }

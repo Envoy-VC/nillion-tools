@@ -1,0 +1,29 @@
+---
+title: Connect Button
+description: 'Customizing and using the Connect button'
+---
+
+This is the main component. It is responsible for rendering the connect/disconnect button, as well as chain-swapping UI.
+
+```tsx
+import { ConnectButton } from '@nillion-tools/connect-kit';
+
+const Page = () => {
+  return <ConnectButton />;
+};
+```
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+
+The `ConnectButton` component allows you to customize the modal options by passing props. It takes in [ConnectWalletProps](/api-docs/interfaces/Connect_Kit.ConnectWalletProps.html) as props:
+
+<AutoTypeTable path='content/types.ts' name='ConnectWalletProps' />
+
+- **Mode**: Can be `inline` or `modal`. Default is `modal`.
+- **chain**: Chain Id for the Modal to Connect. Default is `nillion-testnet-1`.
+
+## SignIn Button and Switch Button
+
+Sign in and switch button options take in [ButtonOptions](/api-docs/interfaces/Connect_Kit.ButtonOptions.html) as props:
+
+<AutoTypeTable path='content/types.ts' name='ButtonOptions' />

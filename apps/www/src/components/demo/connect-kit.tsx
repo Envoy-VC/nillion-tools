@@ -51,3 +51,12 @@ export const ConnectKitDemo = () => {
     </div>
   );
 };
+
+export const ConnectKitDemoDocs = () => {
+  return (
+    <div className='relative flex w-full items-center justify-center py-12'>
+      <div className='grid-bg absolute inset-0 z-[-1]' />
+      <ConnectWallet mode='inline' />
+    </div>
+  );
+};

@@ -1,0 +1,61 @@
+---
+title: User Hook
+description: 'Retrieves the user information'
+---
+
+import { AutoTypeTable } from 'fumadocs-typescript/ui';
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+## User Hook
+
+The `useUser` hook is used to retrieve the user information. It returns the user object with the following properties:
+
+- **`activeChains`**: List of active chains connected to the wallet.
+- **`chainInfo`**: Information about the Active chain.
+- **`currency`**: Currency of the active chain.
+- **`account`**: Account information.
+- **`balance`**: Balance information.
+  - **`formatted`**: Formatted balance.
+  - **`isLoading`**: Loading state.
+
+```tsx
+import { useUser } from '@nillion-tools/connect-kit';
+
+const Page = () => {
+  const { activeChains, balance } = useUser();
+
+  return (
+    <div>
+      <h1>User Information</h1>
+      <p>Active Chains: {activeChains.map((c) => c.chainName).join(', ')}</p>
+      <p>Balance: {balance.formatted}</p>
+    </div>
+  );
+};
+```
+
+## Currency Information
+
+This contains the Currency Information about the active chain
+
+<AutoTypeTable path='content/types.ts' name='CurrencyDetails' />
+
+## Balance Information
+
+This contains the Balance Information about the active chain
+
+<TypeTable
+  type={{
+    formatted: {
+      description:
+        'Formatted Balance for the active chain up to 3 decimal points',
+      type: 'string',
+      default: 'x NIL',
+    },
+    isLoading: {
+      description: 'Loading state of the balance',
+      type: 'boolean',
+      default: 'false',
+    },
+  }}
+/>

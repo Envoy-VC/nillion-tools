@@ -15,3 +15,10 @@ export const ConnectKitDemo = dynamic(
     ssr: false,
   }
 );
+
+export const ConnectKitDemoDocs = dynamic(
+  () => import('~/components/demo/connect-kit').then((m) => m.ConnectKitDemoDocs),
+  {
+    ssr: false,
+  }
+);

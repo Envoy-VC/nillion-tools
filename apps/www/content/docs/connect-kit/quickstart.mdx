@@ -1,0 +1,76 @@
+---
+title: Quickstart
+description: 'Add ConnectKit into your projects'
+icon: Album
+---
+
+To install ConnectKit in your project, run the following command:
+
+```package-install
+npm i @nillion-tools/connect-kit
+```
+
+`graz` is included as peer dependency you can install it by running:
+
+```package-install
+npm i graz
+```
+
+---
+
+## Usage
+
+To Start using ConnectKit you need to wrap your application in a `ConnectKitProvider`.
+
+```tsx title="cosmos-provider.tsx"
+import React, { type PropsWithChildren } from 'react';
+
+import { ConnectKitProvider, nillionTestnet } from '@nillion-tools/connect-kit';
+import { GrazProvider } from 'graz';
+
+export const CosmosProvider = ({ children }: PropsWithChildren) => {
+  return (
+    <GrazProvider
+      grazOptions={{
+        chains: [nillionTestnet],
+      }}
+    >
+      <ConnectKitProvider chains={[nillionTestnet]}>
+        {children}
+      </ConnectKitProvider>
+    </GrazProvider>
+  );
+};
+```
+
+```tsx title="app.tsx"
+import React from 'react';
+
+import { CosmosProvider } from './cosmos-provider';
+
+export const App = () => {
+  return (
+    <CosmosProvider>
+      <div>your app goes here</div>
+    </CosmosProvider>
+  );
+};
+```
+
+Then you can finally add the `ConnectButton` to your app.
+
+```tsx title="page.tsx"
+import React from 'react';
+
+import { ConnectButton } from '@nillion-tools/connect-kit';
+
+export const Page = () => {
+  return (
+    <div>
+      <ConnectButton />
+    </div>
+  );
+};
+```
+
+---

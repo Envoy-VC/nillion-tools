@@ -1,6 +1,6 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "entryPoints": ["packages/key-manager"],
+  "entryPoints": ["packages/key-manager", "packages/connect-kit"],
   "entryPointStrategy": "packages",
   "name": "Nillion Tool",
   "out": "api-docs",

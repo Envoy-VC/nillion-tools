@@ -1,0 +1,58 @@
+---
+title: Chains
+description: 'Adding and Customizing chains'
+---
+
+## Adding Custom Chains
+
+You can add custom chains to the ConnectKit UI, by using the `chain-registry` and `@chain-registry/keplr` packages.
+
+Chain Information can be found in the `chain-registry` package with all chains and associated assets. We need `@chain-registry/keplr` to convert the chain information to Keplr compatible format.
+
+Here is an example to get Celestia Chain
+
+```tsx
+import { chainRegistryChainToKeplr } from '@chain-registry/keplr';
+import { assets, chains } from 'chain-registry';
+
+const chain = chains.find((c) => c.chain_id === 'celestia');
+const celestiaChain = chainRegistryChainToKeplr(chain, assets);
+```
+
+Here is an example of how you can add all compatible chains to ConnectKit:
+
+```tsx
+'use client';
+
+import React, { type PropsWithChildren } from 'react';
+
+import { chainRegistryChainToKeplr } from '@chain-registry/keplr';
+import { ConnectKitProvider, nillionTestnet } from '@nillion-tools/connect-kit';
+import { assets, chains } from 'chain-registry';
+import { GrazProvider } from 'graz';
+
+export const CosmosProvider = ({ children }: PropsWithChildren) => {
+  const allChains = chains
+    .map((c) => {
+      try {
+        const info = chainRegistryChainToKeplr(c, assets);
+        return info;
+      } catch (error) {
+        return undefined;
+      }
+    })
+    .filter((c) => c !== undefined);
+
+  return (
+    <GrazProvider
+      grazOptions={{
+        chains: [nillionTestnet, ...allChains],
+      }}
+    >
+      <ConnectKitProvider chains={[nillionTestnet, ...allChains]}>
+        {children}
+      </ConnectKitProvider>
+    </GrazProvider>
+  );
+};
+```
