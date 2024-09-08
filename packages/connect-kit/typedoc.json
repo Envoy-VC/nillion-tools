@@ -1,6 +1,6 @@
 {
   "tsconfig": "./tsconfig.json",
   "readme": "./README.md",
-  "entryPoints": ["src/index.ts"],
+  "entryPoints": ["src/index.tsx"],
   "name": "Connect Kit"
 }
