@@ -1,4 +1,3 @@
-import { Input } from '../ui/input';
 import { useConnectKitStore, useGraz } from '~/lib/hooks';
 import { ScrollArea } from '@radix-ui/react-scroll-area';
 import { Button } from '../ui/button';
@@ -9,12 +8,9 @@ import { NetworkIcon } from 'lucide-react';
 export const SwitchChainScreen = () => {
   const { chains } = useConnectKitStore();
   const { onSwitchChain } = useGraz();
+
   return (
     <div className='ck-flex ck-flex-col'>
-      <Input
-        className='!ck-rounded-2xl ck-h-10 ck-my-3'
-        placeholder='Search Chain'
-      />
       <ScrollArea className='ck-h-[400px] ck-my-4 ck-overflow-scroll'>
         <div className='ck-grid ck-grid-cols-4 ck-gap-2'>
           {chains.map((chain) => {

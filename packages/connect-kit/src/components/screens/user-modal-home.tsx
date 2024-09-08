@@ -1,6 +1,5 @@
 import Avatar from 'avvvatars-react';
 import { useConnectKitStore, useGraz, useUser } from '~/lib/hooks';
-import { truncate } from '~/lib/utils';
 import { Skeleton } from '../ui/skeleton';
 import { Button } from '../ui/button';
 import { ArrowRightLeftIcon, ChevronRightIcon, LogOutIcon } from 'lucide-react';
@@ -26,7 +25,9 @@ export const UserModalHome = () => {
         </div>
         <TextCopy
           className='ck-translate-x-3'
-          content={truncate(account[activeChainId]?.bech32Address ?? '', 10)}
+          text={account[activeChainId]?.bech32Address ?? ''}
+          truncateOptions={{ length: 10, fromMiddle: true, enabled: true }}
+          type='text'
         >
           <TextCopyContent className='ck-font-semibold' />
           <TextCopyButton
