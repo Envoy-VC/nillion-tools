@@ -32,7 +32,12 @@ export interface ConnectWalletProps {
 }
 
 export type WalletType = keyof typeof supportedWallets;
-export type Screen = 'home' | 'connecting' | 'error' | 'activity';
+export type Screen =
+  | 'home'
+  | 'connecting'
+  | 'error'
+  | 'activity'
+  | 'switch-chain';
 
 export interface PartialConnectWalletProps {
   mode?: 'inline' | 'modal';

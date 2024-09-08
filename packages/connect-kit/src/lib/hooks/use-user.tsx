@@ -2,13 +2,15 @@ import { useMemo } from 'react';
 import { useConnectKitStore } from './use-connect-kit-store';
 import { useAccount, useActiveChains, useBalance, useChainInfo } from 'graz';
 import { formatBalance } from '../helpers';
+import { useGraz } from './use-graz';
 
 export const useUser = () => {
   const { defaultChain } = useConnectKitStore();
+  const { activeChainId } = useGraz();
 
-  const { data: account } = useAccount();
+  const { data: account } = useAccount({ multiChain: true });
   const activeChains = useActiveChains();
-  const chainInfo = useChainInfo({ chainId: activeChains?.[0]?.chainId });
+  const chainInfo = useChainInfo({ chainId: activeChainId });
 
   const currency = useMemo(() => {
     const stakeCurrency = chainInfo?.stakeCurrency;
@@ -28,7 +30,7 @@ export const useUser = () => {
   const { data: balance, isLoading } = useBalance({
     chainId: chainInfo?.chainId ?? defaultChain?.chainId ?? '',
     denom: currency.minimalDenom,
-    bech32Address: account?.bech32Address,
+    bech32Address: account?.[activeChainId]?.bech32Address,
   });
 
   const formattedBalance = useMemo(() => {

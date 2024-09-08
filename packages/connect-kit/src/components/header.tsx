@@ -16,6 +16,12 @@ export const Header = () => {
           Activity
         </div>
       );
+    } else if (activeScreen === 'switch-chain') {
+      return (
+        <div className='ck-font-semibold ck-text-base px-2 ck-text-center'>
+          Switch Chain
+        </div>
+      );
     }
     return null;
   }

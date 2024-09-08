@@ -4,10 +4,11 @@ import { truncate } from '~/lib/utils';
 import { Skeleton } from '../ui/skeleton';
 import { Button } from '../ui/button';
 import { ArrowRightLeftIcon, ChevronRightIcon, LogOutIcon } from 'lucide-react';
+import { TextCopy, TextCopyButton, TextCopyContent } from '../ui/text-copy';
 
 export const UserModalHome = () => {
   const { account, balance, currency, chainInfo } = useUser();
-  const { onDisconnect } = useGraz();
+  const { onDisconnect, activeChainId } = useGraz();
   const { setActiveScreen } = useConnectKitStore();
   if (!account) return null;
 
@@ -18,12 +19,23 @@ export const UserModalHome = () => {
           <Avatar
             size={64}
             style='shape'
-            value={Buffer.from(account.pubKey).toString('hex')}
+            value={Buffer.from(account[activeChainId]?.pubKey ?? '').toString(
+              'hex'
+            )}
           />
         </div>
-        <div className='ck-text-xl ck-font-semibold'>
-          {truncate(account.bech32Address, 10)}
-        </div>
+        <TextCopy
+          className='ck-translate-x-3'
+          content={truncate(account[activeChainId]?.bech32Address ?? '', 10)}
+        >
+          <TextCopyContent className='ck-font-semibold' />
+          <TextCopyButton
+            iconProps={{
+              className: 'ck-text-muted-foreground',
+              strokeWidth: 2.5,
+            }}
+          />
+        </TextCopy>
         {balance.isLoading && !balance.formatted ? (
           <Skeleton className='ck-w-[64px] ck-h-[14px] ck-rounded-xl' />
         ) : (
@@ -43,6 +55,9 @@ export const UserModalHome = () => {
         <Button
           className='ck-w-full !ck-rounded-2xl ck-flex ck-flex-row ck-items-center ck-gap-2 !ck-justify-between ck-h-12'
           variant='secondary'
+          onClick={() => {
+            setActiveScreen('switch-chain');
+          }}
         >
           <div className='ck-flex ck-flex-row ck-items-center ck-gap-2'>
             <img

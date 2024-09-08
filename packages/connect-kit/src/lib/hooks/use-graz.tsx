@@ -5,12 +5,16 @@ import {
   useStargateSigningClient,
   useSuggestChainAndConnect,
   type WalletType as GrazWalletType,
+  useActiveWalletType,
 } from 'graz';
 import { useConnectWallet } from './use-connect-wallet';
 import { useIsMobile } from './use-is-mobile';
 import { useConnectKitStore } from './use-connect-kit-store';
 import type { WalletType } from '~/types';
 import { errorHandler } from '../utils';
+
+import { useLocalStorage } from 'usehooks-ts';
+import { nillionTestnet } from '../chain';
 
 export interface TransactionType {
   hash: string;
@@ -23,7 +27,7 @@ export const useGraz = () => {
   const { isMobile } = useIsMobile();
   const isMobileDevice = isMobile();
   const { data: stargateClient } = useStargateSigningClient();
-  const { data: account } = useAccount();
+  const { data: account } = useAccount({ multiChain: true });
 
   const {
     setActiveWalletType,
@@ -37,6 +41,12 @@ export const useGraz = () => {
   const { suggestAndConnectAsync } = useSuggestChainAndConnect();
   const { connectAsync } = useConnect();
   const { disconnectAsync } = useDisconnect();
+  const { walletType } = useActiveWalletType();
+
+  const [activeChainId, setActiveChainId] = useLocalStorage<string>(
+    'connect-kit-active-chain',
+    defaultChain?.chainId ?? nillionTestnet.chainId
+  );
 
   const connect = async (type: WalletType) => {
     try {
@@ -68,6 +78,7 @@ export const useGraz = () => {
       if (!address) {
         throw new Error('Failed to connect');
       }
+      setActiveChainId(chainToConnect);
       setActiveScreen('home');
       setActiveWalletType(null);
     } catch (error) {
@@ -82,6 +93,7 @@ export const useGraz = () => {
     setActiveScreen('home');
     setIsModalOpen(false);
     setError(null);
+    setActiveWalletType(null);
   };
 
   const getTxns = async () => {
@@ -90,7 +102,7 @@ export const useGraz = () => {
     const txns = await stargateClient.searchTx([
       {
         key: 'message.sender',
-        value: account?.bech32Address ?? '',
+        value: account?.[activeChainId]?.bech32Address ?? '',
       },
     ]);
 
@@ -127,5 +139,38 @@ export const useGraz = () => {
     return parsedTxns as TransactionType[];
   };
 
-  return { connect, onDisconnect, getTxns };
+  const onSwitchChain = async (chainId: string) => {
+    try {
+      let res;
+      const chainInfo = chains.filter((c) => c.chainId === chainId)[0];
+
+      if (!chainInfo) {
+        throw new Error('Chain not found');
+      }
+
+      if (!isMobileDevice) {
+        res = await suggestAndConnectAsync({
+          chainInfo,
+          walletType,
+        });
+      } else {
+        res = await connectAsync({
+          chainId,
+          walletType,
+        });
+      }
+
+      const address = res.accounts[chainId]?.bech32Address;
+      if (!address) {
+        throw new Error('Failed to connect');
+      }
+      setActiveChainId(chainInfo.chainId);
+      setActiveScreen('home');
+    } catch (error) {
+      const serialized = errorHandler(error);
+      setError(serialized.message ?? 'An Unknown Error Occurred');
+    }
+  };
+
+  return { connect, onDisconnect, getTxns, onSwitchChain, activeChainId };
 };

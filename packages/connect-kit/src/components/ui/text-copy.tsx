@@ -80,7 +80,10 @@ export const TextCopy = forwardRef<HTMLDivElement, TextCopyProps>(
       >
         <div
           ref={ref}
-          className={cn('flex flex-row items-center gap-2', className)}
+          className={cn(
+            'ck-flex ck-flex-row ck-items-center ck-gap-2',
+            className
+          )}
           {...props}
         >
           {children}
@@ -95,7 +98,7 @@ export const TextCopyContent = forwardRef<HTMLDivElement, TextCopyContentProps>(
     const { hidden, type, truncateOptions, content } =
       useContext(TextCopyContext);
     return (
-      <div className={cn('font-medium', className)} {...props} ref={ref}>
+      <div className={cn('ck-font-medium', className)} {...props} ref={ref}>
         {type === 'text'
           ? truncateOptions?.enabled
             ? truncate(content ?? '', length, truncateOptions.fromMiddle)
@@ -115,7 +118,7 @@ export const TextCopyEye = forwardRef<HTMLButtonElement, TextCopyEyeProps>(
     const { hidden, setHidden } = useContext(TextCopyContext);
     return (
       <Button
-        className='h-8 w-8 p-0'
+        className='ck-h-8 ck-w-8 ck-p-0'
         variant='ghost'
         onClick={() => setHidden(!hidden)}
         {...props}
@@ -160,8 +163,8 @@ export const TextCopyButton = forwardRef<
     <>
       {canCopy ? (
         <Button
-          className='h-8 w-8 p-0'
-          variant='ghost'
+          className='ck-h-8 ck-w-8 !ck-p-0'
+          variant='secondary'
           onClick={copyText}
           {...props}
           ref={ref}
