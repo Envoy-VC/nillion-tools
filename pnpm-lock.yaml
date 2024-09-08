@@ -275,8 +275,8 @@ importers:
         specifier: ^11.3.28
         version: 11.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       graz:
-        specifier: ^0.1.19
-        version: 0.1.19(@cosmjs/amino@0.32.4)(@cosmjs/cosmwasm-stargate@0.32.4)(@cosmjs/launchpad@0.27.1)(@cosmjs/proto-signing@0.32.4)(@cosmjs/stargate@0.32.4)(@cosmjs/tendermint-rpc@0.32.4)(@leapwallet/cosmos-social-login-capsule-provider@0.0.39(@cosmjs/encoding@0.32.4)(@cosmjs/proto-signing@0.32.4)(fp-ts@2.16.9))(@types/react@18.3.5)(axios@0.27.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.1.19
+        version: 0.1.19(@cosmjs/amino@0.32.4)(@cosmjs/cosmwasm-stargate@0.32.4)(@cosmjs/launchpad@0.27.1)(@cosmjs/proto-signing@0.32.4)(@cosmjs/stargate@0.32.4)(@cosmjs/tendermint-rpc@0.32.4)(@leapwallet/cosmos-social-login-capsule-provider@0.0.39(@cosmjs/encoding@0.32.4)(@cosmjs/proto-signing@0.32.4)(fp-ts@2.16.9))(@types/react@18.3.5)(axios@1.7.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       lucide-react:
         specifier: ^0.427.0
         version: 0.427.0(react@18.3.1)
@@ -295,9 +295,6 @@ importers:
       vaul:
         specifier: ^0.9.1
         version: 0.9.2(@types/react-dom@18.3.0)(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      zustand:
-        specifier: ^4.5.4
-        version: 4.5.5(@types/react@18.3.5)(react@18.3.1)
     devDependencies:
       '@changesets/cli':
         specifier: ^2.27.1
@@ -2993,9 +2990,6 @@ packages:
 
   axios@0.21.4:
     resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
-
-  axios@0.27.2:
-    resolution: {integrity: sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==}
 
   axios@1.7.7:
     resolution: {integrity: sha512-S4kL7XrjgBmvdGut0sN3yJxqYzrDOnivkBiN0OFs6hLiUam3UPvswUo0kqGyhqUZGEOytHyumEdXsAkgCOUf3Q==}
@@ -9541,12 +9535,6 @@ snapshots:
       '@tanstack/query-core': 5.54.1
       react: 18.3.1
 
-  '@terra-money/station-connector@1.1.4(@cosmjs/amino@0.32.4)(axios@0.27.2)':
-    dependencies:
-      '@cosmjs/amino': 0.32.4
-      axios: 0.27.2
-      bech32: 2.0.0
-
   '@terra-money/station-connector@1.1.4(@cosmjs/amino@0.32.4)(axios@1.7.7)':
     dependencies:
       '@cosmjs/amino': 0.32.4
@@ -10496,13 +10484,6 @@ snapshots:
   axios@0.21.4:
     dependencies:
       follow-redirects: 1.15.9
-    transitivePeerDependencies:
-      - debug
-
-  axios@0.27.2:
-    dependencies:
-      follow-redirects: 1.15.9
-      form-data: 4.0.0
     transitivePeerDependencies:
       - debug
 
@@ -12208,55 +12189,6 @@ snapshots:
       kind-of: 6.0.3
       section-matter: 1.0.0
       strip-bom-string: 1.0.0
-
-  graz@0.1.19(@cosmjs/amino@0.32.4)(@cosmjs/cosmwasm-stargate@0.32.4)(@cosmjs/launchpad@0.27.1)(@cosmjs/proto-signing@0.32.4)(@cosmjs/stargate@0.32.4)(@cosmjs/tendermint-rpc@0.32.4)(@leapwallet/cosmos-social-login-capsule-provider@0.0.39(@cosmjs/encoding@0.32.4)(@cosmjs/proto-signing@0.32.4)(fp-ts@2.16.9))(@types/react@18.3.5)(axios@0.27.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      '@cosmjs/amino': 0.32.4
-      '@cosmjs/cosmwasm-stargate': 0.32.4
-      '@cosmjs/launchpad': 0.27.1
-      '@cosmjs/proto-signing': 0.32.4
-      '@cosmjs/stargate': 0.32.4
-      '@cosmjs/tendermint-rpc': 0.32.4
-      '@cosmsnap/snapper': 0.1.32
-      '@dao-dao/cosmiframe': 0.1.0(@cosmjs/amino@0.32.4)(@cosmjs/proto-signing@0.32.4)
-      '@keplr-wallet/cosmos': 0.12.127
-      '@keplr-wallet/types': 0.12.127
-      '@leapwallet/cosmos-social-login-capsule-provider': 0.0.39(@cosmjs/encoding@0.32.4)(@cosmjs/proto-signing@0.32.4)(fp-ts@2.16.9)
-      '@metamask/providers': 12.0.0
-      '@tanstack/react-query': 4.36.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@terra-money/station-connector': 1.1.4(@cosmjs/amino@0.32.4)(axios@0.27.2)
-      '@vectis/extension-client': 0.7.2
-      '@walletconnect/sign-client': 2.16.0
-      '@walletconnect/types': 2.16.0
-      '@walletconnect/utils': 2.16.0
-      '@web3modal/standalone': 2.4.3(react@18.3.1)
-      cosmos-directory-client: 0.0.6
-      long: 4.0.0
-      react: 18.3.1
-      zustand: 4.5.5(@types/react@18.3.5)(react@18.3.1)
-    transitivePeerDependencies:
-      - '@azure/app-configuration'
-      - '@azure/cosmos'
-      - '@azure/data-tables'
-      - '@azure/identity'
-      - '@azure/keyvault-secrets'
-      - '@azure/storage-blob'
-      - '@capacitor/preferences'
-      - '@netlify/blobs'
-      - '@planetscale/database'
-      - '@react-native-async-storage/async-storage'
-      - '@types/react'
-      - '@upstash/redis'
-      - '@vercel/kv'
-      - axios
-      - bufferutil
-      - immer
-      - ioredis
-      - react-dom
-      - react-native
-      - supports-color
-      - uWebSockets.js
-      - utf-8-validate
 
   graz@0.1.19(@cosmjs/amino@0.32.4)(@cosmjs/cosmwasm-stargate@0.32.4)(@cosmjs/launchpad@0.27.1)(@cosmjs/proto-signing@0.32.4)(@cosmjs/stargate@0.32.4)(@cosmjs/tendermint-rpc@0.32.4)(@leapwallet/cosmos-social-login-capsule-provider@0.0.39(@cosmjs/encoding@0.32.4)(@cosmjs/proto-signing@0.32.4)(fp-ts@2.16.9))(@types/react@18.3.5)(axios@1.7.7)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:

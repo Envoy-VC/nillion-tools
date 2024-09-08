@@ -52,8 +52,10 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang='en'>
       <Body>
-        <Provider>{children}</Provider>
-        <Toaster />
+        <Provider>
+          {children}
+          <Toaster />
+        </Provider>
       </Body>
     </html>
   );
