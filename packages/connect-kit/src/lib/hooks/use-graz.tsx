@@ -26,8 +26,6 @@ export interface TransactionType {
 export const useGraz = () => {
   const { isMobile } = useIsMobile();
   const isMobileDevice = isMobile();
-  const { data: stargateClient } = useStargateSigningClient();
-  const { data: account } = useAccount({ multiChain: true });
 
   const {
     setActiveWalletType,
@@ -37,16 +35,22 @@ export const useGraz = () => {
     defaultChain,
     chains,
   } = useConnectKitStore();
-  const { chain } = useConnectWallet();
-  const { suggestAndConnectAsync } = useSuggestChainAndConnect();
-  const { connectAsync } = useConnect();
-  const { disconnectAsync } = useDisconnect();
-  const { walletType } = useActiveWalletType();
 
   const [activeChainId, setActiveChainId] = useLocalStorage<string>(
     'connect-kit-active-chain',
     defaultChain?.chainId ?? nillionTestnet.chainId
   );
+
+  const { data: stargateClient } = useStargateSigningClient({
+    chainId: activeChainId,
+  });
+  const { data: account } = useAccount({ multiChain: true });
+
+  const { chain } = useConnectWallet();
+  const { suggestAndConnectAsync } = useSuggestChainAndConnect();
+  const { connectAsync } = useConnect();
+  const { disconnectAsync } = useDisconnect();
+  const { walletType } = useActiveWalletType();
 
   const connect = async (type: WalletType) => {
     try {
