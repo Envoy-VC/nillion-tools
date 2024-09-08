@@ -1,7 +1,7 @@
 import './styles/globals.css';
 
 export { ConnectKitProvider, supportedWallets } from './providers/connectkit';
-export { useConnectWallet, useUser } from './lib/hooks';
+export { useUser } from './lib/hooks';
 export * from './components';
 export * from './lib/chain';
 export type {
@@ -10,6 +10,7 @@ export type {
   PartialConnectWalletProps as ConnectWalletProps,
   WalletType,
   Screen,
+  CurrencyDetails,
 } from './types';
 
 export * from './types/wallet';

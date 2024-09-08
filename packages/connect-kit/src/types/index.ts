@@ -8,10 +8,32 @@ export interface ButtonOptions {
 }
 
 export interface ModalOptions {
+  /**
+   * The Size of Modal window
+   *
+   * @defaultValue "compact"
+   */
   size?: 'compact' | 'wide';
+  /**
+   * The URL for the Privacy Policy
+   *
+   * @defaultValue undefined
+   */
   privacyPolicyUrl?: string;
+  /**
+   * The URL for the Terms of Service
+   *
+   * @defaultValue undefined
+   */
   termsOfServiceUrl?: string;
+  /**
+   * The Connect Modal Title
+   *
+   * @defaultValue "Connect Wallet"
+   */
   title?: ReactNode;
+  /**
+   */
   welcomeScreen?: React.ReactNode;
 }
 
@@ -46,9 +68,50 @@ export type Screen =
   | 'switch-chain';
 
 export interface PartialConnectWalletProps {
+  /**
+   * Mode for the Connect Modal
+   *
+   * @defaultValue = "modal"
+   */
   mode?: 'inline' | 'modal';
+  /**
+   * The chain ID for the Connect Wallet
+   *
+   * @defaultValue = "nillion-testnet-1"
+   */
   chain?: string;
+  /**
+   * Button options for the sign-in button
+   *
+   */
   signInButton?: ButtonOptions;
   switchButton?: ButtonOptions;
   modalOptions?: ModalOptions;
+}
+
+export interface CurrencyDetails {
+  /**
+   * The currency denomination
+   *
+   * @defaultValue "NIL"
+   */
+  denom?: string;
+  /**
+   * The minimal denomination required for this currency
+   *
+   * @defaultValue "unil"
+   */
+  minimalDenom?: string;
+  /**
+   * The number of decimal places for this currency
+   *
+   * @defaultValue 6
+   */
+  decimals?: number;
+  /**
+   * The image URL for this currency
+   *
+   * @defaultValue ""
+   */
+  imageUrl?: string;
 }

@@ -3,6 +3,7 @@ import { useConnectKitStore } from './use-connect-kit-store';
 import { useAccount, useActiveChains, useBalance, useChainInfo } from 'graz';
 import { formatBalance } from '../helpers';
 import { useGraz } from './use-graz';
+import type { CurrencyDetails } from '~/types';
 
 export const useUser = () => {
   const { defaultChain } = useConnectKitStore();
@@ -24,7 +25,7 @@ export const useUser = () => {
       minimalDenom: availableCurrency?.coinMinimalDenom,
       decimals: availableCurrency?.coinDecimals,
       imageUrl: availableCurrency?.coinImageUrl,
-    };
+    } as CurrencyDetails;
   }, [chainInfo]);
 
   const { data: balance, isLoading } = useBalance({
